@@ -4,7 +4,6 @@ export default function Loading(){
     return (
         <Container fluid className={style.containerLoading}> 
         <Spinner animation="grow" className={style.mySpinner} />  
-        
         </Container>   
     );
 }

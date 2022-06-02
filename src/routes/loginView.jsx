@@ -13,7 +13,6 @@ import { auth } from "../firebase/firebase";
 import { AuthProviders } from "../components/authProvider";
 
 import style from "../styles/loginView.module.css";
-import { Spinner } from "react-bootstrap";
 import Loading from "../components/loading";
 
 export default function LoginView() {
@@ -95,28 +94,6 @@ export default function LoginView() {
     }
   }
 
-  // fetchSignInMethodsForEmail(error.email)
-  // .then(
-  //   function (providers) {
-  //     if(providers.indexOf(EmailAuthProvider.PROVIDER_ID)!= -1){
-  //       let password = window.prompt('Please provide the password for '+ existingEmail);
-  //       return signInWithEmailAndPassword(auth,existingEmail,password);
-  //     }else if(providers.indexOf(GoogleAuthProvider.PROVIDER_ID!=-1)){
-  //       let googleProvider = new GoogleAuthProvider();
-  //       providers.setCustomParameters({'login_hint':existingEmail});
-  //       return signInWithPopup(googleProvider).then(function(result){
-  //         return result.user;
-  //       });
-  //     } else{
-  //       console.error(error);
-  //     }
-  //   })
-  //   .then(function(user){
-  //     return linkWithRedirect(user);
-  //   });
-  // }
-  // }
-  // }
   function handleUserLoggeIn(user) {
     navigate("/");
   }

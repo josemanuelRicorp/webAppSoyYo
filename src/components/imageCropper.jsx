@@ -8,14 +8,11 @@ import defaultImg from '../assets/img/upload.png';
 import { setUserProfilePhoto, updateUser } from '../firebase/firebase';
 
 
-
 export default function ImageCropper( {show, handleOnHide, user}){
-
 
   const [currentUser, setCurrentUser] = useState(user);
   const [state, setState] = useState(9);
   const [image, setImage] = useState(defaultImg);
- 
   const [cropper, setCropper] = useState();
   const fileRef = useRef(null);
 
@@ -45,33 +42,8 @@ function handleOpenFilePicker() {
       setImage(reader.result);
       setState(10);
     }
-      reader.readAsDataURL(files[0]);
+    reader.readAsDataURL(files[0]);
   };
-
-  // const getCropData = () => {
-  //   if (typeof cropper !== "undefined") {
-  //     setCropData(cropper.getCroppedCanvas().toDataURL());
-  //     if(cropData!="#"){
-  //       const fileReader = new FileReader();
-  //       cropper.getCroppedCanvas().toBlob((blob)=>{
-  //         fileReader.readAsArrayBuffer(blob);
-  //         fileReader.onload = async function () {
-  //           const imageData = fileReader.result;
-  //           const res = await setUserProfilePhoto(currentUser.uid, imageData);
-  //           if (res) {
-  //             const tmpUser = { ...currentUser };
-  //             tmpUser.profilePicture = res.metadata.fullPath;
-  //             await updateUser(tmpUser).then(()=>{
-  //               console.log('updated');
-  //               // setShow(false);
-  //             });
-  //             setCurrentUser({ ...tmpUser });
-  //             }
-  //         }
-  //       });
-  //     }
-  //   }};
- 
 
     const getCropData = () => {
       if (typeof cropper !== "undefined") {
@@ -90,9 +62,7 @@ function handleOpenFilePicker() {
                 }
             }
           });
-
       }};
-
 
 return(
     <Modal
@@ -181,10 +151,6 @@ return(
         </>   
       )
     }
-
-
-
-
       </div>
         </Modal.Footer>
       </Modal>

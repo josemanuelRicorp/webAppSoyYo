@@ -16,38 +16,9 @@ export default function PublicProfileView() {
   const [profile, setProfile] = useState(null);
   const [url, setUrl] = useState("");
   const [state, setState] = useState(0);
-  // useEffect(() => {
-  //   setState(1);
-  //   getProfile();
-  //   async function getProfile() {
-  //     const username = params.username;
-      
-  //     try {
-  //       const userUid = await existUsername(username);
-  //       if (userUid) {
-  //         try {
-  //           const userInfo = await getUserPublicProfileInfo(userUid);
-  //           setProfile(userInfo);
-  //           const url = await getProfilePhotoUrl(
-  //             userInfo.profileInfo.profilePicture
-  //           );
-  //           setUrl(url);
-  //           setState(8);
-  //         } catch (error) {
-  //           console.log(error);
-  //         }
-  //       } else {
-  //         setState(7);
-  //       }
-  //     } catch (error) {}
-  //   }
-  // }, [params]);
-
-
   useEffect(() => {
     setState(1);
     getProfile();
-    
   }, [params]);
 
 
@@ -82,7 +53,6 @@ export default function PublicProfileView() {
     return <div>El usuario no existe</div>;
   }
   if (state===1){
-    
     return <Loading></Loading>
   }
   return (

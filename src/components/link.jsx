@@ -5,7 +5,6 @@ export default function Link({ docId, title, url, onDelete, onUpdate }) {
   const [currentUrl, setCurrentUrl] = useState(url);
   const [editTitle, setEditTitle] = useState(false);
   const [editUrl, setEditUrl] = useState(false);
-
   const titleRef = useRef(null);
   const urlRef = useRef(null);
 

@@ -351,16 +351,6 @@ function handleLink(){
               )}
             </Col>
           </Row>
-
-
-
-
-
-
-
-
-
-
           <Row className={style.rows}>
             <Col>
               <strong>Acerca de mi:</strong>
@@ -368,32 +358,33 @@ function handleLink(){
             <Col>
               {editDescription ? (
                 <Stack direction="horizontal" gap={2}>
-<textarea
- className="me-auto"
- type="textarea"
- style={{ height: '100px' }}
- resizable="false"
- rows={3}
- cols={50}
- name="description"
- autoComplete="off"
- placeholder="Escribe una breve descripción acerca de tí"
- ref={descriptionRef}
- onChange={handleChangeDescription}
- value={description}>
-</textarea>
+                  <textarea
+                  className="me-auto"
+                  type="textarea"
+                  style={{ height: '100px' }}
+                  resizable="false"
+                  rows={3}
+                  cols={50}
+                  name="description"
+                  autoComplete="off"
+                  placeholder="Escribe una breve descripción acerca de tí"
+                  ref={descriptionRef}
+                  onChange={handleChangeDescription}
+                  value={description}>
+                  </textarea>
                 <button
                     type="button"
                     className="btn-custom negative small"
                     onClick={handleCancelEditDescription}>
-                  <CgClose/></button>
-                  <div className="vr" />
+                  <CgClose/>
+                </button>
+                <div className="vr" />
                 <button
                     className="btn-custom small"
                     onClick={handleSuccessEditDescription}
                     type="button"
-                  ><HiCheck/></button>
-                  
+                  ><HiCheck/>
+                  </button>
                 </Stack>
               ) : (
                 <>

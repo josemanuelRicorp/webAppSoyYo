@@ -12,7 +12,6 @@ export default function DashboardWrapper({ children }) {
           <Link to="/" className={`navbar-brand ${style.logo}`} >
               <img src={logo} alt="Logotipo"  />  
           </Link>
-
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav" >
             <Nav className="me-auto">
