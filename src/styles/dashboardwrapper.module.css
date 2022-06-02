@@ -1,0 +1,64 @@
+.nav {
+  background-color: white;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 40px;
+}
+
+.nav a {
+  color: #222;
+  text-decoration: none;
+  padding: 25px 25px;
+  border-bottom: solid 2px transparent;
+}
+
+.nav a:hover {
+  border-bottom: solid 2px #222;
+}
+.logo {
+  width: 10%;
+}
+.nav a.logo:hover{
+  border-bottom: none;
+}
+
+.main{
+  margin-bottom: 40px;
+}
+
+
+
+
+
+
+
+.footer{
+  background-color: #3e0752;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 14px;
+  padding-top:40px ;
+  padding-bottom: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
+  width: 100%;
+  position: relative;
+  bottom: 0;   
+}
+
+@media screen and (min-width: 500px) {
+  .logo {
+    width: 150px;
+  }
+}
+@media screen and (min-width: 900px) {
+  .logo {
+    width: 200px;
+    
+  }
+  .footer{
+    padding-top:90px ;
+    padding-bottom: 50px;
+  }
+}

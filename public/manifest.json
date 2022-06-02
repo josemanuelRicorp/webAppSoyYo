@@ -1,0 +1,8 @@
+{
+  "short_name": "MTCorp",
+  "name": "MTCorp Latam",
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#3e0752",
+  "background_color": "#ffffff"
+}

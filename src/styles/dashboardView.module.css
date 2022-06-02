@@ -1,0 +1,17 @@
+.entryContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px 0;
+  margin-bottom: 20px;
+}
+h1{
+    margin: 30px auto;
+}
+.accordionCustom {
+  background-color: #eeeeee;
+  padding: 15px;
+}
+.accordionCustom .accordionItemCustom {
+  margin-top: 5px;
+}
