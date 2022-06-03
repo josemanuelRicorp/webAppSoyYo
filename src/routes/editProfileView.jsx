@@ -209,7 +209,7 @@ function handleLink(){
         <div className={style.containerPersonalData}>
           <Row className={style.rows}>
             <Col>
-              <strong>Nombre de usuario:</strong>
+              <strong>Nombre de usuario</strong>
             </Col>
             <Col>
               {editUsername ? (
@@ -266,13 +266,13 @@ function handleLink(){
           <Row className={style.rows} >
             <Col><strong>Enlace del perfil</strong></Col>
             <Col>
-            <Link rel="noreferrer"  target="_blank" to={handleLink()}>Visite su perfil dando clic al enlace.</Link>
+            <Link rel="noreferrer"  target="_blank" to={handleLink()}>Visita tu perfil dando clic al enlace.</Link>
             </Col>
           </Row>
 
           <Row className={style.rows}>
             <Col>
-              <strong>Nombre público:</strong>
+              <strong>Nombre público</strong>
             </Col>
             <Col>
               {editDisplayName ? (      
@@ -315,7 +315,7 @@ function handleLink(){
 
           <Row className={style.rows}>
             <Col>
-              <strong>Profesión:</strong>
+              <strong>Profesión</strong>
             </Col>
             <Col>
               {editCareer ? (
@@ -353,8 +353,9 @@ function handleLink(){
           </Row>
           <Row className={style.rows}>
             <Col>
-              <strong>Acerca de mi:</strong>
+              <strong>Acerca de mi</strong>
             </Col>
+            
             <Col>
               {editDescription ? (
                 <Stack direction="horizontal" gap={2}>
