@@ -8,9 +8,8 @@ import {
   getProfilePhotoUrl,
   updateUser,
 } from "../firebase/firebase";
-import {  Col, Form, Modal, Row, Stack } from "react-bootstrap";
+import {  Col, Row, Stack } from "react-bootstrap";
 import ImageCropper from "../components/imageCropper";
-import { IoWarningOutline } from "react-icons/io5";
 import Loading from "../components/loading";
 import { HiCheck } from "react-icons/hi";
 import { CgClose } from "react-icons/cg";
@@ -26,6 +25,7 @@ export default function EditProfileView() {
 
   const [show, setShow] = useState(false);
   const [username, setUsername] = useState("");
+  const [publicId, setPublicId] = useState("");
   const [displayName, setDisplayName] = useState("");
   const [career, setCareer] = useState("");
   const [description, setDescription] = useState("");
@@ -47,6 +47,7 @@ export default function EditProfileView() {
     const url = await getProfilePhotoUrl(user.profilePicture);
     setProfileUrl(url);
     setUsername(user.username);
+    setPublicId(user.publicId);
     setDisplayName(user.displayName);
     setCareer(user.career);
     setDescription(user.description);
@@ -176,7 +177,7 @@ export default function EditProfileView() {
   }
   
 function handleLink(){
-  let link ="/u/"+ username;
+  let link ="/u/"+ publicId;
   return link; 
 }
 

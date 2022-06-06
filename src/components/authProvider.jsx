@@ -1,5 +1,6 @@
 import { onAuthStateChanged } from "firebase/auth";
 import { useEffect, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 import {
   auth,
   getUserInfo,
@@ -32,6 +33,7 @@ export function AuthProviders({
             username: "",
             career: "",
             description: "",
+            publicId: uuidv4(),
             processCompleted: false,
           });
           onUserNotRegistered(user);

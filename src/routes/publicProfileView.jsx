@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import {
-  existUsername,
+  existUserByPublicId,
   getProfilePhotoUrl,
   getUserPublicProfileInfo,
 } from "../firebase/firebase";
@@ -23,9 +23,10 @@ export default function PublicProfileView() {
 
 
   async function getProfile() {
-    const username = params.username;
+    const publicId= params.publicId;
     try {
-      const userUid = await existUsername(username);
+      
+      const userUid = await existUserByPublicId(publicId);
       if (userUid) {
         try {
           const userInfo = await getUserPublicProfileInfo(userUid);

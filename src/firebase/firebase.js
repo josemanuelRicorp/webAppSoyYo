@@ -44,6 +44,22 @@ export async function existUsername(username) {
     }
 }
 
+//return uid
+export async function existUserByPublicId(publicId) {
+    try {
+        const users = [];
+        const docsRef = collection(db, 'users');
+        const q = query(docsRef, where("publicId", "==", publicId));
+        const querySnapshot = await getDocs(q);
+        querySnapshot.forEach((doc) => {
+            users.push(doc.data());
+        });
+        return users.length > 0 ? users[0].uid : null;
+    } catch (error) {
+        console.error(error);
+    }
+}
+
 export async function registerNewUser(user) {
     try {
         const collectionRef = collection(db, 'users');
