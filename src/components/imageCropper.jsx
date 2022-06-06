@@ -28,24 +28,22 @@ function handleOpenFilePicker() {
   }
 }
 
- const handleChangeFile = (e) => {
+const handleChangeFile = (e) => {
     e.preventDefault();
-    let files;
-    if (e.dataTransfer) {
-      files = e.dataTransfer.files;
-    } else if (e.target) {
-      files = e.target.files;
+    const files = e.target.files;
+    const fileReader = new FileReader();
+    if (fileReader && files && files.length > 0) {
+      const reader = new FileReader();
+      reader.onload =async function(){
+        console.log({file:files[0]});
+        setImage(reader.result);
+        setState(10);
+      }
+      reader.readAsDataURL(files[0]);
     }
-    const reader = new FileReader();
-    reader.onload =async function(){
-      console.log({file:files[0]});
-      setImage(reader.result);
-      setState(10);
-    }
-    reader.readAsDataURL(files[0]);
-  };
+};
 
-    const getCropData = () => {
+const getCropData = () => {
       if (typeof cropper !== "undefined") {
           setState(11);
           const fileReader = new FileReader();
@@ -62,7 +60,7 @@ function handleOpenFilePicker() {
                 }
             }
           });
-      }};
+}};
 
 return(
     <Modal
