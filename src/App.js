@@ -4,7 +4,7 @@ import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import LoginView from './routes/loginView';
 import LinksPrimaryView from './routes/linksPrimaryView';
-import LinksSecondaryView from './routes/LinksSecondaryView';
+import LinksSecondaryView from './routes/linksSecondaryView';
 import EditProfileView from './routes/editProfileView';
 import SignOutView from './routes/signOutView';
 import PublicProfileView from './routes/publicProfileView';

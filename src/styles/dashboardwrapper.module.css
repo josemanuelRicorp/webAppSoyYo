@@ -20,32 +20,63 @@
 .logo {
   width: 10%;
 }
-.nav a.logo:hover{
+.nav a.logo:hover {
   border-bottom: none;
 }
 
-.main{
+.main {
   margin-bottom: 40px;
+  min-height: 100vh;
 }
 
-
-
-
-
-
-
-.footer{
+.footer {
   background-color: #3e0752;
-  color: rgba(255, 255, 255, 0.8);
+  color: #ffffffcc;
   font-size: 14px;
-  padding-top:40px ;
+  padding-top: 40px;
   padding-bottom: 10px;
   padding-left: 15px;
   padding-right: 15px;
   width: 100%;
-  position: relative;
-  bottom: 0;   
+  /* position: relative;
+  bottom: 0;    */
+  display: flex;
+  align-self: flex-end;
 }
+.footer img{
+  margin-bottom: 10px;
+}
+.footer a {
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: normal;
+  text-decoration: none;
+}
+.copyright{
+  /* border-top: 1px solid rgba(255, 255, 255, 0.8); */
+  width: 100%;
+  padding-top:10px ;
+  padding-bottom: 20px;
+
+}
+.customIcon{
+  width: 15px;
+  text-align: center;
+  margin-right: 10px;
+  font-weight: 400;
+}
+.customLine{
+  font-size: 24px;
+}
+.socialIcon{
+  font-size: 20px ;
+}
+
+
+.footer a:hover,
+.socialIcon:hover{
+  color: #b29cba;
+}
+
 
 @media screen and (min-width: 500px) {
   .logo {
@@ -55,10 +86,9 @@
 @media screen and (min-width: 900px) {
   .logo {
     width: 200px;
-    
   }
-  .footer{
-    padding-top:90px ;
+  .footer {
+    padding-top: 90px;
     padding-bottom: 50px;
   }
 }
