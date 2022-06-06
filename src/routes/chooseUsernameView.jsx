@@ -23,7 +23,7 @@ export default function ChooseUserNameView() {
   function handleInputUsername(e) {
     setUsername(e.target.value);
   }
-
+ 
   async function handleContinue() {
     if (username !== "") {
       const exists = await existUsername(username);
