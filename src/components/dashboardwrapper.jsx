@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import style from "../styles/dashboardwrapper.module.css";
 import logo from "../assets/img/logo.svg";
 // import logo from "../assets/img/soyyo.png";
-import { Container, Nav, Navbar } from "react-bootstrap";
+import { Container, Nav, Navbar, Stack } from "react-bootstrap";
 import { FaLocationArrow } from "react-icons/fa";
 export default function DashboardWrapper({ children }) {
   return (
@@ -31,11 +31,20 @@ export default function DashboardWrapper({ children }) {
           <div>
           <img src={logo} alt="Logotipo"  />  
           </div>
-          <div>  <FaLocationArrow/> Av. Irala, Edificio Irala 452.</div>
-          <div> MTCORP</div>
-          <div>2022 - DERECHOS RESERVADOS </div>
-          <div> PROYECTO DE: CLADERA</div>
-
+          <Stack gap={2}>
+          <div className=""> 
+          <FaLocationArrow/> Av. Irala, Edificio Irala 452.
+          </div>
+          <div className="">
+          MTCORP           
+          </div>
+          <div className="">
+            2022 - DERECHOS RESERVADOS
+          </div>
+          <div className="">
+            PROYECTO DE: CLADERA
+          </div>
+          </Stack>
         </Container>
 
       </footer>
