@@ -17,7 +17,7 @@ export default function ChooseUserNameView() {
     setState(3);
   }
   function handleUserNotLoggedIn() {
-    navigate("/login");
+    navigate("/iniciar-sesion");
   }
 
   function handleInputUsername(e) {

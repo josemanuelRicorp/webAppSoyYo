@@ -3,16 +3,13 @@ import { useNavigate } from "react-router-dom";
 import { AuthProviders } from "../components/authProvider";
 import { v4 as uuidv4 } from "uuid";
 import {
-  deleteLink,
   getLinks,
   getLinksBySocialMedia,
   insertNewLink,
   updateLink,
 } from "../firebase/firebase";
 import DashboardWrapper from "../components/dashboardwrapper";
-
 import style from "../styles/dashboardView.module.css";
-
 import { Accordion, Button, Col, Form, Row } from "react-bootstrap";
 import {
   linkFacebook,
@@ -31,7 +28,7 @@ import {
   link2FieldsTwitter,
 } from "../utils/socialMediaFields";
 
-export default function LinksSecondary() {
+export default function LinksSecondaryView() {
   const navigate = useNavigate();
   const [currentUser, setCurrentUser] = useState({});
   const [state, setState] = useState(0);
@@ -79,10 +76,10 @@ export default function LinksSecondary() {
     setLinks([...resLinks]);
   }
   function handleUserNotRegistered(user) {
-    navigate("/login");
+    navigate("/iniciar-sesion");
   }
   function handleUserNotLoggedIn() {
-    navigate("/login");
+    navigate("/iniciar-sesion");
   }
 
   async function initLinkedin(uid) {

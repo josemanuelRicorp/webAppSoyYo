@@ -15,10 +15,10 @@ export default function DashboardWrapper({ children }) {
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav" >
             <Nav className="me-auto">
-              <Link to="/links/1">Enlaces principales</Link>
-              <Link to="/links/2">Enlaces secundarios</Link>
-              <Link to="/profile">Perfil</Link>
-              <Link to="/signout">Salir</Link>
+              <Link to="/enlaces/principales">Enlaces principales</Link>
+              <Link to="/enlaces/secundarios">Enlaces secundarios</Link>
+              <Link to="/perfil">Perfil</Link>
+              <Link to="/cerrar-sesion">Salir</Link>
             </Nav>
           </Navbar.Collapse>
         </Container>

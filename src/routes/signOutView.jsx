@@ -8,10 +8,10 @@ export default function SignOutView() {
     await logout().then(()=>{ window.location.reload();});
  }
   function handleUserNotRegistered(user) {
-    navigate("/login");
+    navigate("/iniciar-sesion");
   }
   function handleUserNotLoggedIn() {
-    navigate("/login");
+    navigate("/iniciar-sesion");
   }
 
   return( 

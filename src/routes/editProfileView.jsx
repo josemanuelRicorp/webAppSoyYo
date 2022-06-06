@@ -53,10 +53,10 @@ export default function EditProfileView() {
     setState(2);
   }
   function handleUserNotRegistered(user) {
-    navigate("/login");
+    navigate("/iniciar-sesion");
   }
   function handleUserNotLoggedIn() {
-    navigate("/login");
+    navigate("/iniciar-sesion");
   }
 
   async function loadPhoto(){

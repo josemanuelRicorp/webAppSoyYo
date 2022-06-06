@@ -1,11 +1,9 @@
 import {
   GoogleAuthProvider,
-  linkWithRedirect,
   FacebookAuthProvider,
   signInWithPopup,
   fetchSignInMethodsForEmail,
-  EmailAuthProvider,
-  signInWithEmailAndPassword,
+  EmailAuthProvider
 } from "firebase/auth";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -98,7 +96,7 @@ export default function LoginView() {
     navigate("/");
   }
   function handleUserNotRegistered(user) {
-    navigate("/choose-username");
+    navigate("/asignar-alias");
   }
   function handleUserNotLoggedIn() {
     setCurrentState(4);
@@ -125,7 +123,6 @@ export default function LoginView() {
       onUserNotLoggedIn={handleUserNotLoggedIn}
     >
       <Loading></Loading>
-      {/* <Spinner></Spinner> */}
     </AuthProviders>
   );
 }

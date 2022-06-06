@@ -22,7 +22,7 @@ import {
 } from "../utils/socialMediaFields";
 import MessageInputs from "../components/messageInputs";
 
-export default function DashboardPrimaryViewNewLogic() {
+export default function LinksPrimaryView() {
   const navigate = useNavigate();
   const [stateAccordion, setStateAccordion] = useState("0");
   const [state, setState] = useState(0);
@@ -58,10 +58,10 @@ export default function DashboardPrimaryViewNewLogic() {
     initPhoneInfo(user.uid);
   }
   function handleUserNotRegistered(user) {
-    navigate("/login");
+    navigate("/iniciar-sesion");
   }
   function handleUserNotLoggedIn() {
-    navigate("/login");
+    navigate("/iniciar-sesion");
   }
 
 
