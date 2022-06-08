@@ -14,7 +14,7 @@ import {
   linkPhoneNumberCall,
   linkWhatsApp,
 } from "../utils/socialMediaLinks";
-import { Accordion,  Col,  Form, Row } from "react-bootstrap";
+import { Accordion, Col, Form, Row } from "react-bootstrap";
 import {
   link2FieldsEmail,
   link2FieldsPhone,
@@ -63,7 +63,6 @@ export default function LinksPrimaryView() {
   function handleUserNotLoggedIn() {
     navigate("/iniciar-sesion");
   }
-
 
   async function initWhatsAppInfo(uid) {
     const resLinksWhatsapp = await getLinksBySocialMedia(uid, "whatsapp");
@@ -127,13 +126,11 @@ export default function LinksPrimaryView() {
       newLink.docId = res.id;
       setTitle("");
       setUrl("");
-      handleOpenMessageInputSocialMedia(socialmedia,true);
+      handleOpenMessageInputSocialMedia(socialmedia, true);
       setTimeout(() => {
-        handleOpenMessageInputSocialMedia(socialmedia,false); 
-      }, 2000); 
-      setTimeout(()=>{
-          setStateAccordion("0");
-        }, 900);
+        handleOpenMessageInputSocialMedia(socialmedia, false);
+      }, 2000);
+      closeAccordion();
       return newLink.docId;
     }
   }
@@ -151,13 +148,11 @@ export default function LinksPrimaryView() {
       link.docId = res.id;
       setTitle("");
       setUrl("");
-      handleOpenMessageInputSocialMedia(socialmedia,true);
+      handleOpenMessageInputSocialMedia(socialmedia, true);
       setTimeout(() => {
-        handleOpenMessageInputSocialMedia(socialmedia,false);
-      }, 2000); 
-      setTimeout(()=>{
-          setStateAccordion("0");
-      }, 900);
+        handleOpenMessageInputSocialMedia(socialmedia, false);
+      }, 2000);
+      closeAccordion();
     }
   }
 
@@ -172,7 +167,7 @@ export default function LinksPrimaryView() {
     setSocialmedia("whatsapp");
     setUrl(linkWhatsApp(whatsappNumber, whatsappMsg));
     if (whatsappLinkDocId !== "") {
-      editLinkBetter(whatsappLinkDocId);  
+      editLinkBetter(whatsappLinkDocId);
     } else {
       addLink();
     }
@@ -237,28 +232,29 @@ export default function LinksPrimaryView() {
     }
   }
 
-
-  function handleOpenMessageInputSocialMedia(socialmedia,state){
+  function handleOpenMessageInputSocialMedia(socialmedia, state) {
     switch (socialmedia) {
       case "whatsapp":
-        setOpenWhatsApp(state);  
+        setOpenWhatsApp(state);
         break;
       case "email":
-          setOpenEmail(state);  
-          break;
+        setOpenEmail(state);
+        break;
       case "phone":
-          setOpenPhone(state);  
-          break;
+        setOpenPhone(state);
+        break;
       default:
         break;
     }
-
   }
-  function handleSelection(eventKey, e){
+  function handleSelection(eventKey, e) {
     setStateAccordion(eventKey);
-}
-
-
+  }
+  function closeAccordion() {
+    setTimeout(() => {
+      setStateAccordion("0");
+    }, 1400);
+  }
 
   if (state === 0) {
     return (
@@ -271,12 +267,16 @@ export default function LinksPrimaryView() {
   }
   return (
     <DashboardWrapper>
-       <h1>Enlaces principales</h1>
+      <h1>Enlaces principales</h1>
       <p>
-        En este apartado tienes que personalizar la información de los enlaces que son
-         imprescindible en tu perfil.
+        En este apartado tienes que personalizar la información de los enlaces
+        que son imprescindible en tu perfil.
       </p>
-      <Accordion onSelect={handleSelection}  activeKey={stateAccordion} className={style.accordionCustom}>
+      <Accordion
+        onSelect={handleSelection}
+        activeKey={stateAccordion}
+        className={style.accordionCustom}
+      >
         <Accordion.Item eventKey="1" className={style.accordionItemCustom}>
           <Accordion.Header>WhatsApp</Accordion.Header>
           <Accordion.Body>
@@ -284,17 +284,23 @@ export default function LinksPrimaryView() {
               className={style.entryContainer}
               onSubmit={handleOnSubmitWhatsapp}
             >
-              {(openWhatsApp)?(
-                 <MessageInputs open={openWhatsApp} type={"success"} socialmedia={"WhatsApp"}></MessageInputs>
-              ):""}
-             <h2>WhatsApp</h2>
+              {openWhatsApp ? (
+                <MessageInputs
+                  open={openWhatsApp}
+                  type={"success"}
+                  socialmedia={"WhatsApp"}
+                ></MessageInputs>
+              ) : (
+                ""
+              )}
+              <h2>WhatsApp</h2>
               <Form.Group
                 as={Row}
                 className="mb-3"
                 controlId="formPlaintextEmail"
               >
                 <Form.Label column sm="4">
-                Número telefónico:
+                  Número telefónico:
                 </Form.Label>
                 <Col sm="8">
                   <Form.Control
@@ -314,7 +320,7 @@ export default function LinksPrimaryView() {
                 controlId="formPlaintextEmail"
               >
                 <Form.Label column sm="4">
-                Mensaje:
+                  Mensaje:
                 </Form.Label>
                 <Col sm="8">
                   <Form.Control
@@ -328,9 +334,12 @@ export default function LinksPrimaryView() {
                   />
                 </Col>
               </Form.Group>
-              
-                  <input className="btn-custom" type="submit" value="Guardar datos" />
-                
+
+              <input
+                className="btn-custom"
+                type="submit"
+                value="Guardar datos"
+              />
             </Form>
           </Accordion.Body>
         </Accordion.Item>
@@ -341,9 +350,15 @@ export default function LinksPrimaryView() {
               className={style.entryContainer}
               onSubmit={handleOnSubmitEmail}
             >
-              {(openEmail)?(
-                 <MessageInputs open={openEmail} type={"success"} socialmedia={"Email"}></MessageInputs>
-              ):""}
+              {openEmail ? (
+                <MessageInputs
+                  open={openEmail}
+                  type={"success"}
+                  socialmedia={"Email"}
+                ></MessageInputs>
+              ) : (
+                ""
+              )}
               <h2>E-mail</h2>
               <label htmlFor="email">Dirección de correo electrónico</label>
               <input
@@ -376,7 +391,11 @@ export default function LinksPrimaryView() {
                 value={emailBody}
                 onChange={handleOnChangeEmail}
               />
-              <input className="btn-custom" type="submit" value="Guardar datos" />
+              <input
+                className="btn-custom"
+                type="submit"
+                value="Guardar datos"
+              />
             </form>
           </Accordion.Body>
         </Accordion.Item>
@@ -387,9 +406,15 @@ export default function LinksPrimaryView() {
               className={style.entryContainer}
               onSubmit={handleOnSubmitPhone}
             >
-              {(openPhone)?(
-                <MessageInputs open={openPhone} type={"success"} socialmedia={"cellphone"}></MessageInputs>
-              ):""}
+              {openPhone ? (
+                <MessageInputs
+                  open={openPhone}
+                  type={"success"}
+                  socialmedia={"cellphone"}
+                ></MessageInputs>
+              ) : (
+                ""
+              )}
               <h2>Telefóno</h2>
               <label htmlFor="number">Número telefónico:</label>
               <input
@@ -401,7 +426,11 @@ export default function LinksPrimaryView() {
                 value={phoneNumber}
                 onChange={handleOnChangePhone}
               />
-              <input className="btn-custom" type="submit" value="Guardar datos" />
+              <input
+                className="btn-custom"
+                type="submit"
+                value="Guardar datos"
+              />
             </form>
           </Accordion.Body>
         </Accordion.Item>

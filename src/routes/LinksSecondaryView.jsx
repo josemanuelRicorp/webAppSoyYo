@@ -30,6 +30,7 @@ import {
 
 export default function LinksSecondaryView() {
   const navigate = useNavigate();
+  const [stateAccordion, setStateAccordion] = useState("0");
   const [currentUser, setCurrentUser] = useState({});
   const [state, setState] = useState(0);
   const [title, setTitle] = useState("");
@@ -180,6 +181,7 @@ export default function LinksSecondaryView() {
       setTitle("");
       setUrl("");
       setSocialmedia("");
+      closeAccordion();
     }
   }
 
@@ -196,6 +198,7 @@ export default function LinksSecondaryView() {
       link.docId = res.id;
       setTitle("");
       setUrl("");
+      closeAccordion();
     }
   }
   async function editLink(currentLinkDocId) {
@@ -288,6 +291,15 @@ export default function LinksSecondaryView() {
     }
   }
 
+  function handleSelection(eventKey, e){
+    setStateAccordion(eventKey);
+  }
+  function closeAccordion(){
+    setTimeout(()=>{
+      setStateAccordion("0");
+    }, 1400);
+  }
+
   if (state === 0) {
     return (
       <AuthProviders
@@ -306,7 +318,7 @@ export default function LinksSecondaryView() {
         En este apartado tienes que personalizar la información de los enlaces
            que quieres tener en tu perfil.
         </p>
-        <Accordion className={style.accordionCustom}>
+        <Accordion  onSelect={handleSelection}  activeKey={stateAccordion}  className={style.accordionCustom}>
           <Accordion.Item eventKey="1" className={style.accordionItemCustom}>
             <Accordion.Header>Linkedin</Accordion.Header>
             <Accordion.Body>
