@@ -17,8 +17,8 @@
 .nav a:hover {
   border-bottom: solid 2px #222;
 }
-.logo {
-  width: 10%;
+.logo img {
+  max-width: 5rem;
 }
 .nav a.logo:hover {
   border-bottom: none;
@@ -43,7 +43,7 @@
   display: flex;
   align-self: flex-end;
 }
-.footer img{
+.footer img {
   margin-bottom: 10px;
 }
 .footer a {
@@ -51,41 +51,39 @@
   font-weight: normal;
   text-decoration: none;
 }
-.copyright{
+.copyright {
   /* border-top: 1px solid rgba(255, 255, 255, 0.8); */
   width: 100%;
-  padding-top:10px ;
+  padding-top: 10px;
   padding-bottom: 20px;
-
 }
-.customIcon{
+.customIcon {
   width: 15px;
   text-align: center;
   margin-right: 10px;
   font-weight: 400;
 }
-.customLine{
+.customLine {
   font-size: 24px;
 }
-.socialIcon{
-  font-size: 20px ;
+.socialIcon {
+  font-size: 20px;
 }
 
-
 .footer a:hover,
-.socialIcon:hover{
+.socialIcon:hover {
   color: #b29cba;
 }
 
-
 @media screen and (min-width: 500px) {
-  .logo {
-    width: 150px;
+  .logo img {
+    max-width: 5rem;
   }
 }
 @media screen and (min-width: 900px) {
-  .logo {
-    width: 200px;
+  .logo img {
+    max-width:7rem;
+    max-height: 5rem;
   }
   .footer {
     padding-top: 90px;
