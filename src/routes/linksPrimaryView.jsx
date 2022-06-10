@@ -126,10 +126,7 @@ export default function LinksPrimaryView() {
       newLink.docId = res.id;
       setTitle("");
       setUrl("");
-      handleOpenMessageInputSocialMedia(socialmedia, true);
-      setTimeout(() => {
-        handleOpenMessageInputSocialMedia(socialmedia, false);
-      }, 2000);
+      handleOpenMessageInputSocialMedia();
       closeAccordion();
       return newLink.docId;
     }
@@ -148,10 +145,7 @@ export default function LinksPrimaryView() {
       link.docId = res.id;
       setTitle("");
       setUrl("");
-      handleOpenMessageInputSocialMedia(socialmedia, true);
-      setTimeout(() => {
-        handleOpenMessageInputSocialMedia(socialmedia, false);
-      }, 2000);
+      handleOpenMessageInputSocialMedia();
       closeAccordion();
     }
   }
@@ -232,7 +226,7 @@ export default function LinksPrimaryView() {
     }
   }
 
-  function handleOpenMessageInputSocialMedia(socialmedia, state) {
+  function handleSocialMedia(socialmedia, state) {
     switch (socialmedia) {
       case "whatsapp":
         setOpenWhatsApp(state);
@@ -246,6 +240,12 @@ export default function LinksPrimaryView() {
       default:
         break;
     }
+  }
+  function handleOpenMessageInputSocialMedia(){
+    handleSocialMedia(socialmedia, true);
+    setTimeout(() => {
+      handleSocialMedia(socialmedia, false);
+    }, 2000);
   }
   function handleSelection(eventKey, e) {
     setStateAccordion(eventKey);

@@ -27,6 +27,7 @@ import {
   link2FieldsTwitch,
   link2FieldsTwitter,
 } from "../utils/socialMediaFields";
+import MessageInputs from "../components/messageInputs";
 
 export default function LinksSecondaryView() {
   const navigate = useNavigate();
@@ -46,9 +47,18 @@ export default function LinksSecondaryView() {
   const [tiktokUsername, setTiktokUsername] = useState("");
   const [twitchUsername, setTwitchUsername] = useState("");
 
-  const [spotifyPodcast, setSpotifyPodcast] = useState("");
-  const [youtubeChannel, setYoutubeChannel] = useState("");
-  const [discordChannel, setDiscordChannel] = useState("");
+
+const [openLinkedin, setOpenLinkedin] = useState(false);
+const [openFacebook, setOpenFacebook] = useState(false);
+const [openInstagram, setOpenInstagram] = useState(false);
+const [openTwitter, setOpenTwitter] = useState(false);
+const [openTiktok, setOpenTiktok] = useState(false);
+const [openTwitch, setOpenTwitch] = useState(false);
+
+
+
+
+
 
   const [currentLinkLinkedin, setCurrentLinkLinkedin] = useState({});
   const [currentLinkFacebook, setCurrentLinkFacebook] = useState({});
@@ -181,6 +191,8 @@ export default function LinksSecondaryView() {
       setTitle("");
       setUrl("");
       setSocialmedia("");
+      handleOpenMessageInputSocialMedia();
+
       closeAccordion();
     }
   }
@@ -198,6 +210,8 @@ export default function LinksSecondaryView() {
       link.docId = res.id;
       setTitle("");
       setUrl("");
+      handleOpenMessageInputSocialMedia();
+
       closeAccordion();
     }
   }
@@ -291,6 +305,37 @@ export default function LinksSecondaryView() {
     }
   }
 
+  function handleSocialMedia(socialmedia, state) {
+    switch (socialmedia) {
+      case "linkedin":
+        setOpenLinkedin(state);
+        break;
+      case "facebook":
+        setOpenFacebook(state);
+        break;
+      case "instagram":
+        setOpenInstagram(state);
+        break;
+      case "tiktok":
+        setOpenTiktok(state);
+        break;
+      case "twitter":
+        setOpenTwitter(state);
+        break;
+      case "twitch":
+        setOpenTwitch(state);
+        break;
+      default:
+        break;
+    }
+  }
+  function handleOpenMessageInputSocialMedia(){
+    handleSocialMedia(socialmedia, true);
+    setTimeout(() => {
+      handleSocialMedia(socialmedia, false);
+    }, 2000);
+  }
+
   function handleSelection(eventKey, e) {
     setStateAccordion(eventKey);
   }
@@ -331,6 +376,13 @@ export default function LinksSecondaryView() {
                 className={style.entryContainer}
                 onSubmit={handleOnSubmitLinkedin}
               >
+                {openLinkedin?(
+                  <MessageInputs
+                  open={openLinkedin}
+                  type="success"
+                  socialmedia="Linkedin"
+                  ></MessageInputs>
+                ):("")}
                 <Form.Group as={Row} className="mb-3">
                   <Form.Label column sm="4">
                     linkedin.com/
@@ -365,6 +417,13 @@ export default function LinksSecondaryView() {
                 className={style.entryContainer}
                 onSubmit={handleOnSubmitFacebook}
               >
+                {openFacebook?(
+                  <MessageInputs
+                  open={openFacebook}
+                  type="success"
+                  socialmedia="Facebook"
+                  ></MessageInputs>
+                ):("")}
                 <Form.Group as={Row} className="mb-3">
                   <Form.Label column sm="4">
                     facebook.com/
@@ -399,6 +458,15 @@ export default function LinksSecondaryView() {
                 autoComplete={"off"}
                 onSubmit={handleOnSubmitInstagram}
               >
+                  {openInstagram ? (
+                <MessageInputs
+                  open={openInstagram}
+                  type={"success"}
+                  socialmedia={"Instagram"}
+                ></MessageInputs>
+              ) : (
+                ""
+              )}
                 <Form.Group as={Row} className="mb-3">
                   <Form.Label column sm="4">
                     instagram.com/
@@ -433,6 +501,15 @@ export default function LinksSecondaryView() {
                 autoComplete={"off"}
                 onSubmit={handleOnSubmitTiktok}
               >
+                 {openTiktok ? (
+                <MessageInputs
+                  open={openTiktok}
+                  type={"success"}
+                  socialmedia={"Tiktok"}
+                ></MessageInputs>
+              ) : (
+                ""
+              )}
                 <Form.Group as={Row} className="mb-3">
                   <Form.Label column sm="4">
                     tiktok.com/
@@ -467,6 +544,15 @@ export default function LinksSecondaryView() {
                 autoComplete={"off"}
                 onSubmit={handleOnSubmitTwitter}
               >
+                 {openTwitter ? (
+                <MessageInputs
+                  open={openTwitter}
+                  type={"success"}
+                  socialmedia={"Twitter"}
+                ></MessageInputs>
+              ) : (
+                ""
+              )}
                 <Form.Group as={Row} className="mb-3">
                   <Form.Label column sm="4">
                     twitter.com/
@@ -500,6 +586,17 @@ export default function LinksSecondaryView() {
               className={style.entryContainer}
               autoComplete={"off"} 
               onSubmit={handleOnSubmitTwitch}>
+                
+                {openTwitch ? (
+                <MessageInputs
+                  open={openTwitch}
+                  type={"success"}
+                  socialmedia={"Twitch"}
+                ></MessageInputs>
+              ) : (
+                ""
+              )}
+
                 <Form.Group as={Row} className="mb-3">
                   <Form.Label column sm="4">
                     twitch.tv/
