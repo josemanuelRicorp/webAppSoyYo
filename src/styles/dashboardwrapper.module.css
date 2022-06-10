@@ -1,5 +1,10 @@
 .nav {
   background-color: white;
+  /* background-color: #a99ec3; */
+  /* background-color: #2a136c; */
+  /* background-color: #4aaed5; */
+  /* background-color: #a2d4e9; */
+ 
   display: flex;
   align-items: center;
   padding: 0 20px;
@@ -9,13 +14,25 @@
 
 .nav a {
   color: #222;
+  color: #707071;
+  /* color: #a2d4e9; */
+
   text-decoration: none;
   padding: 25px 25px;
   border-bottom: solid 2px transparent;
 }
 
-.nav a:hover {
+/* .nav a:hover {
   border-bottom: solid 2px #222;
+} */
+.nav a:hover{
+  border-bottom: solid 2px #707071;
+  color: #707071;
+  /* color: #222; */
+  /* color: #a99ec3; */
+  border-bottom: solid 2px #a2d4e9;
+  color: #a2d4e9;
+
 }
 .logo img {
   max-width: 5rem;
@@ -30,8 +47,15 @@
 }
 
 .footer {
-  background-color: #3e0752;
+  background-color: #a2d4e9;
+  background-color: #a99ec3;
+  background-color: #2a136c;
+  background-color: #1c0261;
+  background-color: #47a9d3;
+  background-color: #4aaed5;
+  
   color: #ffffffcc;
+  /* color:#fbfbfb; */
   font-size: 14px;
   padding-top: 40px;
   padding-bottom: 10px;
@@ -72,7 +96,7 @@
 
 .footer a:hover,
 .socialIcon:hover {
-  color: #b29cba;
+  color: #a2d4e9;
 }
 
 @media screen and (min-width: 500px) {

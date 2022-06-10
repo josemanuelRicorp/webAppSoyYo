@@ -267,7 +267,9 @@ function handleLink(){
           <Row className={style.rows} >
             <Col><strong>Enlace del perfil</strong></Col>
             <Col>
-            <Link rel="noreferrer"  target="_blank" to={handleLink()}>Visita tu perfil dando clic al enlace.</Link>
+            {/* <Link className={style.link}  rel="noreferrer"  target="_blank" to={handleLink()}>Visita tu perfil dando clic al enlace.</Link> */}
+            <Link className={style.link}  rel="noreferrer"  target="_blank" to={handleLink()}>soyyo.com/{username}</Link>
+            
             </Col>
           </Row>
 

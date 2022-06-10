@@ -297,7 +297,6 @@ export default function LinksPrimaryView() {
               <Form.Group
                 as={Row}
                 className="mb-3"
-                controlId="formPlaintextEmail"
               >
                 <Form.Label column sm="4">
                   Número telefónico:
@@ -334,7 +333,6 @@ export default function LinksPrimaryView() {
                   />
                 </Col>
               </Form.Group>
-
               <input
                 className="btn-custom"
                 type="submit"

@@ -17,20 +17,24 @@ export default function DashboardWrapper({ children }) {
       <Navbar
         className={style.nav}
         bg="light"
-        collapseOnSelect
+        // collapseOnSelect
         expand="lg"
         sticky="top"
       >
-        <Container fluid>
-            <Navbar.Brand>
-              <Link to="/" className={`${style.logo}`}>
-              <img
-              src={logo} alt="Logotipo" />
+        <Container >
+          <Navbar.Brand>
+            <Link to="/" className={`${style.logo}`}>
+              <img src={logo} alt="Logotipo" />
             </Link>
-            </Navbar.Brand>
+          </Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-          <Navbar.Collapse id="responsive-navbar-nav" className="justify-content-end">
-            <Nav className="me-auto my-2 my-lg-0"  >
+          <Navbar.Collapse
+            id="responsive-navbar-nav"
+            className="justify-content-end"
+          >
+            <Nav 
+            // className="me-auto my-2 my-lg-0"
+            >
               <Link to="/enlaces/principales">Enlaces principales</Link>
               <Link to="/enlaces/secundarios">Enlaces secundarios</Link>
               <Link to="/perfil">Perfil</Link>

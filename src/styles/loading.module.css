@@ -5,7 +5,14 @@
 }
 .containerLoading{
     height:100vh;
-    background-color:rgb(252, 159, 58);
+    /* background-color:rgb(252, 159, 58); */
+    background-color: #a2d4e9;
+    background-color: #a99ec3;
+    background-color: #2a136c;
+    background-color: #1c0261;
+    background-color: #47a9d3;
+    /* background-color: #4aaed5; */
+
     display: flex;
     justify-content: center;
     vertical-align: center;

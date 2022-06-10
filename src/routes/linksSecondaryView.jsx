@@ -10,7 +10,7 @@ import {
 } from "../firebase/firebase";
 import DashboardWrapper from "../components/dashboardwrapper";
 import style from "../styles/dashboardView.module.css";
-import { Accordion, Button, Col, Form, Row } from "react-bootstrap";
+import { Accordion, Col, Form, Row } from "react-bootstrap";
 import {
   linkFacebook,
   linkInstagram,
@@ -291,11 +291,11 @@ export default function LinksSecondaryView() {
     }
   }
 
-  function handleSelection(eventKey, e){
+  function handleSelection(eventKey, e) {
     setStateAccordion(eventKey);
   }
-  function closeAccordion(){
-    setTimeout(()=>{
+  function closeAccordion() {
+    setTimeout(() => {
       setStateAccordion("0");
     }, 1400);
   }
@@ -315,25 +315,30 @@ export default function LinksSecondaryView() {
       <div>
         <h1>Enlaces secundarios</h1>
         <p>
-        En este apartado tienes que personalizar la información de los enlaces
-           que quieres tener en tu perfil.
+          En este apartado tienes que personalizar la información de los enlaces
+          que quieres tener en tu perfil.
         </p>
-        <Accordion  onSelect={handleSelection}  activeKey={stateAccordion}  className={style.accordionCustom}>
+        <Accordion
+          onSelect={handleSelection}
+          activeKey={stateAccordion}
+          className={style.accordionCustom}
+        >
           <Accordion.Item eventKey="1" className={style.accordionItemCustom}>
             <Accordion.Header>Linkedin</Accordion.Header>
             <Accordion.Body>
-              <Form autoComplete={'off'} onSubmit={handleOnSubmitLinkedin}>
-                <Form.Group
-                  as={Row}
-                  className="mb-3"
-                  controlId="formPlaintextEmail"
-                >
+              <Form
+                autoComplete={"off"}
+                className={style.entryContainer}
+                onSubmit={handleOnSubmitLinkedin}
+              >
+                <Form.Group as={Row} className="mb-3">
                   <Form.Label column sm="4">
                     linkedin.com/
                   </Form.Label>
                   <Col sm="8">
                     <Form.Control
                       className="input"
+                      name="username"
                       type="text"
                       placeholder="Nombre de usuario"
                       value={linkedinUsername}
@@ -341,18 +346,25 @@ export default function LinksSecondaryView() {
                         setLinkedinUsername(e.target.value);
                       }}
                       autoComplete="off"
-                      
                     />
                   </Col>
                 </Form.Group>
-                <Button type="submit">Guardar datos</Button>
+                <input
+                  className="btn-custom"
+                  type="submit"
+                  value="Guardar datos"
+                />
               </Form>
             </Accordion.Body>
           </Accordion.Item>
           <Accordion.Item eventKey="2" className={style.accordionItemCustom}>
             <Accordion.Header>Facebook</Accordion.Header>
             <Accordion.Body>
-              <Form autoComplete={'off'} onSubmit={handleOnSubmitFacebook}>
+              <Form
+                autoComplete={"off"}
+                className={style.entryContainer}
+                onSubmit={handleOnSubmitFacebook}
+              >
                 <Form.Group as={Row} className="mb-3">
                   <Form.Label column sm="4">
                     facebook.com/
@@ -361,6 +373,7 @@ export default function LinksSecondaryView() {
                     <Form.Control
                       className="input"
                       type="text"
+                      name="username"
                       placeholder="Nombre de usuario"
                       value={facebookUsername}
                       onChange={(e) => {
@@ -370,14 +383,22 @@ export default function LinksSecondaryView() {
                     />
                   </Col>
                 </Form.Group>
-                <Button type="submit">Guardar datos</Button>
+                <input
+                  className="btn-custom"
+                  type="submit"
+                  value="Guardar datos"
+                />
               </Form>
             </Accordion.Body>
           </Accordion.Item>
           <Accordion.Item eventKey="3" className={style.accordionItemCustom}>
             <Accordion.Header>Instagram</Accordion.Header>
             <Accordion.Body>
-              <Form autoComplete={'off'} onSubmit={handleOnSubmitInstagram}>
+              <Form
+                className={style.entryContainer}
+                autoComplete={"off"}
+                onSubmit={handleOnSubmitInstagram}
+              >
                 <Form.Group as={Row} className="mb-3">
                   <Form.Label column sm="4">
                     instagram.com/
@@ -386,6 +407,7 @@ export default function LinksSecondaryView() {
                     <Form.Control
                       className="input"
                       type="text"
+                      name="username"
                       value={instagramUsername}
                       onChange={(e) => {
                         setInstagramUsername(e.target.value);
@@ -395,14 +417,22 @@ export default function LinksSecondaryView() {
                     />
                   </Col>
                 </Form.Group>
-                <Button type="submit">Guardar datos</Button>
+                <input
+                  className="btn-custom"
+                  type="submit"
+                  value="Guardar datos"
+                />
               </Form>
             </Accordion.Body>
           </Accordion.Item>
           <Accordion.Item eventKey="4" className={style.accordionItemCustom}>
             <Accordion.Header>Tiktok</Accordion.Header>
             <Accordion.Body>
-              <Form autoComplete={'off'} onSubmit={handleOnSubmitTiktok}>
+              <Form
+                className={style.entryContainer}
+                autoComplete={"off"}
+                onSubmit={handleOnSubmitTiktok}
+              >
                 <Form.Group as={Row} className="mb-3">
                   <Form.Label column sm="4">
                     tiktok.com/
@@ -411,6 +441,7 @@ export default function LinksSecondaryView() {
                     <Form.Control
                       className="input"
                       type="text"
+                      name="username"
                       value={tiktokUsername}
                       onChange={(e) => {
                         setTiktokUsername(e.target.value);
@@ -420,14 +451,22 @@ export default function LinksSecondaryView() {
                     />
                   </Col>
                 </Form.Group>
-                <Button type="submit">Guardar datos</Button>
+                <input
+                  className="btn-custom"
+                  type="submit"
+                  value="Guardar datos"
+                />
               </Form>
             </Accordion.Body>
           </Accordion.Item>
           <Accordion.Item eventKey="5" className={style.accordionItemCustom}>
             <Accordion.Header>Twitter</Accordion.Header>
             <Accordion.Body>
-              <Form autoComplete={'off'} onSubmit={handleOnSubmitTwitter}>
+              <Form
+                className={style.entryContainer}
+                autoComplete={"off"}
+                onSubmit={handleOnSubmitTwitter}
+              >
                 <Form.Group as={Row} className="mb-3">
                   <Form.Label column sm="4">
                     twitter.com/
@@ -436,6 +475,7 @@ export default function LinksSecondaryView() {
                     <Form.Control
                       className="input"
                       type="text"
+                      name="username"
                       value={twitterUsername}
                       onChange={(e) => {
                         setTwitterUsername(e.target.value);
@@ -445,14 +485,21 @@ export default function LinksSecondaryView() {
                     />
                   </Col>
                 </Form.Group>
-                <Button type="submit">Guardar datos</Button>
+                <input
+                  className="btn-custom"
+                  type="submit"
+                  value="Guardar datos"
+                />
               </Form>
             </Accordion.Body>
           </Accordion.Item>
           <Accordion.Item eventKey="6" className={style.accordionItemCustom}>
             <Accordion.Header>Twitch</Accordion.Header>
             <Accordion.Body>
-              <Form autoComplete={'off'} onSubmit={handleOnSubmitTwitch}>
+              <Form 
+              className={style.entryContainer}
+              autoComplete={"off"} 
+              onSubmit={handleOnSubmitTwitch}>
                 <Form.Group as={Row} className="mb-3">
                   <Form.Label column sm="4">
                     twitch.tv/
@@ -461,6 +508,7 @@ export default function LinksSecondaryView() {
                     <Form.Control
                       className="input"
                       type="text"
+                      name="username"
                       value={twitchUsername}
                       onChange={(e) => {
                         setTwitchUsername(e.target.value);
@@ -470,7 +518,11 @@ export default function LinksSecondaryView() {
                     />
                   </Col>
                 </Form.Group>
-                <Button type="submit">Guardar datos</Button>
+                <input
+                className="btn-custom"
+                type="submit"
+                value="Guardar datos"
+              />
               </Form>
             </Accordion.Body>
           </Accordion.Item>

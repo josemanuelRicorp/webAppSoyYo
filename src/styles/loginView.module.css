@@ -6,6 +6,8 @@
     align-items: center;
     text-align: center;
     flex-direction: column;
+    color: #222;
+    
 }
 
 .provider{
@@ -13,8 +15,18 @@
     width: 300px;
     padding: 10px 0;
     color: white;
-    background-color: #3e0752;
+    /* background-color: #3e0752;
+  background-color: #a2d4e9;
+  background-color: #a99ec3;
+  background-color: #2a136c;
+  background-color: #1c0261; */
+    background-color: #4aaed5;
     border-radius: 3px;
     text-align: center;
     margin: 10px;
+}
+.provider:hover {
+    background-color: #a2d4e9;
+    color: #222;
+    font-weight: bolder;
 }

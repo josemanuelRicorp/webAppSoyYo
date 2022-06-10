@@ -48,7 +48,7 @@ code {
   font-weight: bold;
   font-size: 18px;
   border: none;
-  background-color: rgb(252, 159, 58);
+  background-color: #4aaed5;
   color: white;
   padding: 10px 25px;
   border-radius: 3px;
@@ -60,24 +60,20 @@ code {
   min-height: 22px;
   min-width: 25px;
 }
-.btn-custom.small:hover
-{
-  font-size: 19px;
-}
 
 .btn-custom:hover{
-  background-color: #ffcc54;
+  background-color: #a2d4e9;
 }
 
 .btn-custom.disabled{
-  background-color: #ffcc54;
+  background-color: #a2d4e9;
 }
 
 .btn-custom.negative{
-  background-color: #3e0752;
+  background-color: #2a136c;
 }
 .btn-custom.negative:hover{
-  background-color: #313146;
+  background-color: #a99ec3;
 }
 
 textarea,
@@ -89,11 +85,6 @@ input[type="text"] {
 
 .main-container label {
   padding-top: 5px;
-}
-a {
-  color: rgb(62, 7, 82);
-  font-weight: bolder;
-  text-decoration: none;
 }
 
 @media screen and (max-width: 500px) {
