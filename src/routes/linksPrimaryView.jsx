@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthProviders } from "../components/authProvider";
 import { v4 as uuidv4 } from "uuid";
@@ -17,10 +17,13 @@ import {
 import { Accordion, Col, Form, Row } from "react-bootstrap";
 import {
   link2FieldsEmail,
+  link2FieldsMaps,
   link2FieldsPhone,
   link2FieldsWhatsapp,
 } from "../utils/socialMediaFields";
 import MessageInputs from "../components/messageInputs";
+import { Map } from "../components/map";
+import { MapStatic } from "../components/mapStatic";
 
 export default function LinksPrimaryView() {
   const navigate = useNavigate();
@@ -34,6 +37,7 @@ export default function LinksPrimaryView() {
   const [currentLinkWhatsApp, setCurrentLinkWhatsApp] = useState({});
   const [currentLinkEmail, setCurrentLinkEmail] = useState({});
   const [currentLinkPhone, setCurrentLinkPhone] = useState({});
+  const [currentLinkMaps, setCurrentLinkMaps] = useState({});
 
   const [openWhatsApp, setOpenWhatsApp] = useState(false);
   const [whatsappLinkDocId, setWhatsappLinkDocId] = useState("");
@@ -50,12 +54,21 @@ export default function LinksPrimaryView() {
   const [emailSubject, setEmailSubject] = useState("");
   const [emailBody, setEmailBody] = useState("");
 
+  const [mapMarkerResult, setMapMarkerResult] = useState("");
+  const [mapLat, setMapLat] = useState("");
+  const [mapLng, setMapLng] = useState("");
+  const [mapsLinkDocId, setMapsLinkDocId] = useState("");
+  const mapMarkerRef = useRef(null);
+
+  const [showMap, setShowMap] = useState(false);
+
   async function handleUserLoggeIn(user) {
     setCurrentUser(user);
     setState(2);
     initWhatsAppInfo(user.uid);
     initEmailInfo(user.uid);
     initPhoneInfo(user.uid);
+    initMapsInfo(user.uid);
   }
   function handleUserNotRegistered(user) {
     navigate("/iniciar-sesion");
@@ -68,7 +81,7 @@ export default function LinksPrimaryView() {
     const resLinksWhatsapp = await getLinksBySocialMedia(uid, "whatsapp");
     if (resLinksWhatsapp.length > 0) {
       const linkObject = [...resLinksWhatsapp][0];
-      console.log({ linkObject });
+      // console.log({ linkObject });
       setCurrentLinkWhatsApp(() => ({
         ...currentLinkWhatsApp,
         ...linkObject,
@@ -84,7 +97,7 @@ export default function LinksPrimaryView() {
     const resLinksEmail = await getLinksBySocialMedia(uid, "email");
     if (resLinksEmail.length > 0) {
       const linkObject = [...resLinksEmail][0];
-      console.log({ linkObject });
+      // console.log({ linkObject });
       setCurrentLinkEmail(() => ({
         ...currentLinkEmail,
         ...linkObject,
@@ -100,7 +113,7 @@ export default function LinksPrimaryView() {
     const resLinksPhone = await getLinksBySocialMedia(uid, "phone");
     if (resLinksPhone.length > 0) {
       const linkObject = [...resLinksPhone][0];
-      console.log({ linkObject });
+      // console.log({ linkObject });
       setCurrentLinkPhone(() => ({
         ...currentLinkPhone,
         ...linkObject,
@@ -110,11 +123,31 @@ export default function LinksPrimaryView() {
       setPhoneNumber(fieldsData.number);
     }
   }
+  async function initMapsInfo(uid) {
+    const resLinksMaps = await getLinksBySocialMedia(uid, "maps");
+    if (resLinksMaps.length > 0) {
+      const linkObject = [...resLinksMaps][0];
+      // console.log({ linkObject });
+      setCurrentLinkMaps(() => ({
+        ...currentLinkMaps,
+        ...linkObject,
+      }));
+      setMapsLinkDocId(linkObject.docId);
+      let fieldsData = link2FieldsMaps(linkObject.url);
+      setMapLat(fieldsData.lat);
+      setMapLng(fieldsData.lng);
+      console.log({ mapLat, mapLng });
+      // console.log({ lat: fieldsData.lat, lng: fieldsData.lng })
+      // setmapLatLng({ lat: fieldsData.lat, lng: fieldsData.lng });
+
+      //latitude, longitude, zoom
+    }
+  }
 
   function addLink() {
     if (title !== "" && url !== "") {
       console.log({ title, url });
-      console.log("wp adlink");
+      console.log("adlink");
       const newLink = {
         id: uuidv4(),
         title: title,
@@ -150,8 +183,38 @@ export default function LinksPrimaryView() {
     }
   }
 
-  async function editLinkBetter(currentLinkDocId) {
+  async function editLink(currentLinkDocId) {
     update(currentLinkDocId);
+  }
+
+  // const handleOnSubmitMaps = (e) => {
+  //   e.preventDefault();
+  //   e.stopPropagation();
+  //   setTitle("Mapa");
+  //   setSocialmedia("maps");
+  //   setUrl(mapMarkerResult);
+  //   if (mapLinkDocId !== "") {
+  //     editLink(mapLinkDocId);
+  //   } else {
+  //     addLink();
+  //   }
+  // };
+  function handleOnSubmitMaps() {
+    setTitle("Mapa");
+    setSocialmedia("maps");
+    console.log({ url: url });
+    console.log({ mapMarkerRef: mapMarkerRef });
+    setUrl(mapMarkerRef.current);
+
+    if (mapsLinkDocId !== "") {
+      console.log({ url: url });
+      editLink(mapsLinkDocId);
+    } else {
+      if (url !== "") {
+        addLink();
+      }
+      console.log({ url: url });
+    }
   }
 
   const handleOnSubmitWhatsapp = (e) => {
@@ -161,7 +224,7 @@ export default function LinksPrimaryView() {
     setSocialmedia("whatsapp");
     setUrl(linkWhatsApp(whatsappNumber, whatsappMsg));
     if (whatsappLinkDocId !== "") {
-      editLinkBetter(whatsappLinkDocId);
+      editLink(whatsappLinkDocId);
     } else {
       addLink();
     }
@@ -184,12 +247,13 @@ export default function LinksPrimaryView() {
     setSocialmedia("email");
     setUrl(linkEmail(emailAddress, emailSubject, emailBody));
     if (emailLinkDocId !== "") {
-      editLinkBetter(emailLinkDocId);
+      editLink(emailLinkDocId);
     } else {
       console.log("agregar link");
       addLink();
     }
   }
+
   function handleOnChangeEmail(e) {
     const value = e.target.value;
     if (e.target.name === "email") {
@@ -206,13 +270,13 @@ export default function LinksPrimaryView() {
   function handleOnSubmitPhone(e) {
     e.preventDefault();
     e.stopPropagation();
-    setTitle("Phone");
+    setTitle("Telefóno");
     setSocialmedia("phone");
     // if (phoneNumber !== "") {
     setUrl(linkPhoneNumberCall(phoneNumber));
     if (phoneLinkDocId !== "") {
       console.log("actualizar link");
-      editLinkBetter(phoneLinkDocId);
+      editLink(phoneLinkDocId);
     } else {
       console.log("agregar link");
       addLink();
@@ -224,6 +288,15 @@ export default function LinksPrimaryView() {
     if (e.target.name === "number") {
       setPhoneNumber(value);
     }
+  }
+  function handleOnHideMap() {
+    setShowMap(false);
+    handleOnSubmitMaps();
+  }
+
+  function setMarkerPositionResult(value) {
+    setMapMarkerResult(value);
+    mapMarkerRef.current = value;
   }
 
   function handleSocialMedia(socialmedia, state) {
@@ -237,11 +310,14 @@ export default function LinksPrimaryView() {
       case "phone":
         setOpenPhone(state);
         break;
+      case "maps":
+        setOpenPhone(state);
+        break;
       default:
         break;
     }
   }
-  function handleOpenMessageInputSocialMedia(){
+  function handleOpenMessageInputSocialMedia() {
     handleSocialMedia(socialmedia, true);
     setTimeout(() => {
       handleSocialMedia(socialmedia, false);
@@ -294,10 +370,7 @@ export default function LinksPrimaryView() {
                 ""
               )}
               <h2>WhatsApp</h2>
-              <Form.Group
-                as={Row}
-                className="mb-3"
-              >
+              <Form.Group as={Row} className="mb-3">
                 <Form.Label column sm="4">
                   Número telefónico:
                 </Form.Label>
@@ -434,7 +507,24 @@ export default function LinksPrimaryView() {
         </Accordion.Item>
         <Accordion.Item eventKey="4" className={style.accordionItemCustom}>
           <Accordion.Header>Mapas</Accordion.Header>
-          <Accordion.Body></Accordion.Body>
+          <Accordion.Body>
+            <div>
+              <button className="btn-custom" onClick={() => setShowMap(true)}>
+                Editar ubicación
+              </button>
+              <Map
+                user={currentUser}
+                show={showMap}
+                handleOnHide={handleOnHideMap}
+                setMarkerPositionResult={setMarkerPositionResult}
+              />
+            </div>
+            <div>
+              <MapStatic lat={mapLat} lng={mapLng}/>
+            </div>
+
+            <p>{mapMarkerResult}</p>
+          </Accordion.Body>
         </Accordion.Item>
       </Accordion>
     </DashboardWrapper>

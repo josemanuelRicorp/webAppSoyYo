@@ -58,6 +58,30 @@ export function link2FieldsPhone(link) {
     return { number };
 }
 
+export function link2FieldsMaps(link){
+    if (!link) return;
+    let tempLink = "", lat = "", lng = "";
+    tempLink = link.toString();
+    //http://maps.google.com/maps?z=17&t=m&q=loc:-17.791873100000000107+-63.178807100000000219
+    tempLink = tempLink.toString().split("?")[1];
+    // z=17&t=m&q=loc:-17.791873100000000107+-63.178807100000000219
+    tempLink = tempLink.toString().split("&")[2];
+    // q=loc:-17.791873100000000107+-63.178807100000000219
+    tempLink = tempLink.toString().split("=")[1];
+    // loc:-17.791873100000000107+-63.178807100000000219
+    tempLink = tempLink.toString().split(":")[1];
+    // -17.791873100000000107+-63.178807100000000219
+    lat = tempLink.split("+")[0];
+    lng = tempLink.split("+")[1];
+    return { lat:lat, lng:lng };;
+}
+console.log(link2FieldsMaps("http://maps.google.com/maps?z=17&t=m&q=loc:-17.791873100000000107+-63.178807100000000219"));
+
+
+
+
+
+
 export function link2FieldsLinkedin(link) {
     if (!link) return;
     return { username: cutLink(28, 1, link) };
