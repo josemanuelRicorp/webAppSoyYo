@@ -10,7 +10,7 @@ import MessageInputs from "../messageInputs";
 import { v4 as uuidv4 } from "uuid";
 import { link2FieldsTwitch } from "../../utils/socialMediaFields";
 
-export const FormTwitch = ({ style, user,closeAccordion }) => {
+export const FormTwitch = ({ style, user,handleAccordion }) => {
   const [currentUser, setCurrentUser] = useState(user);
   
   const [twitchUsername, setTwitchUsername] = useState("");
@@ -43,9 +43,7 @@ export const FormTwitch = ({ style, user,closeAccordion }) => {
       };
       const res = insertNewLink(newLink);
       newLink.docId = res.id;
-      handleMessageConfirmation();
-      closeAccordion();
-    }
+      }
   }
 
   function editLink(currentLinkDocId) {
@@ -59,9 +57,7 @@ export const FormTwitch = ({ style, user,closeAccordion }) => {
       };
       const res = updateLink(currentLinkDocId, link);
       link.docId = res.id;
-      handleMessageConfirmation();
-      closeAccordion();
-    }
+     }
   }
   function handleOnSubmitTwitch(e) {
     e.preventDefault();
@@ -71,6 +67,9 @@ export const FormTwitch = ({ style, user,closeAccordion }) => {
     } else {
       addLink();
     }
+    handleMessageConfirmation();
+    handleAccordion();
+    
   }
   function handleOnChangeTwitch() {
     setTwitchUsername(usernameRef.current.value);

@@ -6,7 +6,7 @@ import { linkFacebook } from "../../utils/socialMediaLinks";
 import MessageInputs from "../messageInputs";
 import { v4 as uuidv4 } from "uuid";
 
-export const FormFacebook = ({ style, user, closeAccordion }) => {
+export const FormFacebook = ({ style, user, handleAccordion }) => {
     const [currentUser, setCurrentUser] = useState(user);
     
     const [facebookUsername, setFacebookUsername] = useState("");
@@ -40,8 +40,6 @@ export const FormFacebook = ({ style, user, closeAccordion }) => {
           };
           const res = insertNewLink(newLink);
           newLink.docId = res.id;
-          handleMessageConfirmation();
-          closeAccordion();
           return newLink.docId;
         }
       }
@@ -57,8 +55,6 @@ export const FormFacebook = ({ style, user, closeAccordion }) => {
           };
           const res = updateLink(currentLinkDocId, link);
           link.docId = res.id;
-          handleMessageConfirmation();
-            closeAccordion();
         }
       }
       function handleOnSubmitFacebook(e) {
@@ -69,6 +65,9 @@ export const FormFacebook = ({ style, user, closeAccordion }) => {
         } else {
             addLink();
         }
+        handleMessageConfirmation();
+        handleAccordion();
+          
       }
       function onChangeFacebookUsername(){
         setFacebookUsername(usernameRef.current.value);

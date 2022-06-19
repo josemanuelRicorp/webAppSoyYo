@@ -7,7 +7,7 @@ import MessageInputs from "../messageInputs";
 import { linkGoogleMaps } from "../../utils/socialMediaLinks";
 import { Map, MapStatic } from "../maps";
 
-export const FormMap = ({ style, user }) => {
+export const FormMap = ({ style, user , handleAccordion }) => {
 
   const [currentUser, setCurrentUser] = useState(user);
 const [openMap, setOpenMap] = useState(false);
@@ -48,7 +48,6 @@ const [openMap, setOpenMap] = useState(false);
       };
       const res = insertNewLink(newLink);
       newLink.docId = res.id;
-       handleMessageConfirmation();
       return newLink.docId;
     }
   }
@@ -65,7 +64,6 @@ const [openMap, setOpenMap] = useState(false);
       };
       const res = updateLink(currentLinkDocId, link);
       link.docId = res.id;
-       handleMessageConfirmation();
     }
   }
 
@@ -75,6 +73,8 @@ const [openMap, setOpenMap] = useState(false);
     } else {
         addLink();
     }
+    handleMessageConfirmation();
+    handleAccordion();
   }
 
   function handleOnHideMap() {

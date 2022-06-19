@@ -10,7 +10,7 @@ import MessageInputs from "../messageInputs";
 import { v4 as uuidv4 } from "uuid";
 import { linkTiktok } from "../../utils/socialMediaLinks";
 
-export const FormTikTok = ({ style, user, closeAccordion }) => {
+export const FormTikTok = ({ style, user, handleAccordion }) => {
   const [currentUser, setCurrentUser] = useState(user);
   const [tiktokUsername, setTiktokUsername] = useState("");
   const [openTiktok, setOpenTiktok] = useState(false);
@@ -42,8 +42,6 @@ export const FormTikTok = ({ style, user, closeAccordion }) => {
       };
       const res = insertNewLink(newLink);
       newLink.docId = res.id;
-      handleMessageConfirmation();
-      closeAccordion();
       return newLink.docId;
     }
   }
@@ -59,9 +57,7 @@ export const FormTikTok = ({ style, user, closeAccordion }) => {
       };
       const res = updateLink(currentLinkDocId, link);
       link.docId = res.id;
-      handleMessageConfirmation();
-      closeAccordion();
-    }
+      }
   }
   function handleOnSubmitTiktok(e) {
     e.preventDefault();
@@ -71,6 +67,9 @@ export const FormTikTok = ({ style, user, closeAccordion }) => {
     } else {
       addLink();
     }
+    handleMessageConfirmation();
+    handleAccordion();
+    
   }
 
   function handleOnChangeTiktokUsername() {

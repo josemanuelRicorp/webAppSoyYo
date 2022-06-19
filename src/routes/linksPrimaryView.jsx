@@ -59,25 +59,25 @@ export default function LinksPrimaryView() {
         <Accordion.Item eventKey="1" className={style.accordionItemCustom}>
           <Accordion.Header>WhatsApp</Accordion.Header>
           <Accordion.Body>
-          <FormWhatsapp user={currentUser} style={style.entryContainer}/>
+          <FormWhatsapp user={currentUser} style={style.entryContainer}  handleAccordion={closeAccordion}/>
           </Accordion.Body>
         </Accordion.Item>
         <Accordion.Item eventKey="2" className={style.accordionItemCustom}>
           <Accordion.Header>Correo electrónico</Accordion.Header>
           <Accordion.Body>
-            <FormEmail user={currentUser} style={style.entryContainer} />
+            <FormEmail user={currentUser} style={style.entryContainer} handleAccordion={closeAccordion} />
           </Accordion.Body>
         </Accordion.Item>
         <Accordion.Item eventKey="3" className={style.accordionItemCustom}>
           <Accordion.Header>Telefóno</Accordion.Header>
           <Accordion.Body>
-          <FormPhone user={currentUser} style={style.entryContainer} />
+          <FormPhone user={currentUser} style={style.entryContainer} handleAccordion={closeAccordion} />
           </Accordion.Body>
         </Accordion.Item>
         <Accordion.Item eventKey="4" className={style.accordionItemCustom}>
           <Accordion.Header>Mapas</Accordion.Header>
           <Accordion.Body>
-          <FormMap user={currentUser} style={style.entryContainer} />
+          <FormMap user={currentUser} style={style.entryContainer} handleAccordion={closeAccordion} />
           </Accordion.Body>
         </Accordion.Item>
       </Accordion>

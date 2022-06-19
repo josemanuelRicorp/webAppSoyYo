@@ -10,7 +10,7 @@ import {
 } from "../../firebase/firebase";
 import { link2FieldsWhatsapp } from "../../utils/socialMediaFields";
 
-export const FormWhatsapp = ({ style, user }) => {
+export const FormWhatsapp = ({ style, user , handleAccordion }) => {
   const [openWhatsApp, setOpenWhatsApp] = useState(false);
   const [whatsappLinkDocId, setWhatsappLinkDocId] = useState("");
   const [whatsappNumber, setWhatsappNumber] = useState("");
@@ -47,7 +47,6 @@ export const FormWhatsapp = ({ style, user }) => {
       };
       const res = insertNewLink(newLink);
       newLink.docId = res.id;
-      handleMessageConfirmation();
       return newLink.docId;
     }
   }
@@ -63,7 +62,6 @@ export const FormWhatsapp = ({ style, user }) => {
       };
       const res = updateLink(currentLinkDocId, link);
       link.docId = res.id;
-      handleMessageConfirmation(); 
     }
   }
 
@@ -77,6 +75,8 @@ export const FormWhatsapp = ({ style, user }) => {
       console.log("agregar link");
       addLink();
     }
+    handleMessageConfirmation();
+    handleAccordion();
   };
   function handleOnChangeWhatsAppNumber() {
     setWhatsappNumber(whatsappNumberRef.current.value);

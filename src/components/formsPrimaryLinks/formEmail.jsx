@@ -10,7 +10,7 @@ import { v4 as uuidv4 } from "uuid";
 import MessageInputs from "../messageInputs";
 import { Col, Form, Row } from "react-bootstrap";
 
-export const FormEmail = ({ style, user }) => {
+export const FormEmail = ({ style, user , handleAccordion }) => {
   const [currentUser, setCurrentUser] = useState(user);
   const [openEmail, setOpenEmail] = useState(false);
 
@@ -49,7 +49,6 @@ export const FormEmail = ({ style, user }) => {
       };
       const res = insertNewLink(newLink);
       newLink.docId = res.id;
-      handleMessageConfirmation();
       return newLink.docId;
     }
   }
@@ -66,7 +65,7 @@ export const FormEmail = ({ style, user }) => {
       const res = updateLink(currentLinkDocId, link);
       console.log({ res });
       link.docId = res.id;
-      handleMessageConfirmation();
+     
     }
   }
 
@@ -81,6 +80,8 @@ export const FormEmail = ({ style, user }) => {
       console.log("agregar link");
       addLink();
     }
+    handleMessageConfirmation();
+    handleAccordion();
   }
 
   function handleOnChangeEmailAddress() {

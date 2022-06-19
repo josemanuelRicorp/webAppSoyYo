@@ -10,7 +10,7 @@ import { v4 as uuidv4 } from "uuid";
 import MessageInputs from "../messageInputs";
 import { linkPhoneNumberCall } from "../../utils/socialMediaLinks";
 
-export const FormPhone = ({ style, user }) => {
+export const FormPhone = ({ style, user , handleAccordion }) => {
   const [currentUser, setCurrentUser] = useState(user);
 
   const [openPhone, setOpenPhone] = useState(false);
@@ -45,7 +45,6 @@ export const FormPhone = ({ style, user }) => {
       };
       const res = insertNewLink(newLink);
       newLink.docId = res.id;
-      handleMessageConfirmation();
       return newLink.docId;
     }
   }
@@ -62,7 +61,6 @@ export const FormPhone = ({ style, user }) => {
       const res = updateLink(currentLinkDocId, link);
       console.log({ res });
       link.docId = res.id;
-      handleMessageConfirmation();
     }
   }
 
@@ -76,6 +74,8 @@ export const FormPhone = ({ style, user }) => {
       console.log("agregar link");
       addLink();
     }
+    handleMessageConfirmation();
+    handleAccordion();
   }
   function handleOnChangePhoneNumber() {
     setPhoneNumber(phoneNumberRef.current.value);

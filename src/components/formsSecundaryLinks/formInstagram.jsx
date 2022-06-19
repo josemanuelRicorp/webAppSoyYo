@@ -6,7 +6,7 @@ import { linkInstagram } from "../../utils/socialMediaLinks";
 import MessageInputs from "../messageInputs";
 import { v4 as uuidv4 } from "uuid";
 
-export const FormInstagram= ({ style, user, closeAccordion }) => {
+export const FormInstagram= ({ style, user, handleAccordion }) => {
     const [currentUser, setCurrentUser] = useState(user);
     const [instagramUsername, setInstagramUsername] = useState("");
     const [openInstagram, setOpenInstagram] = useState(false);
@@ -40,8 +40,6 @@ export const FormInstagram= ({ style, user, closeAccordion }) => {
           };
           const res = insertNewLink(newLink);
           newLink.docId = res.id;
-          handleMessageConfirmation();
-            closeAccordion();
         }
       }
     
@@ -56,8 +54,6 @@ export const FormInstagram= ({ style, user, closeAccordion }) => {
           };
           const res = updateLink(currentLinkDocId, link);
           link.docId = res.id;
-          handleMessageConfirmation();
-          closeAccordion();
         }
       }
 
@@ -69,6 +65,9 @@ export const FormInstagram= ({ style, user, closeAccordion }) => {
           } else {
             addLink();
           }
+          handleMessageConfirmation();
+          handleAccordion();
+        
       }
       function onChangeInstagramUsername(){
         setInstagramUsername(usernameRef.current.value);

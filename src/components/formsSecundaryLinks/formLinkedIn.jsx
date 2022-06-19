@@ -10,7 +10,7 @@ import { linkLinkedin } from "../../utils/socialMediaLinks";
 import MessageInputs from "../messageInputs";
 import { v4 as uuidv4 } from "uuid";
 
-export const FormLinkedIn = ({ style, user ,closeAccordion}) => {
+export const FormLinkedIn = ({ style, user ,handleAccordion}) => {
   const [currentUser, setCurrentUser] = useState(user);
   const [openLinkedin, setOpenLinkedin] = useState(false);
   const [linkedinLinkDocId, setLinkedinLinkDocId] = useState("");
@@ -43,8 +43,6 @@ export const FormLinkedIn = ({ style, user ,closeAccordion}) => {
       };
       const res = insertNewLink(newLink);
       newLink.docId = res.id;
-      handleMessageConfirmation();
-      closeAccordion();
       return newLink.docId;
     }
   }
@@ -60,8 +58,6 @@ export const FormLinkedIn = ({ style, user ,closeAccordion}) => {
       };
       const res = updateLink(currentLinkDocId, link);
       link.docId = res.id;
-      closeAccordion();
-      handleMessageConfirmation();
     }
   }
 
@@ -73,6 +69,8 @@ export const FormLinkedIn = ({ style, user ,closeAccordion}) => {
     } else {
       addLink();
     }
+    handleMessageConfirmation();
+    handleAccordion();
   }
   function handleOnChangeLinkedin() {
     setLinkedinUsername(usernameRef.current.value);
