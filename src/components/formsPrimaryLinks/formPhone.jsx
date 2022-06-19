@@ -59,7 +59,6 @@ export const FormPhone = ({ style, user , handleAccordion }) => {
         uid: currentUser.uid,
       };
       const res = updateLink(currentLinkDocId, link);
-      console.log({ res });
       link.docId = res.id;
     }
   }
@@ -68,10 +67,8 @@ export const FormPhone = ({ style, user , handleAccordion }) => {
     e.preventDefault();
     e.stopPropagation();
     if (phoneLinkDocId !== "") {
-      console.log("actualizar link");
       editLink(phoneLinkDocId);
     } else {
-      console.log("agregar link");
       addLink();
     }
     handleMessageConfirmation();

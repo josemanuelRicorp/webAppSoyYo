@@ -69,10 +69,8 @@ export const FormWhatsapp = ({ style, user , handleAccordion }) => {
     e.preventDefault();
     e.stopPropagation();
     if (whatsappLinkDocId !== "") {
-      console.log("actualizar link");
       editLink(whatsappLinkDocId);
     } else {
-      console.log("agregar link");
       addLink();
     }
     handleMessageConfirmation();

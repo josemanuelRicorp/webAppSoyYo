@@ -63,8 +63,7 @@ export const FormEmail = ({ style, user , handleAccordion }) => {
         uid: currentUser.uid,
       };
       const res = updateLink(currentLinkDocId, link);
-      console.log({ res });
-      link.docId = res.id;
+       link.docId = res.id;
      
     }
   }
@@ -74,10 +73,8 @@ export const FormEmail = ({ style, user , handleAccordion }) => {
     e.preventDefault();
     e.stopPropagation();
     if (emailLinkDocId !== "") {
-      console.log("actualizar link");
       editLink(emailLinkDocId);
     } else {
-      console.log("agregar link");
       addLink();
     }
     handleMessageConfirmation();

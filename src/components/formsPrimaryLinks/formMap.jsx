@@ -38,7 +38,6 @@ const [openMap, setOpenMap] = useState(false);
   function addLink() {
     if (mapLatLng) {
         const newURL = linkGoogleMaps(mapLat, mapLng);
-        console.log({ newURL });
       const newLink = {
         id: uuidv4(),
         title: "Mapa",
@@ -55,7 +54,6 @@ const [openMap, setOpenMap] = useState(false);
   function editLink(currentLinkDocId) {
     if (mapLatLng) {
         const newURL = linkGoogleMaps(mapLat, mapLng);
-        console.log({ newURL });
       const link = {
         title: "Mapa",
         socialmedia: "maps",
