@@ -8,7 +8,7 @@ export default function MessageInputs( {open, type , socialmedia}){
          >   
                 <div>
                   <Alert variant= {type} >
-                  El enlace de  <strong>{socialmedia}</strong> {(type==="success")?" se guardo exitosamente":(type==="danger")?" no fue guardado":""}.
+                  El enlace de tu <strong>{socialmedia}</strong> {(type==="success")?" se guardo exitosamente":(type==="danger")?" no fue guardado":""}.
                 </Alert> 
                 </div>
               </Fade>

@@ -7,7 +7,6 @@ import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 
 export function MapMarker({setMarkerPosition}) {
     const [position, setPosition] = useState(null);
-    const [draggable, setDraggable] = useState(true);
     const markerRef = useRef(null);
     let DefaultIcon = L.icon({
         iconUrl: icon,
@@ -19,19 +18,9 @@ export function MapMarker({setMarkerPosition}) {
         map.locate(
           {
             enableHighAccuracy: true,
-            
           }
         )
-      },
-      // load(){
-      //   map.locate(
-      //         {
-      //           "enableHighAccuracy": true
-                
-      //         }
-      //       );
-      //       console.log({"map.locate":map.locate()});
-      // },
+      },  
       locationfound(e) {
       setPosition({lat:e.latlng.lat.toPrecision(20),lng:e.latlng.lng.toPrecision(20)})
         map.flyTo({lat:e.latlng.lat.toPrecision(20),lng:e.latlng.lng.toPrecision(20)}, 17);
@@ -44,20 +33,16 @@ export function MapMarker({setMarkerPosition}) {
             const marker = markerRef.current
             if (marker != null) {
               setPosition(marker.getLatLng())
-              console.log({"marker": marker.getLatLng()});
               setMarkerPosition(marker.getLatLng());
             }
           },
         }),
         [],
       );
-
-
-
     return position === null ? "" : (
       <Marker 
       position={position} 
-      draggable={draggable}
+      draggable={true}
       eventHandlers={eventHandlers}
       ref={markerRef}
       >

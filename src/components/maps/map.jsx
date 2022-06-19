@@ -1,45 +1,33 @@
 import React, { useState } from "react";
 import { Col, Modal, Row, Spinner } from "react-bootstrap";
-// import { MapsPicker } from './MapsPicker';
 import { MapContainer, TileLayer } from "react-leaflet";
-import { MapPlaceholder } from "./mapPlaceholder";
-import { MapMarker } from "./mapMarker";
 
 import { MdAdsClick } from "react-icons/md";
-import { linkGoogleMaps } from "../utils/socialMediaLinks";
+
+import { MapPlaceholder, MapMarker } from "../maps";
+
 //  {lat: -17.806098458690858, lng: -63.16360831260682}
-export const Map = ({ show, handleOnHide, setMarkerPositionResult }) => {
-  const initialPositionCoords = ["-17.791907391388357", "-63.17891451557049"];
-  // const [position, setPosition] = useState(initialPositionCoords);
+export const Map = ({ show, handleOnHide, handlePositionMarker }) => {
   const [position, setPosition] = useState([
     -17.806098458690858, -63.16360831260682,
   ]);
-  const [marker, setMarker] = useState();
   const [state, setState] = useState(9);
   function handleLocation() {
     setState(11);
     setTimeout(() => {
     setState(9);
-    }, 2000);
     handleOnHide();
+    },1800);
+    
   }
+
   function setMarkerPosition(value) {
     setState(10);
-    setMarker(value);
-    // let url = `https://www.google.com/maps/@${value.lat},${value.lng},17z`;
-    // // http://maps.google.com/maps?z={zoom}&t={typeMap}&q=loc:{latitude}+{longitude}
-    // let url2 = `https://maps.google.com/maps?z=17&t=m&q=loc:${value.lat}+${value.lng}`;
-    // linkGoogleMaps(value.lat, value.lng);
-    // console.log(url.toString());
-    // console.log(url2.toString());
-    console.log(linkGoogleMaps(value.lat, value.lng));
-    setMarkerPositionResult(linkGoogleMaps(value.lat, value.lng));
+    handlePositionMarker(value);
   }
 
   return (
     <Modal
-      // size="lg-down"
-      // size="sm"
       fullscreen={"lg-down"}
       show={show}
       onHide={handleOnHide}
@@ -57,6 +45,7 @@ export const Map = ({ show, handleOnHide, setMarkerPositionResult }) => {
               <div style={{ width: "100%" }}>
                 <MapContainer
                   id="map"
+                  style={{ width: "100%", height: "400px" }}
                   center={position}
                   zoom={10}
                   scrollWheelZoom={true}
