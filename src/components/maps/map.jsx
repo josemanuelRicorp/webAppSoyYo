@@ -1,15 +1,13 @@
 import React, { useState } from "react";
 import { Col, Modal, Row, Spinner } from "react-bootstrap";
 import { MapContainer, TileLayer } from "react-leaflet";
-
 import { MdAdsClick } from "react-icons/md";
-
 import { MapPlaceholder, MapMarker } from "../maps";
 
 //  {lat: -17.806098458690858, lng: -63.16360831260682}
 export const Map = ({ show, handleOnHide, handlePositionMarker }) => {
   const [position, setPosition] = useState([
-    -17.806098458690858, -63.16360831260682,
+    -17.783310801661553, -63.18212983710896
   ]);
   const [state, setState] = useState(9);
   function handleLocation() {
@@ -23,8 +21,6 @@ export const Map = ({ show, handleOnHide, handlePositionMarker }) => {
 
   function setMarkerPosition(value) {
     setState(10);
-    console.log({"setMarkerPosition":value});
-    // setPosition(value);
     handlePositionMarker(value);
   }
 
@@ -49,7 +45,7 @@ export const Map = ({ show, handleOnHide, handlePositionMarker }) => {
                   id="map"
                   style={{ width: "100%", height: "400px" }}
                   center={position}
-                  zoom={10}
+                  zoom={13}
                   scrollWheelZoom={true}
                   placeholder={<MapPlaceholder />}
                 >

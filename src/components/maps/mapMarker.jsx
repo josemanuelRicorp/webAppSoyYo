@@ -8,39 +8,25 @@ export function MapMarker({ setMarkerPosition }) {
   const [isCurrentLocation, setIsCurrentLocation] = useState(false);
   const markerRef = useRef(null);
   const map = useMapEvents({
-    mouseover(){
-      if (isCurrentLocation == false) {
+    mouseover() {
+      if (isCurrentLocation === false) {
         map.locate({
           enableHighAccuracy: true,
         });
         setIsCurrentLocation(true);
       }
     },
-    dblclick() {
-      // if (isCurrentLocation == false) {
-      //   map.locate({
-      //     enableHighAccuracy: true,
-      //   });
-      //   setIsCurrentLocation(true);
-      // }
-
-      // console.log({"setMarkerPosition":e.latlng});
-      // map.setView(e.latlng
-      // //   , map.getZoom(), {
-      // //   animate: true,
-      // // }
-      // );
-      // setPosition({
-      //   lat: e.latlng.lat.toPrecision(20),
-      //   lng: e.latlng.lng.toPrecision(20),
-      // });
+    keyup() {
+      console.log("keyup");
+    },
+    preclick() {
+      console.log("preclick");
     },
     click(e) {
       if (isCurrentLocation) {
-        console.log({ setMarkerPosition: e.latlng });
         map.setView(
-          e.latlng,
-          //   , map.getZoom(), {
+          e.latlng
+          //   map.getZoom(), {
           //   animate: true,
           // }
         );
@@ -48,13 +34,15 @@ export function MapMarker({ setMarkerPosition }) {
           lat: e.latlng.lat.toPrecision(20),
           lng: e.latlng.lng.toPrecision(20),
         });
+       
+        setMarkerPosition({
+          lat: e.latlng.lat.toPrecision(20),
+          lng: e.latlng.lng.toPrecision(20),
+        }); 
+        console.log({ "setMarkerPositionClick": e.latlng });
       }
     },
     locationfound(e) {
-      setPosition({
-        lat: e.latlng.lat.toPrecision(20),
-        lng: e.latlng.lng.toPrecision(20),
-      });
       map.flyTo(
         {
           lat: e.latlng.lat.toPrecision(20),
@@ -62,6 +50,10 @@ export function MapMarker({ setMarkerPosition }) {
         },
         17
       );
+      setPosition({
+        lat: e.latlng.lat.toPrecision(20),
+        lng: e.latlng.lng.toPrecision(20),
+      });
       setMarkerPosition({
         lat: e.latlng.lat.toPrecision(20),
         lng: e.latlng.lng.toPrecision(20),

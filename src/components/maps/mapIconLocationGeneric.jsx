@@ -5,7 +5,7 @@ import iconShadow from "leaflet/dist/images/marker-shadow.png";
 export const MapIconLocationGeneric = L.icon({
   iconUrl:icon ,
   iconRetinaUrl:icon,
-  shadowUrl: iconShadow,
+  // shadowUrl: iconShadow,
 });
 
 

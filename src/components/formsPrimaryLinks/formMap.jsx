@@ -31,7 +31,7 @@ const [openMap, setOpenMap] = useState(false);
       setMapLat(fieldsData.lat);
       setMapLng(fieldsData.lng);
       setMapLatLng({ lat: fieldsData.lat, lng: fieldsData.lng });
-      console.log({ mapLat, mapLng });
+      console.log({"valorGuardado":[ fieldsData.lat, fieldsData.lng ]});
     }
   }
 
