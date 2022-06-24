@@ -5,12 +5,50 @@ import { MapIconLocationGeneric } from "./mapIconLocationGeneric";
 
 export function MapMarker({ setMarkerPosition }) {
   const [position, setPosition] = useState(null);
+  const [isCurrentLocation, setIsCurrentLocation] = useState(false);
   const markerRef = useRef(null);
   const map = useMapEvents({
-    click() {
-      map.locate({
-        enableHighAccuracy: true,
-      });
+    mouseover(){
+      if (isCurrentLocation == false) {
+        map.locate({
+          enableHighAccuracy: true,
+        });
+        setIsCurrentLocation(true);
+      }
+    },
+    dblclick() {
+      // if (isCurrentLocation == false) {
+      //   map.locate({
+      //     enableHighAccuracy: true,
+      //   });
+      //   setIsCurrentLocation(true);
+      // }
+
+      // console.log({"setMarkerPosition":e.latlng});
+      // map.setView(e.latlng
+      // //   , map.getZoom(), {
+      // //   animate: true,
+      // // }
+      // );
+      // setPosition({
+      //   lat: e.latlng.lat.toPrecision(20),
+      //   lng: e.latlng.lng.toPrecision(20),
+      // });
+    },
+    click(e) {
+      if (isCurrentLocation) {
+        console.log({ setMarkerPosition: e.latlng });
+        map.setView(
+          e.latlng,
+          //   , map.getZoom(), {
+          //   animate: true,
+          // }
+        );
+        setPosition({
+          lat: e.latlng.lat.toPrecision(20),
+          lng: e.latlng.lng.toPrecision(20),
+        });
+      }
     },
     locationfound(e) {
       setPosition({

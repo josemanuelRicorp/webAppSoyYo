@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'leaflet/dist/leaflet.css';
 
 import React from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { HashRouter, Route, Routes } from 'react-router-dom';
 import LoginView from './routes/loginView';
 import LinksPrimaryView from './routes/linksPrimaryView';
 import LinksSecondaryView from './routes/linksSecondaryView';
@@ -15,19 +15,19 @@ import DashboardView from './routes/dashboardView';
 
 function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Routes>
-        <Route exact path="/" element={<DashboardView/>}></Route>
-        <Route exact path="/dashboard" element={<DashboardView/>}></Route>
+        <Route exact path="/" element={<DashboardView />}></Route>
+        <Route exact path="/dashboard" element={<DashboardView />}></Route>
         <Route exact path="/iniciar-sesion" element={<LoginView />}></Route>
         <Route exact path="/enlaces/principales" element={<LinksPrimaryView />}></Route>
-        <Route exact path="/enlaces/secundarios" element={<LinksSecondaryView/>}></Route>
+        <Route exact path="/enlaces/secundarios" element={<LinksSecondaryView />}></Route>
         <Route exact path="/perfil" element={<EditProfileView />}></Route>
         <Route exact path="cerrar-sesion" element={<SignOutView />}></Route>
         <Route exact path="u/:publicId" element={<PublicProfileView />}></Route>
-        <Route exact path="/asignar-alias" element={<ChooseUserNameView />}></Route> 
+        <Route exact path="/asignar-alias" element={<ChooseUserNameView />}></Route>
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 

@@ -19,7 +19,7 @@ export default function SignOutView() {
       onUserLoggedIn={handleUserLoggeIn}
       onUserNotLoggedIn={handleUserNotLoggedIn}
       onUserNotRegistered={handleUserNotRegistered}
-    >    </AuthProviders>
+    ></AuthProviders>
   )
 }
 

@@ -23,6 +23,8 @@ export const Map = ({ show, handleOnHide, handlePositionMarker }) => {
 
   function setMarkerPosition(value) {
     setState(10);
+    console.log({"setMarkerPosition":value});
+    // setPosition(value);
     handlePositionMarker(value);
   }
 

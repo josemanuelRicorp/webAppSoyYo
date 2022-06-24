@@ -3,7 +3,7 @@ import {
   FacebookAuthProvider,
   signInWithPopup,
   fetchSignInMethodsForEmail,
-  EmailAuthProvider,
+  EmailAuthProvider
 } from "firebase/auth";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -64,43 +64,30 @@ export default function LoginView() {
       pendinCredentials = null;
     try {
       const res = await signInWithPopup(auth, facebookProvider);
-      console.log(facebookProvider);
-      console.log({res:res});
+      console.log(res);
     } catch (error) {
-      
-      if (
-        error.code === "auth/popup-closed-by-user" ||
-        error.code === "auth/cancelled-popup-request"
-      ) {
-        return;
-      } else if (
-        error.code == "auth/account-exists-with-different-credential"
-      ) {
+      console.error(error);
+      if (error.code == "auth/account-exists-with-different-credential") {
         existingEmail = error.email;
         pendinCredentials = error.credential;
-        fetchSignInMethodsForEmail(auth, existingEmail).then(
-          (signInMethods) => {
-            if (
-              signInMethods.indexOf(
-                EmailAuthProvider.EMAIL_PASSWORD_SIGN_IN_METHOD
-              ) != -1
-            ) {
-              // User can sign in with email/password.
-              console.log(" sign in with  email/password.");
-            }
-            if (
-              signInMethods.indexOf(
-                EmailAuthProvider.EMAIL_LINK_SIGN_IN_METHOD
-              ) != -1
-            ) {
-              // User can sign in with email/link.
-              console.log(" sign in with email/link.");
-            }
+        fetchSignInMethodsForEmail(auth, existingEmail).then((signInMethods) => {
+          if (
+            signInMethods.indexOf(
+              EmailAuthProvider.EMAIL_PASSWORD_SIGN_IN_METHOD
+            ) != -1
+          ) {
+            // User can sign in with email/password.
+            console.log(" sign in with  email/password.");
           }
-        );
-      }
-      else{
-        console.error(error);
+          if (
+            signInMethods.indexOf(
+              EmailAuthProvider.EMAIL_LINK_SIGN_IN_METHOD
+            ) != -1
+          ) {
+            // User can sign in with email/link.
+            console.log(" sign in with email/link.");
+          }
+        });
       }
     }
   }

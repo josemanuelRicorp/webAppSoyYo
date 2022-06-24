@@ -55,7 +55,8 @@ export default function DashboardWrapper({ children }) {
               <a
                 rel="noreferrer"
                 target="_blank"
-                href="https://www.google.com/maps/@-17.7918585,-63.17895,16z"
+                // href="https://www.google.com/maps/@-17.7918585,-63.17895,16z"
+                href="https://goo.gl/maps/9TUtb58UK1SQH91WA"
               >
                 <FaLocationArrow className={style.customIcon} /> Av. Irala,
                 Edificio Irala 452.
