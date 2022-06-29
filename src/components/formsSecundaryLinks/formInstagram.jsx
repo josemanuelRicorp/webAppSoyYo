@@ -34,6 +34,7 @@ export const FormInstagram= ({ style, user, handleAccordion }) => {
           const newLink = {
             id: uuidv4(),
             title: "Instagram",
+            category: "secondary",
             url: newURL,
             socialmedia: "instagram",
             uid: currentUser.uid,
@@ -48,6 +49,8 @@ export const FormInstagram= ({ style, user, handleAccordion }) => {
             const newURL =linkInstagram(instagramUsername);
           const link = {
             title: "Instagram",
+            category: "secondary",
+
             url: newURL,
             socialmedia: "instagram",
             uid: currentUser.uid,

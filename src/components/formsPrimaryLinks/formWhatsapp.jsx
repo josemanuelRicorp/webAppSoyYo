@@ -41,6 +41,7 @@ export const FormWhatsapp = ({ style, user , handleAccordion }) => {
       const newLink = {
         id: uuidv4(),
         title: "WhatsApp",
+        category: "primary",
         socialmedia: "whatsapp",
         url: newURL,
         uid: currentUser.uid,
@@ -57,6 +58,7 @@ export const FormWhatsapp = ({ style, user , handleAccordion }) => {
       const link = {
         title: "WhatsApp",
         socialmedia: "whatsapp",
+        category: "primary",
         url: newURL,
         uid: currentUser.uid,
       };

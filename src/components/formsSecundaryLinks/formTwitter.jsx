@@ -10,7 +10,7 @@ import { linkTwitter } from "../../utils/socialMediaLinks";
 import { v4 as uuidv4 } from "uuid";
 import MessageInputs from "../messageInputs";
 
-export const FormTwitter = ({ style, user,handleAccordion }) => {
+export const FormTwitter = ({ style, user, handleAccordion }) => {
   const [currentUser, setCurrentUser] = useState({});
   const [twitterUsername, setTwitterUsername] = useState("");
   const [openTwitter, setOpenTwitter] = useState(false);
@@ -36,13 +36,15 @@ export const FormTwitter = ({ style, user,handleAccordion }) => {
       const newLink = {
         id: uuidv4(),
         title: "Twitter",
+        category: "secondary",
+
         url: newURL,
         socialmedia: "twitter",
         uid: currentUser.uid,
       };
       const res = insertNewLink(newLink);
       newLink.docId = res.id;
-     }
+    }
   }
 
   function editLink(currentLinkDocId) {
@@ -50,13 +52,15 @@ export const FormTwitter = ({ style, user,handleAccordion }) => {
       const newURL = linkTwitter(twitterUsername);
       const link = {
         title: "Twitter",
+        category: "secondary",
+
         url: newURL,
         socialmedia: "twitter",
         uid: currentUser.uid,
       };
       const res = updateLink(currentLinkDocId, link);
       link.docId = res.id;
-     }
+    }
   }
 
   function handleOnSubmitTwitter(e) {
@@ -69,7 +73,6 @@ export const FormTwitter = ({ style, user,handleAccordion }) => {
     }
     handleMessageConfirmation();
     handleAccordion();
-    
   }
 
   function handleMessageConfirmation() {

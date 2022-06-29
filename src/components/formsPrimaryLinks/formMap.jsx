@@ -41,6 +41,7 @@ const [openMap, setOpenMap] = useState(false);
       const newLink = {
         id: uuidv4(),
         title: "Mapa",
+        category: "primary",
         socialmedia: "maps",
         url: newURL,
         uid: currentUser.uid,
@@ -56,6 +57,7 @@ const [openMap, setOpenMap] = useState(false);
         const newURL = linkGoogleMaps(mapLat, mapLng);
       const link = {
         title: "Mapa",
+        category: "primary",
         socialmedia: "maps",
         url: newURL,    
         uid: currentUser.uid,

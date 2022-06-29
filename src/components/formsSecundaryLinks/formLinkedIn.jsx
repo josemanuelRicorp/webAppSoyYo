@@ -9,8 +9,9 @@ import { link2FieldsLinkedin } from "../../utils/socialMediaFields";
 import { linkLinkedin } from "../../utils/socialMediaLinks";
 import MessageInputs from "../messageInputs";
 import { v4 as uuidv4 } from "uuid";
+import { InputSocialMedia } from "../inputSocialMedia";
 
-export const FormLinkedIn = ({ style, user ,handleAccordion}) => {
+export const FormLinkedIn = ({ style, user, handleAccordion }) => {
   const [currentUser, setCurrentUser] = useState(user);
   const [openLinkedin, setOpenLinkedin] = useState(false);
   const [linkedinLinkDocId, setLinkedinLinkDocId] = useState("");
@@ -38,6 +39,8 @@ export const FormLinkedIn = ({ style, user ,handleAccordion}) => {
         id: uuidv4(),
         title: "LinkedIn",
         socialmedia: "linkedin",
+        category: "secondary",
+
         url: newURL,
         uid: currentUser.uid,
       };
@@ -53,6 +56,8 @@ export const FormLinkedIn = ({ style, user ,handleAccordion}) => {
       const link = {
         title: "LinkedIn",
         socialmedia: "linkedin",
+        category: "secondary",
+
         url: newURL,
         uid: currentUser.uid,
       };
@@ -114,6 +119,20 @@ export const FormLinkedIn = ({ style, user ,handleAccordion}) => {
               onChange={handleOnChangeLinkedin}
               autoComplete="off"
             />
+          </Col>
+        </Form.Group>
+        <Form.Group as={Row} className="mb-3">
+          <Form.Label column lg="4">
+            linkedin.com/
+          </Form.Label>
+          <Col lg="8">
+            <InputSocialMedia
+              placeholder="Nombre de usuario"
+              username={linkedinUsername}
+              usernameRef={usernameRef}
+              handleOnChange={handleOnChangeLinkedin}
+              autoComplete="off"
+            ></InputSocialMedia>
           </Col>
         </Form.Group>
         <input className="btn-custom" type="submit" value="Guardar datos" />

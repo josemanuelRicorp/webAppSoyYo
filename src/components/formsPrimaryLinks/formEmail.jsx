@@ -42,8 +42,9 @@ export const FormEmail = ({ style, user , handleAccordion }) => {
       const newURL = linkEmail(emailAddress, emailSubject, emailBody);
       const newLink = {
         id: uuidv4(),
-        title: "E-mail",
+        title: "Email",
         socialmedia: "email",
+        category: "primary",
         url: newURL,
         uid: currentUser.uid,
       };
@@ -59,6 +60,7 @@ export const FormEmail = ({ style, user , handleAccordion }) => {
       const link = {
         title: "E-mail",
         socialmedia: "email",
+        category: "primary",
         url: newURL,
         uid: currentUser.uid,
       };

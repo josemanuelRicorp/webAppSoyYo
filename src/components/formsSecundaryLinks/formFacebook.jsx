@@ -34,6 +34,7 @@ export const FormFacebook = ({ style, user, handleAccordion }) => {
           const newLink = {
             id: uuidv4(),
             title: "Facebook",
+            category: "secondary",
             socialmedia: "facebook",
             url: newURL,
             uid: currentUser.uid,
@@ -49,6 +50,7 @@ export const FormFacebook = ({ style, user, handleAccordion }) => {
             const newURL = linkFacebook(facebookUsername);
             const link = {
             title: "Facebook",
+            category: "secondary",
             socialmedia: "facebook",
             url: newURL,
             uid: currentUser.uid,

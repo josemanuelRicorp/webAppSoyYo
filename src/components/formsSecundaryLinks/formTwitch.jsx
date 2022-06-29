@@ -37,6 +37,8 @@ export const FormTwitch = ({ style, user,handleAccordion }) => {
       const newLink = {
         id: uuidv4(),
         title: "Twitch",
+        category: "secondary",
+
         url: newURL,
         socialmedia: "twitch",
         uid: currentUser.uid,
@@ -51,6 +53,8 @@ export const FormTwitch = ({ style, user,handleAccordion }) => {
       const newURL = linkTwitch(twitchUsername);
       const link = {
         title: "Twitch",
+        category: "secondary",
+
         url: newURL,
         socialmedia: "twitch",
         uid: currentUser.uid,

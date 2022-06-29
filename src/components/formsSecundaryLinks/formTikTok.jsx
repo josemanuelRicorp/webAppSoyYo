@@ -37,6 +37,8 @@ export const FormTikTok = ({ style, user, handleAccordion }) => {
         id: uuidv4(),
         title: "TikTok",
         url: newURL,
+        category: "secondary",
+
         socialmedia: "tiktok",
         uid: currentUser.uid,
       };
@@ -52,6 +54,8 @@ export const FormTikTok = ({ style, user, handleAccordion }) => {
       const link = {
         title: "TikTok",
         url: newURL,
+        category: "secondary",
+
         socialmedia: "tiktok",
         uid: currentUser.uid,
       };

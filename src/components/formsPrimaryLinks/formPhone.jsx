@@ -10,7 +10,7 @@ import { v4 as uuidv4 } from "uuid";
 import MessageInputs from "../messageInputs";
 import { linkPhoneNumberCall } from "../../utils/socialMediaLinks";
 
-export const FormPhone = ({ style, user , handleAccordion }) => {
+export const FormPhone = ({ style, user, handleAccordion }) => {
   const [currentUser, setCurrentUser] = useState(user);
 
   const [openPhone, setOpenPhone] = useState(false);
@@ -26,7 +26,7 @@ export const FormPhone = ({ style, user , handleAccordion }) => {
     const resLinksPhone = await getLinksBySocialMedia(uid, "phone");
     if (resLinksPhone.length > 0) {
       const linkObject = [...resLinksPhone][0];
-      
+
       setPhoneLinkDocId(linkObject.docId);
       let fieldsData = link2FieldsPhone(linkObject.url);
       setPhoneNumber(fieldsData.number);
@@ -35,10 +35,11 @@ export const FormPhone = ({ style, user , handleAccordion }) => {
 
   function addLink() {
     if (phoneNumber !== "") {
-      const newURL=linkPhoneNumberCall(phoneNumber);
+      const newURL = linkPhoneNumberCall(phoneNumber);
       const newLink = {
         id: uuidv4(),
-        title: "Telefóno",
+        title: "Llamar",
+        category: "primary",
         socialmedia: "phone",
         url: newURL,
         uid: currentUser.uid,
@@ -51,9 +52,10 @@ export const FormPhone = ({ style, user , handleAccordion }) => {
 
   function editLink(currentLinkDocId) {
     if (phoneNumber) {
-      const newURL=linkPhoneNumberCall(phoneNumber);
+      const newURL = linkPhoneNumberCall(phoneNumber);
       const link = {
-        title: "Telefóno",
+        title: "Llamar",
+        category: "primary",
         socialmedia: "phone",
         url: newURL,
         uid: currentUser.uid,
