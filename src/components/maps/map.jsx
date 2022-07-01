@@ -26,6 +26,7 @@ export const Map = ({ show, handleOnHide, handlePositionMarker }) => {
 
   return (
     <Modal
+    size="lg"
       fullscreen={"lg-down"}
       show={show}
       onHide={handleOnHide}
@@ -37,13 +38,12 @@ export const Map = ({ show, handleOnHide, handlePositionMarker }) => {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Row>
-          <Col>
-            <div>
-              <div style={{ width: "100%" }}>
+        <Row className="mapContainer">
+          {/* <Col> */}
+            {/* <div> */}
+              {/* <div className="mapContainer" style={{ width: "100%" }}> */}
                 <MapContainer
                   id="map"
-                  style={{ width: "100%", height: "400px" }}
                   center={position}
                   zoom={13}
                   scrollWheelZoom={true}
@@ -55,9 +55,9 @@ export const Map = ({ show, handleOnHide, handlePositionMarker }) => {
                   />
                   <MapMarker setMarkerPosition={setMarkerPosition} />
                 </MapContainer>
-              </div>
-            </div>
-          </Col>
+              {/* </div> */}
+            {/* </div> */}
+          {/* </Col> */}
         </Row>
       </Modal.Body>
       <Modal.Footer>

@@ -97,6 +97,7 @@ const [openMap, setOpenMap] = useState(false);
   return (
     <>
       <div className={style}>  
+      <h2>Datos para el enlace de tu ubicación</h2>
       {openMap ? (
           <MessageInputs
             open={openMap}

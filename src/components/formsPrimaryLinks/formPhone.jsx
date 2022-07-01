@@ -98,7 +98,7 @@ export const FormPhone = ({ style, user, handleAccordion }) => {
         ) : (
           ""
         )}
-        <h2>Telefóno</h2>
+        <h2>Datos para el enlace de tu telefóno de contacto</h2>
         <Form.Group as={Row} className="mb-3">
           <Form.Label column lg="4">
             Número telefónico:

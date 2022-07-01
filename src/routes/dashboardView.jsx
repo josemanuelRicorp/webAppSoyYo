@@ -1,9 +1,8 @@
 import { useState } from "react";
+import { Col, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { AuthProviders } from "../components/authProvider";
 import DashboardWrapper from "../components/dashboardwrapper";
-import { InputSecondary } from "../components/inputSecondary";
-import { InputSocialMedia } from "../components/inputSocialMedia";
 
 export default function DashboardView() {
   const navigate = useNavigate();
@@ -33,18 +32,13 @@ export default function DashboardView() {
 
   return (
     <DashboardWrapper>
-      <h1>Tablero de link</h1>
-      <div>
-        <div>
-          1
-        <InputSecondary socialmedia={"Linkedin"} />
-        </div>
-        <hr/> 
-        <div>
-          2
-          <InputSocialMedia socialmedia={"Linkedin"} />
-        </div>
-      </div>
+     <Row>
+       <Col>
+       
+       </Col>
+       <Col>
+       </Col>
+       </Row>
     </DashboardWrapper>
   );
 }

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Col, Form, Row } from "react-bootstrap";
+import { Col, Form, FormControl, InputGroup, Row } from "react-bootstrap";
 import {
   getLinksBySocialMedia,
   insertNewLink,
@@ -9,8 +9,7 @@ import { link2FieldsLinkedin } from "../../utils/socialMediaFields";
 import { linkLinkedin } from "../../utils/socialMediaLinks";
 import MessageInputs from "../messageInputs";
 import { v4 as uuidv4 } from "uuid";
-import { InputSocialMedia } from "../inputSocialMedia";
-
+import { RiLinkedinFill } from "react-icons/ri";
 export const FormLinkedIn = ({ style, user, handleAccordion }) => {
   const [currentUser, setCurrentUser] = useState(user);
   const [openLinkedin, setOpenLinkedin] = useState(false);
@@ -40,7 +39,6 @@ export const FormLinkedIn = ({ style, user, handleAccordion }) => {
         title: "LinkedIn",
         socialmedia: "linkedin",
         category: "secondary",
-
         url: newURL,
         uid: currentUser.uid,
       };
@@ -57,7 +55,6 @@ export const FormLinkedIn = ({ style, user, handleAccordion }) => {
         title: "LinkedIn",
         socialmedia: "linkedin",
         category: "secondary",
-
         url: newURL,
         uid: currentUser.uid,
       };
@@ -95,6 +92,7 @@ export const FormLinkedIn = ({ style, user, handleAccordion }) => {
         className={style}
         onSubmit={handleOnSubmitLinkedin}
       >
+         <h2>Datos de tu usuario de LinkedIn</h2>
         {openLinkedin ? (
           <MessageInputs
             open={openLinkedin}
@@ -104,38 +102,33 @@ export const FormLinkedIn = ({ style, user, handleAccordion }) => {
         ) : (
           ""
         )}
-        <Form.Group as={Row} className="mb-3">
-          <Form.Label column lg="4">
-            linkedin.com/
-          </Form.Label>
-          <Col lg="8">
-            <Form.Control
-              className="input"
-              name="username"
-              type="text"
-              placeholder="Nombre de usuario"
-              value={linkedinUsername}
-              ref={usernameRef}
-              onChange={handleOnChangeLinkedin}
-              autoComplete="off"
-            />
+
+        <Row>
+          <Col md={7} lg={8} className="mt-2">
+            <Form.Group>
+              <InputGroup>
+                <InputGroup.Text id="btnGroupAddon">
+                  {" "}
+                  <RiLinkedinFill />{" "}
+                </InputGroup.Text>
+                <FormControl
+                  className="input"
+                  name="username"
+                  type="text"
+                  placeholder="Nombre de usuario"
+                  value={linkedinUsername}
+                  ref={usernameRef}
+                  onChange={handleOnChangeLinkedin}
+                  autoComplete="off"
+                  aria-label="Nombre de usuario"
+                />
+              </InputGroup>
+            </Form.Group>
           </Col>
-        </Form.Group>
-        <Form.Group as={Row} className="mb-3">
-          <Form.Label column lg="4">
-            linkedin.com/
-          </Form.Label>
-          <Col lg="8">
-            <InputSocialMedia
-              placeholder="Nombre de usuario"
-              username={linkedinUsername}
-              usernameRef={usernameRef}
-              handleOnChange={handleOnChangeLinkedin}
-              autoComplete="off"
-            ></InputSocialMedia>
+          <Col md className="mt-2">
+            <input className="btn-custom" type="submit" value="Guardar datos" style={{width:"100%"}} />
           </Col>
-        </Form.Group>
-        <input className="btn-custom" type="submit" value="Guardar datos" />
+        </Row>
       </Form>
     </>
   );

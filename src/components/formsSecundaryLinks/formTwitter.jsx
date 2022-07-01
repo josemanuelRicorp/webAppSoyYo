@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Col, Form, Row } from "react-bootstrap";
+import { Col, Form, FormControl, InputGroup, Row } from "react-bootstrap";
 import {
   getLinksBySocialMedia,
   insertNewLink,
@@ -9,6 +9,7 @@ import { link2FieldsTwitter } from "../../utils/socialMediaFields";
 import { linkTwitter } from "../../utils/socialMediaLinks";
 import { v4 as uuidv4 } from "uuid";
 import MessageInputs from "../messageInputs";
+import {  BsTwitter } from "react-icons/bs";
 
 export const FormTwitter = ({ style, user, handleAccordion }) => {
   const [currentUser, setCurrentUser] = useState({});
@@ -92,6 +93,7 @@ export const FormTwitter = ({ style, user, handleAccordion }) => {
         autoComplete={"off"}
         onSubmit={handleOnSubmitTwitter}
       >
+          <h2>Datos de tu usuario de Twitter</h2>
         {openTwitter ? (
           <MessageInputs
             open={openTwitter}
@@ -101,24 +103,33 @@ export const FormTwitter = ({ style, user, handleAccordion }) => {
         ) : (
           ""
         )}
-        <Form.Group as={Row} className="mb-3">
-          <Form.Label column lg="4">
-            twitter.com/
-          </Form.Label>
-          <Col lg="8">
-            <Form.Control
-              className="input"
-              type="text"
-              name="username"
-              value={twitterUsername}
-              ref={usernameRef}
-              onChange={handleOnChangeTiktokUsername}
-              autoComplete="off"
-              placeholder="Nombre de usuario"
-            />
+        <Row>
+          <Col md={7} lg={8} className="mt-2">
+            <Form.Group>
+              <InputGroup>
+                <InputGroup.Text id="btnGroupAddon">
+                  {" "}
+                  <BsTwitter />{" "}
+                </InputGroup.Text>
+                <FormControl
+                  className="input"
+                  name="username"
+                  type="text"
+                  placeholder="Nombre de usuario"
+                  value={twitterUsername}
+                  ref={usernameRef}
+                  onChange={handleOnChangeTiktokUsername}
+                   autoComplete="off"
+                  aria-label="Nombre de usuario"
+                />
+              </InputGroup>
+            </Form.Group>
           </Col>
-        </Form.Group>
-        <input className="btn-custom" type="submit" value="Guardar datos" />
+          <Col md className="mt-2">
+            <input className="btn-custom" type="submit" value="Guardar datos" style={{width:"100%"}} />
+          </Col>
+        </Row>
+      
       </Form>
     </>
   );

@@ -105,7 +105,7 @@ export const FormWhatsapp = ({ style, user , handleAccordion }) => {
         ) : (
           ""
         )}
-        <h2>WhatsApp</h2>
+        <h2>Datos para el enlace de tu WhatsApp</h2>
         <Form.Group as={Row} className="mb-3">
           <Form.Label column lg="4">
             Número telefónico:

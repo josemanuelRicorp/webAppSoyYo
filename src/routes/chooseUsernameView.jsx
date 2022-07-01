@@ -33,8 +33,10 @@ export default function ChooseUserNameView() {
         const tmp = { ...currentUser };
         tmp.username = username;
         tmp.processCompleted = true;
-        await updateUser(tmp);
-        setState(6);
+        await updateUser(tmp).then(
+          navigate("/dashboard")
+        );
+        // setState(6);
       }
     }
   }
@@ -54,16 +56,16 @@ export default function ChooseUserNameView() {
       </div>
     );
   }
-  if (state === 6) {
-    return (
-      <div className={style.chooseUsernameContainer}>
-        <h1>
-          Puedes dirigirte al tablero para crear tus propios enlaces de contacto
-        </h1>
-        <Link to="/dashboard">Continuar...</Link>
-      </div>
-    );
-  }
+  // if (state === 6) {
+  //   return (
+  //     <div className={style.chooseUsernameContainer}>
+  //       <h1>
+  //         Puedes dirigirte al tablero para crear tus propios enlaces de contacto
+  //       </h1>
+  //       <Link to="/dashboard">Continuar...</Link>
+  //     </div>
+  //   );
+  // }
 
   return (
     <AuthProviders

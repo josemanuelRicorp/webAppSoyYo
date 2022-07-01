@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Col, Form, Row } from "react-bootstrap";
+import { Col, Form, FormControl, InputGroup, Row } from "react-bootstrap";
 import {
   getLinksBySocialMedia,
   insertNewLink,
@@ -9,6 +9,7 @@ import { link2FieldsTiktok } from "../../utils/socialMediaFields";
 import MessageInputs from "../messageInputs";
 import { v4 as uuidv4 } from "uuid";
 import { linkTiktok } from "../../utils/socialMediaLinks";
+import { FaTiktok, FaTwitterSquare } from "react-icons/fa";
 
 export const FormTikTok = ({ style, user, handleAccordion }) => {
   const [currentUser, setCurrentUser] = useState(user);
@@ -61,7 +62,7 @@ export const FormTikTok = ({ style, user, handleAccordion }) => {
       };
       const res = updateLink(currentLinkDocId, link);
       link.docId = res.id;
-      }
+    }
   }
   function handleOnSubmitTiktok(e) {
     e.preventDefault();
@@ -73,7 +74,6 @@ export const FormTikTok = ({ style, user, handleAccordion }) => {
     }
     handleMessageConfirmation();
     handleAccordion();
-    
   }
 
   function handleOnChangeTiktokUsername() {
@@ -92,6 +92,7 @@ export const FormTikTok = ({ style, user, handleAccordion }) => {
         autoComplete={"off"}
         onSubmit={handleOnSubmitTiktok}
       >
+          <h2>Datos de tu usuario de Tiktok</h2>
         {openTiktok ? (
           <MessageInputs
             open={openTiktok}
@@ -101,24 +102,38 @@ export const FormTikTok = ({ style, user, handleAccordion }) => {
         ) : (
           ""
         )}
-        <Form.Group as={Row} className="mb-3">
-          <Form.Label column lg="4">
-            tiktok.com/
-          </Form.Label>
-          <Col lg="8">
-            <Form.Control
-              className="input"
-              type="text"
-              name="username"
-              value={tiktokUsername}
-              ref={usernameRef}
-              onChange={handleOnChangeTiktokUsername}
-              autoComplete="off"
-              placeholder="Nombre de usuario"
+
+        <Row>
+          <Col md={7} lg={8} className="mt-2">
+            <Form.Group>
+              <InputGroup>
+                <InputGroup.Text id="btnGroupAddon">
+                  {" "}
+                  <FaTiktok />{" "}
+                </InputGroup.Text>
+                <FormControl
+                  className="input"
+                  name="username"
+                  type="text"
+                  placeholder="Nombre de usuario"
+                  value={tiktokUsername}
+                  ref={usernameRef}
+                  onChange={handleOnChangeTiktokUsername}
+                  autoComplete="off"
+                  aria-label="Nombre de usuario"
+                />
+              </InputGroup>
+            </Form.Group>
+          </Col>
+          <Col md className="mt-2">
+            <input
+              className="btn-custom"
+              type="submit"
+              value="Guardar datos"
+              style={{ width: "100%" }}
             />
           </Col>
-        </Form.Group>
-        <input className="btn-custom" type="submit" value="Guardar datos" />
+        </Row>
       </Form>
     </>
   );

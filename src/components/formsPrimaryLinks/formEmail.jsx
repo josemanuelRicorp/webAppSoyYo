@@ -111,7 +111,7 @@ export const FormEmail = ({ style, user , handleAccordion }) => {
         ) : (
           ""
         )}
-        <h2>E-mail</h2>
+        <h2>Datos para el enlace de tu E-mail</h2>
         <Form.Group as={Row} className="mb-3">
           <Form.Label column lg="4">
             Dirección de correo electrónico
