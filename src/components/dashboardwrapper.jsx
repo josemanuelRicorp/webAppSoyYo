@@ -35,9 +35,10 @@ export default function DashboardWrapper({ children }) {
             <Nav 
             // className="me-auto my-2 my-lg-0"
             >
+              <Link to="/perfil">Perfil</Link>
+              <Link to="/diseno">Diseño</Link>
               <Link to="/enlaces/principales">Enlaces principales</Link>
               <Link to="/enlaces/secundarios">Enlaces secundarios</Link>
-              <Link to="/perfil">Perfil</Link>
               <Link to="/cerrar-sesion">Salir</Link>
             </Nav>
           </Navbar.Collapse>

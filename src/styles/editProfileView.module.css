@@ -18,8 +18,9 @@
 }
 .rows {
   display:  flex;
+
   align-items: center;
-  margin: 7px;
+  margin:auto;
   margin-top: 10px;
   padding: 20px;
   box-sizing: border-box;

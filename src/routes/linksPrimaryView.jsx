@@ -8,6 +8,7 @@ import style from "../styles/dashboardView.module.css";
 import { Accordion } from "react-bootstrap";
 import { FormEmail, FormMap, FormPhone, FormWhatsapp } from "../components/formsPrimaryLinks";
 
+
 export default function LinksPrimaryView() {
   const navigate = useNavigate();
   const [stateAccordion, setStateAccordion] = useState("0");

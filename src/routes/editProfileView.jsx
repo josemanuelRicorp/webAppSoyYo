@@ -428,6 +428,8 @@ export default function EditProfileView() {
             </Col>
           </Row>
         </div>
+       
+        
       </div>
     </DashboardWrapper>
   );

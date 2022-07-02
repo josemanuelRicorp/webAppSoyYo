@@ -34,7 +34,7 @@ export default function ChooseUserNameView() {
         tmp.username = username;
         tmp.processCompleted = true;
         await updateUser(tmp).then(
-          navigate("/dashboard")
+          navigate("/")
         );
         // setState(6);
       }

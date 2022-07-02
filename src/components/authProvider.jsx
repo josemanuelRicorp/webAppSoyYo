@@ -20,7 +20,6 @@ export function AuthProviders({
         console.log({"userAuthProvider":user});
         const isRegistered = await userExists(user.uid);
         console.log({"isRegisteredAuthProvider":isRegistered});
-
         if (isRegistered) {
           const userInfo = await getUserInfo(user.uid);
           if (userInfo.processCompleted) {
@@ -32,7 +31,9 @@ export function AuthProviders({
           await registerNewUser({
             uid: user.uid,
             displayName: user.displayName,
+            email: user.email,
             profilePicture: "gs://treelinkcv.appspot.com/default/user.png",
+            theme:"default",
             username: "",
             career: "",
             description: "",

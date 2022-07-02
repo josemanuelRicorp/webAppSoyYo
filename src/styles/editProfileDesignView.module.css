@@ -1,0 +1,67 @@
+
+.containerPersonalData {
+  margin-top: 15px;
+}
+.rows {
+  display:  flex;
+  align-items: center;
+  margin:auto;
+  margin-top: 10px;
+  padding: 20px;
+  box-sizing: border-box;
+  /* height: 40px; */
+  border-radius: 5px;
+  background-color: #eeeeee;
+}
+
+.secondaryLink {
+  box-sizing: border-box;
+  text-decoration: none;
+  justify-content: flex-start;
+  align-items: center;
+  display: flex;
+  /* background: #191919; */
+  /* font-family: 'Avenir','Aveniro'; */
+  color: #fff;
+  border-radius: 5px;
+  padding: 18px;
+  text-align: left;
+  font-weight: 500;
+  font-size: 18px;
+  border: 0;
+  width: 100%;
+  border-bottom: 3px solid rgba(0, 0, 0, 0.2);
+  outline: none;
+  margin-bottom: 10px;
+}
+.secondaryLink:hover {
+  color: #fff;
+  /* background: rgba(62, 7, 82,0.9); */
+}
+.secondaryLinkSpan {
+  overflow: hidden;
+}
+.secondaryLinkIcon {
+  margin-right: 15px;
+  font-size: 25px;
+}
+
+
+
+
+
+@media screen and (max-width: 768px) {
+ .cols{
+   margin-top: 10px;
+ }
+
+
+
+}
+@media screen and (min-width: 900px) {
+  .main-container {
+    width: 800px;
+  }
+}
+
+

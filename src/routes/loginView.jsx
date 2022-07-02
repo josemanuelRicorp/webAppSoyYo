@@ -41,6 +41,7 @@ export default function LoginView() {
   async function signInWithGoogle(googleProvider) {
     try {
       const res = await signInWithPopup(auth, googleProvider);
+      console.log(res);
     } catch (error) {
       if (
         error.code === "auth/popup-closed-by-user" ||
@@ -65,9 +66,9 @@ export default function LoginView() {
     try {
       const res = await signInWithPopup(auth, facebookProvider);
       console.log(facebookProvider);
-      console.log({res:res});
+      console.log({ res: res });
     } catch (error) {
-      
+      console.log({ error });
       if (
         error.code === "auth/popup-closed-by-user" ||
         error.code === "auth/cancelled-popup-request"
@@ -98,8 +99,7 @@ export default function LoginView() {
             }
           }
         );
-      }
-      else{
+      } else {
         console.error(error);
       }
     }
