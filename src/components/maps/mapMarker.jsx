@@ -17,7 +17,12 @@ export function MapMarker({ setMarkerPosition }) {
       }
     },
     keyup() {
-      console.log("keyup");
+      // if (isCurrentLocation === false) {
+      //   map.locate({
+      //     enableHighAccuracy: true,
+      //   });
+      //   setIsCurrentLocation(true);
+      // }
     },
     preclick() {
       console.log("preclick");

@@ -17,8 +17,9 @@ export const MapStatic = ({ lat, lng }) => {
     // console.log({lat, lng});
     // console.log({"initialPositionCoords":initialPositionCoords});
 
-  //   console.log({ markerLat: lat, markerLng: lng });
-  //   // setPosition({ lat, lng });
+    // console.log({ markerLat: lat, markerLng: lng });
+    console.log({ markerLat: lat, markerLng: lng });
+    // setPosition({ lat, lng });
   }, []);
 
 

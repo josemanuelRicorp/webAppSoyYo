@@ -17,9 +17,9 @@ export function AuthProviders({
     //onAuthStateChanged
     onAuthStateChanged(auth, async (user) => {
       if (user) {
-        console.log({"userAuthProvider":user});
+        // console.log({"userAuthProvider":user});
         const isRegistered = await userExists(user.uid);
-        console.log({"isRegisteredAuthProvider":isRegistered});
+        // console.log({"isRegisteredAuthProvider":isRegistered});
         if (isRegistered) {
           const userInfo = await getUserInfo(user.uid);
           if (userInfo.processCompleted) {

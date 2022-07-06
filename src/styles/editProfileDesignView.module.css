@@ -45,6 +45,15 @@
   margin-right: 15px;
   font-size: 25px;
 }
+.btnColor1{
+ height: 10px;
+}
+.btnColor2{
+  background-color: aqua;
+}
+.btnColor3{
+  background-color: black;
+}
 
 
 

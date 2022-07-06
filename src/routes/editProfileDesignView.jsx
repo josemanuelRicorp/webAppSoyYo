@@ -113,11 +113,12 @@ export default function EditProfileDesignView() {
         <h1>Editar información del perfil</h1>
         <div className={style.containerPersonalData}>
           <Row className={style.rows}>
-            <Col>
-              <Button variant="secondary" onClick={handleSave}>
+            <Row>
+               <Button variant="secondary" onClick={handleSave}>
                 Guardar
               </Button>
-            </Col>
+            </Row>
+           
             <Col>
               <ButtonGroup vertical>
                 <Button variant="secondary" onClick={handleFirst}>
