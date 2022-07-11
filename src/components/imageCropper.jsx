@@ -73,7 +73,7 @@ export default function ImageCropper({ show, handleOnHide, user }) {
     >
       <Modal.Header closeButton>
         <Modal.Title id="example-modal-sizes-title-lg">
-          Actualizar foto de perfil 
+          Actualizar foto de perfil
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
@@ -94,30 +94,33 @@ export default function ImageCropper({ show, handleOnHide, user }) {
                   //       Desplaza y arrastra la imagen para ajustarla.
                   //     </small>
                   //   <br/>
-                    
-                      <Cropper
-                        className="mt-2"
-                        style={{ height: 300, width: "100%" }}
-                        // zoomTo={0.5}
-                        zoomTo={0.2}
-                        initialAspectRatio={1}
-                        src={image}
-                        viewMode={1}
-                        minCropBoxHeight={10}
-                        minCropBoxWidth={10}
-                        background={false}
-                        autoCropArea={1}
-                        guides={false}
-                        responsive={false}
-                        dragMode="move"
-                        scalable={false}
-                        cropBoxResizable={false}
-                        checkOrientation={false}
-                        onInitialized={(instance) => {
-                          setCropper(instance);
-                        }}
-                      />
-              )}
+
+                  <Cropper
+                    className="mt-2"
+                    style={{ height: 300, width: "100%" }}
+                    // zoomTo={0.5}
+                    zoomTo={0.2}
+                    initialAspectRatio={1}
+                    src={image}
+                    viewMode={1}
+                    minCropBoxHeight={10}
+                    minCropBoxWidth={10}
+                    background={false}
+                    autoCropArea={1}
+                    guides={false}
+                    center={true}
+                    highlight={true}
+                    responsive={false}
+                    dragMode="move"
+                    scalable={false}
+                    movable={true}
+                    cropBoxResizable={false}
+                    checkOrientation={false}
+                    onInitialized={(instance) => {
+                      setCropper(instance);
+                    }}
+                  />
+                )}
               </div>
             </div>
           </Col>
