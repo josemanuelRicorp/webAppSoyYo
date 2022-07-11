@@ -1,5 +1,9 @@
 import { useEffect, useRef, useState } from "react";
-import { getLinksBySocialMedia, insertNewLink, updateLink } from "../../firebase/firebase";
+import {
+  getLinksBySocialMedia,
+  insertNewLink,
+  updateLink,
+} from "../../firebase/firebase";
 import { link2FieldsMaps } from "../../utils/socialMediaFields";
 import { v4 as uuidv4 } from "uuid";
 
@@ -7,13 +11,17 @@ import MessageInputs from "../messageInputs";
 import { linkGoogleMaps } from "../../utils/socialMediaLinks";
 import { Map, MapStatic } from "../maps";
 
-export const FormMap = ({ style, user , handleAccordion }) => {
-
+export const FormMap = ({ style, user, handleAccordion }) => {
+  const [state, setState] = useState(0);
   const [currentUser, setCurrentUser] = useState(user);
-const [openMap, setOpenMap] = useState(false);
+  const [openMap, setOpenMap] = useState(false);
   const [mapLat, setMapLat] = useState("");
   const [mapLng, setMapLng] = useState("");
-  const [mapLatLng, setMapLatLng] = useState({})
+  const initialPositionCoords = {
+    lat: -17.768760534061514,
+    lng: -63.18273797606208,
+  };
+  const [mapLatLng, setMapLatLng] = useState(initialPositionCoords);
   const [mapsLinkDocId, setMapsLinkDocId] = useState("");
   const mapMarkerRef = useRef(null);
 
@@ -21,23 +29,30 @@ const [openMap, setOpenMap] = useState(false);
   useEffect(() => {
     initMapsInfo(user.uid);
   }, []);
+
   async function initMapsInfo(uid) {
     const resLinksMaps = await getLinksBySocialMedia(uid, "maps");
-    if (resLinksMaps.length > 0) {
-      const linkObject = [...resLinksMaps][0];
-      
-      setMapsLinkDocId(linkObject.docId);
-      let fieldsData = link2FieldsMaps(linkObject.url);
-      setMapLat(fieldsData.lat);
-      setMapLng(fieldsData.lng);
-      setMapLatLng({ lat: fieldsData.lat, lng: fieldsData.lng });
-      console.log({"valorGuardado":[ fieldsData.lat, fieldsData.lng ]});
-    }
+    setTimeout(() => {
+      if (resLinksMaps.length > 0) {
+        const linkObject = [...resLinksMaps][0];
+        setMapsLinkDocId(linkObject.docId);
+        let fieldsData = link2FieldsMaps(linkObject.url);
+        console.log({ fl: fieldsData.lat, fln: fieldsData.lng });
+
+        setMapLat(fieldsData.lat);
+        setMapLng(fieldsData.lng);
+        setMapLatLng({ lat: fieldsData.lat, lng: fieldsData.lng });
+
+        console.log({ mapLat, mapLng, mapLatLng });
+
+        setState(1);
+      }
+    }, 2600);
   }
 
   function addLink() {
     if (mapLatLng) {
-        const newURL = linkGoogleMaps(mapLat, mapLng);
+      const newURL = linkGoogleMaps(mapLat, mapLng);
       const newLink = {
         id: uuidv4(),
         title: "Mapa",
@@ -54,12 +69,12 @@ const [openMap, setOpenMap] = useState(false);
 
   function editLink(currentLinkDocId) {
     if (mapLatLng) {
-        const newURL = linkGoogleMaps(mapLat, mapLng);
+      const newURL = linkGoogleMaps(mapLat, mapLng);
       const link = {
         title: "Mapa",
         category: "primary",
         socialmedia: "maps",
-        url: newURL,    
+        url: newURL,
         uid: currentUser.uid,
       };
       const res = updateLink(currentLinkDocId, link);
@@ -71,7 +86,7 @@ const [openMap, setOpenMap] = useState(false);
     if (mapsLinkDocId !== "") {
       editLink(mapsLinkDocId);
     } else {
-        addLink();
+      addLink();
     }
     handleMessageConfirmation();
     handleAccordion();
@@ -91,14 +106,14 @@ const [openMap, setOpenMap] = useState(false);
   function handleMessageConfirmation() {
     setOpenMap(true);
     setTimeout(() => {
-        setOpenMap(false);
+      setOpenMap(false);
     }, 2600);
   }
   return (
     <>
-      <div className={style}>  
-      <h2>Datos para el enlace de tu ubicación</h2>
-      {openMap ? (
+      <div className={style}>
+        <h2>Datos para el enlace de tu ubicación</h2>
+        {openMap ? (
           <MessageInputs
             open={openMap}
             type={"success"}
@@ -117,11 +132,7 @@ const [openMap, setOpenMap] = useState(false);
           handlePositionMarker={handlePositionMarker}
         />
       </div>
-      <div>
-        <MapStatic lat={mapLat} lng={mapLng} />
-      </div>
-
-      
+      <div>{state == 1 ? <MapStatic mapLatLng={mapLatLng} /> : <></>}</div>
     </>
   );
 };

@@ -195,24 +195,7 @@ export async function updateLink(docId, link) {
         console.error(error);
     }
 }
-export async function updateLinkB(link) {
-    try {
-        const collectionRef = collection(db, 'links');
-        const docRef = doc(collectionRef, link.id);
-        await setDoc(docRef, link);
-    } catch (error) {
-        console.error(error);
-    }
-}
-export async function updateLinkC(link) {
-    try {
-        const docRef = collection(db, "links");
-        const res = await setDoc(docRef, link);
-        return res;
-    } catch (error) {
-        console.error(error);
-    }
-}
+
 
 export async function deleteLink(docId) {
     try {

@@ -36,6 +36,7 @@ export default function LinksPrimaryView() {
   }
 
 
+
   if (state === 0) {
     return (
       <AuthProviders
@@ -79,6 +80,7 @@ export default function LinksPrimaryView() {
           <Accordion.Header>Mapas</Accordion.Header>
           <Accordion.Body>
           <FormMap user={currentUser} style={style.entryContainer} handleAccordion={closeAccordion} />
+
           </Accordion.Body>
         </Accordion.Item>
       </Accordion>

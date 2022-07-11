@@ -1,46 +1,38 @@
-import { MapContainer, Marker, Popup, TileLayer, useMapEvent } from "react-leaflet";
-import L from "leaflet";
-import icon from "leaflet/dist/images/marker-icon.png";
-import iconShadow from "leaflet/dist/images/marker-shadow.png";
-import React, { useEffect } from "react";
-import "leaflet/dist/leaflet.css";
+import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
+import React, { useEffect, useState } from "react";
+import { MapPlaceholder } from "./mapPlaceholder";
+import { MapIconLocationCustom } from "./mapIconLocationCustom";
 
-export const MapStatic = ({ lat, lng }) => {
-  const initialPositionCoords = [-17.806098458690858, -63.16360831260682];
-  let DefaultIcon = L.icon({
-    iconUrl: icon,
-    shadowUrl: iconShadow,
-  });
-  L.Marker.prototype.options.icon = DefaultIcon;
+export const MapStatic = ({ mapLatLng }) => {
+  const [position, setPosition] = useState(mapLatLng);
 
   useEffect(() => {
-    // console.log({lat, lng});
-    // console.log({"initialPositionCoords":initialPositionCoords});
-
-    // console.log({ markerLat: lat, markerLng: lng });
-    console.log({ markerLat: lat, markerLng: lng });
-    // setPosition({ lat, lng });
+    setPosition(mapLatLng);
   }, []);
-
-
 
   return (
     <div style={{ width: "100%", backgroundColor: "red" }}>
       <MapContainer
         id="mapStatic"
-        // style={{ width: "100%", height: "200px" ,backgroundColor:"green" }}
-        center={  initialPositionCoords }
+        center={position}
         zoom={17}
-        scrollWheelZoom={false}
+        // scrollWheelZoom={false}
+        placeholder={<MapPlaceholder />}
       >
         <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        <Marker position={initialPositionCoords}>
-          <Popup>
-            {lat},{lng}
-          </Popup>
+        <Marker
+          icon={MapIconLocationCustom}
+          // icon={MapIconLocationGeneric}
+          position={position}
+          title={"Ubicación guardada"}
+          alt="marcador"
+          draggable={false}
+          // ref={markerRef}
+        >
+          <Popup>Ubicación de tu negocio</Popup>
         </Marker>
       </MapContainer>
     </div>
