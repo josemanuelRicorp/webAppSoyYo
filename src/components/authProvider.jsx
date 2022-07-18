@@ -31,12 +31,13 @@ export function AuthProviders({
           await registerNewUser({
             uid: user.uid,
             displayName: user.displayName,
-            email: user.email,
-            profilePicture: "gs://treelinkcv.appspot.com/default/user.png",
+            email: "",
+            profilePicture: "gs://soyyo-5ff46.appspot.com/default/user.png",
             theme:"default",
             username: "",
             career: "",
             description: "",
+            personalPhone:"",
             publicId: uuidv4(),
             processCompleted: false,
           });

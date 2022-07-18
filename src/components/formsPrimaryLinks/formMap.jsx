@@ -47,7 +47,7 @@ export const FormMap = ({ style, user, handleAccordion }) => {
 
         setState(1);
       }
-    }, 2600);
+    }, 2000);
   }
 
   function addLink() {

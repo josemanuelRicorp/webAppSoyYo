@@ -26,17 +26,20 @@ export default function EditProfileView() {
   const [displayName, setDisplayName] = useState("");
   const [career, setCareer] = useState("");
   const [description, setDescription] = useState("");
-
+  const [email, setEmail] = useState("");
+const [personalPhone, setPersonalPhone] = useState("");
   const [editUsername, setEditUsername] = useState(false);
   const [editDisplayName, setEditDisplayName] = useState(false);
   const [editCareer, setEditCareer] = useState(false);
   const [editDescription, setEditDescription] = useState(false);
-
+const [editPersonalPhone, setEditPersonalPhone] = useState(false);
+const [editEmail, setEditEmail] = useState(false);
   const usernameRef = useRef(null);
   const displayNameRef = useRef(null);
   const careerRef = useRef(null);
   const descriptionRef = useRef(null);
-
+  const personalPhoneRef = useRef(null);
+const emailRef = useRef(null);
   async function handleUserLoggeIn(user) {
     setCurrentUser(user);
     const url = await getProfilePhotoUrl(user.profilePicture);
@@ -46,6 +49,8 @@ export default function EditProfileView() {
     setDisplayName(user.displayName);
     setCareer(user.career);
     setDescription(user.description);
+    setEmail(user.email);
+    setPersonalPhone(user.personalPhone);
     setState(2);
   }
   function handleUserNotRegistered(user) {
@@ -60,8 +65,10 @@ export default function EditProfileView() {
     setProfileUrl(url);
   }
   function handleOnHide() {
-    setShow(false);
     loadPhoto();
+    setTimeout(() => {
+       setShow(false);
+    },1400);
   }
 
   function handleEditUsername() {
@@ -72,6 +79,12 @@ export default function EditProfileView() {
   }
   function handleEditCareer() {
     setEditCareer(true);
+  }
+  function handleEditPersonalPhone() {
+    setEditPersonalPhone(true);
+  }
+  function handleEditEmail() {
+    setEditEmail(true);
   }
   function handleEditDescription() {
     setEditDescription(true);
@@ -88,6 +101,14 @@ export default function EditProfileView() {
   function handleCancelEditCareer() {
     setCareer(currentUser.career);
     setEditCareer(false);
+  }
+  function handleCancelEditPersonalPhone() {
+    setPersonalPhone(currentUser.personalPhone);
+    setEditPersonalPhone(false);
+  }
+  function handleCancelEditEmail() {
+    setEmail(currentUser.email);
+    setEditEmail(false);
   }
   function handleCancelEditDescription() {
     setDescription(currentUser.description);
@@ -112,6 +133,18 @@ export default function EditProfileView() {
       setCareer(value);
     }
   }
+  function handleChangePersonalPhone(e) {
+    const value = e.target.value;
+    if (e.target.name === "phone") {
+      setPersonalPhone(value);
+    }
+  }
+  function handleChangeEmail(e) {
+    const value = e.target.value;
+    if (e.target.name === "email") {
+      setEmail(value);
+    }
+  }
   function handleChangeDescription(e) {
     const value = e.target.value;
     if (e.target.name === "description") {
@@ -130,6 +163,14 @@ export default function EditProfileView() {
   function handleSuccessEditCareer() {
     handleUpdateCareer();
     setEditCareer(false);
+  }
+  function handleSuccessEditPersonalPhone() {
+    handleUpdatePersonalPhone();
+    setEditPersonalPhone(false);
+  }
+  function handleSuccessEditEmail() {
+    handleUpdateEmail();
+    setEditEmail(false);
   }
   function handleSuccessEditDescription() {
     handleUpdateDescription();
@@ -163,6 +204,20 @@ export default function EditProfileView() {
       await updateUser(tmp);
     }
   }
+  async function handleUpdatePersonalPhone() {
+    if (personalPhone !== "") {
+      const tmp = { ...currentUser };
+      tmp.personalPhone = personalPhone;
+      await updateUser(tmp);
+    }
+  }
+  async function handleUpdateEmail() {
+    if (email !== "") {
+      const tmp = { ...currentUser };
+      tmp.email = email;
+      await updateUser(tmp);
+    }
+  }
   async function handleUpdateDescription() {
     if (description !== "") {
       const tmp = { ...currentUser };
@@ -172,7 +227,7 @@ export default function EditProfileView() {
   }
 
   function handleLink() {
-    let link = "/u/" + publicId;
+    let link = "https://soyyo.digital/u/#/" + publicId;
     return link;
   }
 
@@ -196,7 +251,10 @@ export default function EditProfileView() {
             <img src={profileUrl} alt="profile_photo" width={100} />
           </div>
           <div>
-            <button className="btn-custom btn-responsive" onClick={() => setShow(true)}>
+            <button
+              className="btn-custom btn-responsive"
+              onClick={() => setShow(true)}
+            >
               Cambiar foto de perfil
             </button>
             <ImageCropper
@@ -211,7 +269,7 @@ export default function EditProfileView() {
             <Col md lg={5}>
               <strong>Nombre de usuario</strong>
             </Col>
-            <Col md lg={7} className={style.cols}  >
+            <Col md lg={7} className={style.cols}>
               {editUsername ? (
                 <>
                   <Stack direction="horizontal" gap={2}>
@@ -267,27 +325,33 @@ export default function EditProfileView() {
           </Row>
 
           <Row className={style.rows}>
-            <Col  md lg={5}>
+            <Col md lg={5}>
               <strong>Enlace del perfil</strong>
             </Col>
-            <Col md lg={7} className={style.cols} >
+            <Col md lg={7} className={style.cols}>
               {/* <Link className={style.link}  rel="noreferrer"  target="_blank" to={handleLink()}>Visita tu perfil dando clic al enlace.</Link> */}
-              <Link
+              {/* <Link
                 className={style.link}
                 rel="noreferrer"
                 target="_blank"
                 to={handleLink()}
               >
                 soyyo.com/{username}
-              </Link>
+              </Link> */}
+              <a 
+              className={style.link}
+              rel="noreferrer"
+              target="_blank"
+              href={handleLink()}
+              >Abrir perfil</a>
             </Col>
           </Row>
 
           <Row className={style.rows}>
-            <Col  md lg={5}>
+            <Col md lg={5}>
               <strong>Nombre público</strong>
             </Col>
-            <Col md lg={7} className={style.cols} >
+            <Col md lg={7} className={style.cols}>
               {editDisplayName ? (
                 <Stack direction="horizontal" gap={2}>
                   <Form.Control
@@ -330,12 +394,55 @@ export default function EditProfileView() {
               )}
             </Col>
           </Row>
-
           <Row className={style.rows}>
-            <Col  md lg={5}>
+            <Col md lg={5}>
+              <strong>Correo electrónico personal</strong>
+            </Col>
+            <Col md lg={7} className={style.cols}>
+              {editEmail ? (
+                <Stack direction="horizontal" gap={2}>
+                  <Form.Control
+                    className="me-auto"
+                    placeholder="Escribe tu correo electrónico"
+                    name="email"
+                    type="text"
+                    maxlength="40"
+                    autoComplete="off"
+                    ref={emailRef}
+                    value={email}
+                    onChange={handleChangeEmail}
+                  />
+                  <button
+                    type="button"
+                    className="btn-custom negative small"
+                    onClick={handleCancelEditEmail}
+                  >
+                    <CgClose />
+                  </button>
+                  <div className="vr" />
+                  <button
+                    className="btn-custom small"
+                    onClick={handleSuccessEditEmail}
+                    type="button"
+                  >
+                    <HiCheck />
+                  </button>
+                </Stack>
+              ) : (
+                <>
+                  <button className={style.btnEdit} onClick={handleEditEmail}>
+                    <span className="material-icons">edit</span>
+                  </button>
+                  {email}
+                </>
+              )}
+            </Col>
+          </Row>
+          <Row className={style.rows}>
+            <Col md lg={5}>
               <strong>Profesión</strong>
             </Col>
-            <Col md lg={7} className={style.cols} >
+            <Col md lg={7} className={style.cols}>
               {editCareer ? (
                 <Stack direction="horizontal" gap={2}>
                   <Form.Control
@@ -375,12 +482,57 @@ export default function EditProfileView() {
               )}
             </Col>
           </Row>
+
           <Row className={style.rows}>
-            <Col  md lg={5}>
+            <Col md lg={5}>
+              <strong>Teléfono personal</strong>
+            </Col>
+            <Col md lg={7} className={style.cols}>
+              {editPersonalPhone ? (
+                <Stack direction="horizontal" gap={2}>
+                  <Form.Control
+                    className="me-auto"
+                    placeholder="Escribe tu teléfono de contacto"
+                    name="phone"
+                    type="text"
+                    maxlength="40"
+                    autoComplete="off"
+                    ref={personalPhoneRef}
+                    value={personalPhone}
+                    onChange={handleChangePersonalPhone}
+                  />
+                  <button
+                    type="button"
+                    className="btn-custom negative small"
+                    onClick={handleCancelEditPersonalPhone}
+                  >
+                    <CgClose />
+                  </button>
+                  <div className="vr" />
+                  <button
+                    className="btn-custom small"
+                    onClick={handleSuccessEditPersonalPhone}
+                    type="button"
+                  >
+                    <HiCheck />
+                  </button>
+                </Stack>
+              ) : (
+                <>
+                  <button className={style.btnEdit} onClick={handleEditPersonalPhone}>
+                    <span className="material-icons">edit</span>
+                  </button>
+                  {personalPhone}
+                </>
+              )}
+            </Col>
+          </Row>
+          <Row className={style.rows}>
+            <Col md lg={5}>
               <strong>Acerca de mi</strong>
             </Col>
 
-            <Col md lg={7} className={style.cols} >
+            <Col md lg={7} className={style.cols}>
               {editDescription ? (
                 <Stack direction="horizontal" gap={2}>
                   <Form.Control
@@ -428,8 +580,6 @@ export default function EditProfileView() {
             </Col>
           </Row>
         </div>
-       
-        
       </div>
     </DashboardWrapper>
   );

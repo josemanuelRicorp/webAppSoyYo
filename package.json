@@ -1,6 +1,7 @@
 {
   "name": "cvlinktree",
   "version": "0.1.0",
+  "homepage": "https://soyyo.digital/admin/",
   "private": true,
   "dependencies": {
     "@popperjs/core": "^2.11.5",

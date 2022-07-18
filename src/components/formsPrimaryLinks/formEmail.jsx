@@ -8,12 +8,13 @@ import { link2FieldsEmail } from "../../utils/socialMediaFields";
 import { linkEmail } from "../../utils/socialMediaLinks";
 import { v4 as uuidv4 } from "uuid";
 import MessageInputs from "../messageInputs";
-import { Col, Form, Row } from "react-bootstrap";
+import { Col, Form, Row, Spinner } from "react-bootstrap";
 
-export const FormEmail = ({ style, user , handleAccordion }) => {
+export const FormEmail = ({ style, user, handleAccordion }) => {
   const [currentUser, setCurrentUser] = useState(user);
   const [openEmail, setOpenEmail] = useState(false);
-
+  const [state, setState] = useState(0);
+  const [isDisabled, setIsDisabled] = useState(false);
   const [emailLinkDocId, setEmailLinkDocId] = useState("");
   const [emailAddress, setEmailAddress] = useState("");
   const [emailSubject, setEmailSubject] = useState("");
@@ -29,7 +30,7 @@ export const FormEmail = ({ style, user , handleAccordion }) => {
     const resLinksEmail = await getLinksBySocialMedia(uid, "email");
     if (resLinksEmail.length > 0) {
       const linkObject = [...resLinksEmail][0];
-     setEmailLinkDocId(linkObject.docId);
+      setEmailLinkDocId(linkObject.docId);
       let fieldsData = link2FieldsEmail(linkObject.url);
       setEmailAddress(fieldsData.email);
       setEmailSubject(fieldsData.subject);
@@ -38,7 +39,7 @@ export const FormEmail = ({ style, user , handleAccordion }) => {
   }
 
   function addLink() {
-    if (emailAddress!== "") {
+    if (emailAddress !== "") {
       const newURL = linkEmail(emailAddress, emailSubject, emailBody);
       const newLink = {
         id: uuidv4(),
@@ -50,6 +51,7 @@ export const FormEmail = ({ style, user , handleAccordion }) => {
       };
       const res = insertNewLink(newLink);
       newLink.docId = res.id;
+
       return newLink.docId;
     }
   }
@@ -65,22 +67,21 @@ export const FormEmail = ({ style, user , handleAccordion }) => {
         uid: currentUser.uid,
       };
       const res = updateLink(currentLinkDocId, link);
-       link.docId = res.id;
-     
+      link.docId = res.id;
     }
   }
-
 
   function handleOnSubmitEmail(e) {
     e.preventDefault();
     e.stopPropagation();
-    if (emailLinkDocId !== "") {
-      editLink(emailLinkDocId);
-    } else {
-      addLink();
-    }
-    handleMessageConfirmation();
-    handleAccordion();
+    handleButton();
+    // if (emailLinkDocId !== "") {
+    //   editLink(emailLinkDocId);
+    // } else {
+    //   addLink();
+    // }
+    // handleMessageConfirmation();
+    // handleAccordion();
   }
 
   function handleOnChangeEmailAddress() {
@@ -92,25 +93,33 @@ export const FormEmail = ({ style, user , handleAccordion }) => {
   function handleOnChangeEmailBody() {
     setEmailBody(emailBodyRef.current.value);
   }
-
+  function handleButton() {
+    setState(11);
+    setIsDisabled(true);
+    if (emailLinkDocId !== "") {
+      editLink(emailLinkDocId);
+    } else {
+      addLink();
+    }
+    setTimeout(() => {
+      setState(19);
+      handleMessageConfirmation();
+      handleAccordion();
+    }, 2000);
+  }
   function handleMessageConfirmation() {
     setOpenEmail(true);
+    setState(10);
     setTimeout(() => {
+      setState(0);
+      setIsDisabled(false);
       setOpenEmail(false);
     }, 2000);
   }
+
   return (
     <>
       <Form className={style} onSubmit={handleOnSubmitEmail}>
-        {openEmail ? (
-          <MessageInputs
-            open={openEmail}
-            type={"success"}
-            socialmedia={"correo electrónico"}
-          ></MessageInputs>
-        ) : (
-          ""
-        )}
         <h2>Datos para el enlace de tu E-mail</h2>
         <Form.Group as={Row} className="mb-3">
           <Form.Label column lg="4">
@@ -165,8 +174,32 @@ export const FormEmail = ({ style, user , handleAccordion }) => {
             />
           </Col>
         </Form.Group>
-
-        <input className="btn-custom" type="submit" value="Guardar datos" />
+        {/* {isDisabled ? ( */}
+        {state == 10 ? (
+          <button className="btn-custom disabled" disabled type="submit">
+            <Spinner
+              className="me-1"
+              as="span"
+              animation="grow"
+              size="sm"
+              role="status"
+              aria-hidden="true"
+            />
+            Procesando
+          </button>
+        ) : (
+         
+          <input className="btn-custom" type="submit" value="Guardar datos" />
+        )}
+        {openEmail ? (
+          <MessageInputs
+            open={openEmail}
+            type={"success"}
+            socialmedia={"correo electrónico"}
+          ></MessageInputs>
+        ) : (
+          ""
+        )}
       </Form>
     </>
   );

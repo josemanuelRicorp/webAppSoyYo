@@ -16,7 +16,6 @@ export default function ImageCropper({ show, handleOnHide, user }) {
   const fileRef = useRef(null);
 
   useEffect(() => {
-    console.log(currentUser);
     setImage(defaultImg);
     setState(9);
   }, [handleOnHide]);

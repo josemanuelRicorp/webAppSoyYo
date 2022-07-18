@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom";
 import style from "../styles/dashboardwrapper.module.css";
 // import logo from "../assets/img/logo.svg";
+//import logo from "../assets/img/logoSoyYo.svg";
 import logo from "../assets/img/logoSoyYo.svg";
 import logoMtcorp from "../assets/img/logo-mt-corp.svg";
+// import images from '../utils/images';
 
 // import logo from "../assets/img/soyyo.png";
 import { Container, Nav, Navbar, Row, Stack } from "react-bootstrap";
@@ -21,9 +23,12 @@ export default function DashboardWrapper({ children }) {
         expand="lg"
         sticky="top"
       >
-        <Container >
+        <Container>
           <Navbar.Brand>
             <Link to="/" className={`${style.logo}`}>
+
+
+            {/* <img src={images[0].img}  alt={images[0].alt}  /> */}
               <img src={logo} alt="Logotipo" />
             </Link>
           </Navbar.Brand>
@@ -32,7 +37,7 @@ export default function DashboardWrapper({ children }) {
             id="responsive-navbar-nav"
             className="justify-content-end"
           >
-            <Nav 
+            <Nav
             // className="me-auto my-2 my-lg-0"
             >
               <Link to="/perfil">Perfil</Link>

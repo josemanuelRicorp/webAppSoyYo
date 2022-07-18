@@ -7,6 +7,9 @@ import style from "../styles/dashboardView.module.css";
 
 import { Accordion } from "react-bootstrap";
 import { FormEmail, FormMap, FormPhone, FormWhatsapp } from "../components/formsPrimaryLinks";
+import { MdEmail} from "react-icons/md";
+import { RiMapPinUserLine} from "react-icons/ri";
+import { AiOutlineWhatsApp, AiFillPhone } from "react-icons/ai";
 
 
 export default function LinksPrimaryView() {
@@ -59,25 +62,25 @@ export default function LinksPrimaryView() {
         className={style.accordionCustom}
       >
         <Accordion.Item eventKey="1" className={style.accordionItemCustom}>
-          <Accordion.Header>WhatsApp</Accordion.Header>
+          <Accordion.Header> <AiOutlineWhatsApp  className={style.linkIcon}></AiOutlineWhatsApp>  WhatsApp</Accordion.Header>
           <Accordion.Body>
           <FormWhatsapp user={currentUser} style={style.entryContainer}  handleAccordion={closeAccordion}/>
           </Accordion.Body>
         </Accordion.Item>
         <Accordion.Item eventKey="2" className={style.accordionItemCustom}>
-          <Accordion.Header>Correo electrónico</Accordion.Header>
+          <Accordion.Header> <MdEmail  className={style.linkIcon}></MdEmail>  Correo electrónico</Accordion.Header>
           <Accordion.Body>
             <FormEmail user={currentUser} style={style.entryContainer} handleAccordion={closeAccordion} />
           </Accordion.Body>
         </Accordion.Item>
         <Accordion.Item eventKey="3" className={style.accordionItemCustom}>
-          <Accordion.Header>Telefóno</Accordion.Header>
+          <Accordion.Header> <AiFillPhone className={style.linkIcon}></AiFillPhone>  Telefóno</Accordion.Header>
           <Accordion.Body>
           <FormPhone user={currentUser} style={style.entryContainer} handleAccordion={closeAccordion} />
           </Accordion.Body>
         </Accordion.Item>
         <Accordion.Item eventKey="4" className={style.accordionItemCustom}>
-          <Accordion.Header>Mapas</Accordion.Header>
+          <Accordion.Header> <RiMapPinUserLine className={style.linkIcon}></RiMapPinUserLine> Mapas</Accordion.Header>
           <Accordion.Body>
           <FormMap user={currentUser} style={style.entryContainer} handleAccordion={closeAccordion} />
 
