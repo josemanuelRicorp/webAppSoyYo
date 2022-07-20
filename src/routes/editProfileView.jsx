@@ -13,6 +13,7 @@ import ImageCropper from "../components/imageCropper";
 import Loading from "../components/loading";
 import { HiCheck } from "react-icons/hi";
 import { CgClose } from "react-icons/cg";
+import { FaPen } from "react-icons/fa";
 
 export default function EditProfileView() {
   const navigate = useNavigate();
@@ -27,19 +28,19 @@ export default function EditProfileView() {
   const [career, setCareer] = useState("");
   const [description, setDescription] = useState("");
   const [email, setEmail] = useState("");
-const [personalPhone, setPersonalPhone] = useState("");
+  const [personalPhone, setPersonalPhone] = useState("");
   const [editUsername, setEditUsername] = useState(false);
   const [editDisplayName, setEditDisplayName] = useState(false);
   const [editCareer, setEditCareer] = useState(false);
   const [editDescription, setEditDescription] = useState(false);
-const [editPersonalPhone, setEditPersonalPhone] = useState(false);
-const [editEmail, setEditEmail] = useState(false);
+  const [editPersonalPhone, setEditPersonalPhone] = useState(false);
+  const [editEmail, setEditEmail] = useState(false);
   const usernameRef = useRef(null);
   const displayNameRef = useRef(null);
   const careerRef = useRef(null);
   const descriptionRef = useRef(null);
   const personalPhoneRef = useRef(null);
-const emailRef = useRef(null);
+  const emailRef = useRef(null);
   async function handleUserLoggeIn(user) {
     setCurrentUser(user);
     const url = await getProfilePhotoUrl(user.profilePicture);
@@ -67,8 +68,8 @@ const emailRef = useRef(null);
   function handleOnHide() {
     loadPhoto();
     setTimeout(() => {
-       setShow(false);
-    },1400);
+      setShow(false);
+    }, 1400);
   }
 
   function handleEditUsername() {
@@ -186,44 +187,41 @@ const emailRef = useRef(null);
         const tmp = { ...currentUser };
         tmp.username = username;
         await updateUser(tmp);
+        setCurrentUser(...tmp);
         setState(6);
       }
     }
   }
   async function handleUpdateDisplayName() {
-    if (displayName !== "") {
       const tmp = { ...currentUser };
       tmp.displayName = displayName;
       await updateUser(tmp);
-    }
+      setCurrentUser(...tmp);
+    
   }
   async function handleUpdateCareer() {
-    if (career !== "") {
       const tmp = { ...currentUser };
       tmp.career = career;
       await updateUser(tmp);
-    }
+      setCurrentUser(...tmp);
   }
   async function handleUpdatePersonalPhone() {
-    if (personalPhone !== "") {
       const tmp = { ...currentUser };
       tmp.personalPhone = personalPhone;
       await updateUser(tmp);
-    }
+      setCurrentUser(...tmp);
   }
   async function handleUpdateEmail() {
-    if (email !== "") {
       const tmp = { ...currentUser };
       tmp.email = email;
       await updateUser(tmp);
-    }
+      setCurrentUser(...tmp);
   }
   async function handleUpdateDescription() {
-    if (description !== "") {
       const tmp = { ...currentUser };
       tmp.description = description;
       await updateUser(tmp);
-    }
+      setCurrentUser(...tmp);
   }
 
   function handleLink() {
@@ -248,7 +246,10 @@ const emailRef = useRef(null);
         <h1>Editar información del perfil</h1>
         <div className={style.profilePictureContainer}>
           <div>
-            <img src={profileUrl} alt="profile_photo" width={100} />
+            <div className={style.profilePicture} width={100}>
+            <img className={style.profilePictureImg} src={profileUrl} alt="profile_photo"  />
+            </div>
+            
           </div>
           <div>
             <button
@@ -280,7 +281,7 @@ const emailRef = useRef(null);
                       placeholder="Escribe tu nombre de usuario"
                       name="username"
                       className="me-auto"
-                      maxlength="20"
+                      maxLength="20"
                       value={username}
                       onChange={handleChangeUsername}
                     />
@@ -311,12 +312,14 @@ const emailRef = useRef(null);
                   </Row>
                 </>
               ) : (
-                <>
+                <> 
                   <button
                     className={style.btnEdit}
                     onClick={handleEditUsername}
                   >
-                    <span className="material-icons">edit</span>
+                   
+                    <span><FaPen className={style.iconEdit}></FaPen></span>
+                    {/*  <span><FaPen className={style.iconEdit}></FaPen></span> */}
                   </button>
                   {username}
                 </>
@@ -329,21 +332,14 @@ const emailRef = useRef(null);
               <strong>Enlace del perfil</strong>
             </Col>
             <Col md lg={7} className={style.cols}>
-              {/* <Link className={style.link}  rel="noreferrer"  target="_blank" to={handleLink()}>Visita tu perfil dando clic al enlace.</Link> */}
-              {/* <Link
+              <a
                 className={style.link}
                 rel="noreferrer"
                 target="_blank"
-                to={handleLink()}
+                href={handleLink()}
               >
-                soyyo.com/{username}
-              </Link> */}
-              <a 
-              className={style.link}
-              rel="noreferrer"
-              target="_blank"
-              href={handleLink()}
-              >Abrir perfil</a>
+                Abrir perfil
+              </a>
             </Col>
           </Row>
 
@@ -359,7 +355,7 @@ const emailRef = useRef(null);
                     autoComplete="off"
                     placeholder="Escribe tu nombre"
                     name="displayName"
-                    maxlength="40"
+                    maxLength="40"
                     className="me-auto"
                     ref={displayNameRef}
                     value={displayName}
@@ -387,7 +383,7 @@ const emailRef = useRef(null);
                     className={style.btnEdit}
                     onClick={handleEditDisplayName}
                   >
-                    <span className="material-icons">edit</span>
+                     <span><FaPen className={style.iconEdit}></FaPen></span>
                   </button>
                   {displayName}
                 </>
@@ -406,7 +402,7 @@ const emailRef = useRef(null);
                     placeholder="Escribe tu correo electrónico"
                     name="email"
                     type="text"
-                    maxlength="40"
+                    maxLength="40"
                     autoComplete="off"
                     ref={emailRef}
                     value={email}
@@ -431,7 +427,7 @@ const emailRef = useRef(null);
               ) : (
                 <>
                   <button className={style.btnEdit} onClick={handleEditEmail}>
-                    <span className="material-icons">edit</span>
+                     <span><FaPen className={style.iconEdit}></FaPen></span>
                   </button>
                   {email}
                 </>
@@ -450,7 +446,7 @@ const emailRef = useRef(null);
                     placeholder="Escribe tu profesión"
                     name="career"
                     type="text"
-                    maxlength="40"
+                    maxLength="40"
                     autoComplete="off"
                     ref={careerRef}
                     value={career}
@@ -475,7 +471,7 @@ const emailRef = useRef(null);
               ) : (
                 <>
                   <button className={style.btnEdit} onClick={handleEditCareer}>
-                    <span className="material-icons">edit</span>
+                     <span><FaPen className={style.iconEdit}></FaPen></span>
                   </button>
                   {career}
                 </>
@@ -495,7 +491,7 @@ const emailRef = useRef(null);
                     placeholder="Escribe tu teléfono de contacto"
                     name="phone"
                     type="text"
-                    maxlength="40"
+                    maxLength="40"
                     autoComplete="off"
                     ref={personalPhoneRef}
                     value={personalPhone}
@@ -519,8 +515,11 @@ const emailRef = useRef(null);
                 </Stack>
               ) : (
                 <>
-                  <button className={style.btnEdit} onClick={handleEditPersonalPhone}>
-                    <span className="material-icons">edit</span>
+                  <button
+                    className={style.btnEdit}
+                    onClick={handleEditPersonalPhone}
+                  >
+                     <span><FaPen className={style.iconEdit}></FaPen></span>
                   </button>
                   {personalPhone}
                 </>
@@ -539,7 +538,7 @@ const emailRef = useRef(null);
                     className="me-auto"
                     as="textarea"
                     style={{ height: "100px" }}
-                    maxlength="150"
+                    maxLength="150"
                     resizable="false"
                     rows={3}
                     cols={50}
@@ -572,7 +571,7 @@ const emailRef = useRef(null);
                     className={style.btnEdit}
                     onClick={handleEditDescription}
                   >
-                    <span className="material-icons">edit</span>
+                     <span><FaPen className={style.iconEdit}></FaPen></span>
                   </button>
                   {description}
                 </>

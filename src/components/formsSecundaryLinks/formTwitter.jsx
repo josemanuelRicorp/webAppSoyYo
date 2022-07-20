@@ -12,7 +12,7 @@ import MessageInputs from "../messageInputs";
 import {  BsTwitter } from "react-icons/bs";
 
 export const FormTwitter = ({ style, user, handleAccordion }) => {
-  const [currentUser, setCurrentUser] = useState({});
+  const [currentUser, setCurrentUser] = useState(user);
   const [twitterUsername, setTwitterUsername] = useState("");
   const [openTwitter, setOpenTwitter] = useState(false);
   const [twitterLinkDocId, setTwitterLinkDocId] = useState("");
@@ -34,17 +34,20 @@ export const FormTwitter = ({ style, user, handleAccordion }) => {
   function addLink() {
     if (twitterUsername !== "") {
       const newURL = linkTwitter(twitterUsername);
+      
       const newLink = {
         id: uuidv4(),
         title: "Twitter",
         category: "secondary",
-
+socialmedia: "twitter",
         url: newURL,
-        socialmedia: "twitter",
+        
         uid: currentUser.uid,
       };
+      console.log(newLink);
       const res = insertNewLink(newLink);
       newLink.docId = res.id;
+      return newLink.docId;
     }
   }
 
@@ -54,12 +57,13 @@ export const FormTwitter = ({ style, user, handleAccordion }) => {
       const link = {
         title: "Twitter",
         category: "secondary",
-
+ socialmedia: "twitter",
         url: newURL,
-        socialmedia: "twitter",
+       
         uid: currentUser.uid,
       };
       const res = updateLink(currentLinkDocId, link);
+     
       link.docId = res.id;
     }
   }
@@ -82,7 +86,7 @@ export const FormTwitter = ({ style, user, handleAccordion }) => {
       setOpenTwitter(false);
     }, 2000);
   }
-  function handleOnChangeTiktokUsername() {
+  function handleOnChangeTwitterUsername() {
     setTwitterUsername(usernameRef.current.value);
   }
 
@@ -118,7 +122,7 @@ export const FormTwitter = ({ style, user, handleAccordion }) => {
                   placeholder="Nombre de usuario"
                   value={twitterUsername}
                   ref={usernameRef}
-                  onChange={handleOnChangeTiktokUsername}
+                  onChange={handleOnChangeTwitterUsername}
                    autoComplete="off"
                   aria-label="Nombre de usuario"
                 />

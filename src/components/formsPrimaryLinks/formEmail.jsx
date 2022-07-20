@@ -71,6 +71,10 @@ export const FormEmail = ({ style, user, handleAccordion }) => {
     }
   }
 
+
+
+
+
   function handleOnSubmitEmail(e) {
     e.preventDefault();
     e.stopPropagation();

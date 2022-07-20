@@ -83,7 +83,7 @@ export async function updateUser(user) {
     try {
         const collectionRef = collection(db, 'users');
         const docRef = doc(collectionRef, user.uid);
-        await setDoc(docRef, user).then(() => { console.log("User editado")});
+        await setDoc(docRef, user).then((res) => { console.log("User editado"); console.log({res});});
     } catch (error) {
         console.error(error);
     }
@@ -193,6 +193,7 @@ export async function updateLink(docId, link) {
         return res;
     } catch (error) {
         console.error(error);
+        return error;
     }
 }
 

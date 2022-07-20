@@ -20,28 +20,28 @@ code {
 }
 
 .material-icons {
-  font-family: "Material Icons";
+  /* font-family: "Material Icons";
   font-weight: normal;
   font-style: normal;
   font-size: 16px; /* Preferred icon size */
-  display: inline-block;
+  /* display: inline-block;
   line-height: 1;
   text-transform: none;
   letter-spacing: normal;
   word-wrap: normal;
   white-space: nowrap;
   direction: ltr;
-  cursor: none;
+  cursor: none; */
   /* Support for all WebKit browsers. */
-  -webkit-font-smoothing: antialiased;
+  /* -webkit-font-smoothing: antialiased; */
   /* Support for Safari and Chrome. */
-  text-rendering: optimizeLegibility;
+  /* text-rendering: optimizeLegibility; */
 
   /* Support for Firefox. */
-  -moz-osx-font-smoothing: grayscale;
+  /* -moz-osx-font-smoothing: grayscale; */
 
   /* Support for IE. */
-  font-feature-settings: "liga";
+  /* font-feature-settings: "liga"; */
 }
 .btn-custom,
 .btn {
@@ -100,7 +100,7 @@ input[type="text"] {
   /* width: 100vw; */
   /* height: 100vh; */
 }
-.mapContainer{
+.mapContainer {
   padding: 10px;
   background-color: #ffffffcc;
   /* background-color: red; */

@@ -5,22 +5,33 @@
   gap: 20px;
 }
 
-.profilePictureContainer img {
+
+.profilePicture {
   border-radius: 50%;
   width: 125px;
   height: 125px;
-  /* border: 3px solid rgb(252, 159, 58); */
+  box-sizing: border-box;
   border: 3px solid #4aaed5;
-
+  background-color: white;
 }
+.profilePictureImg {
+  border-radius: 50%;
+  width: 100%;
+  height: 100%;
+}
+
+
+
+
+
 .containerPersonalData {
   margin-top: 15px;
 }
 .rows {
-  display:  flex;
+  display: flex;
 
   align-items: center;
-  margin:auto;
+  margin: auto;
   margin-top: 10px;
   padding: 20px;
   box-sizing: border-box;
@@ -30,12 +41,9 @@
 }
 
 @media screen and (max-width: 768px) {
- .cols{
-   margin-top: 10px;
- }
-
-
-
+  .cols {
+    margin-top: 10px;
+  }
 }
 @media screen and (min-width: 900px) {
   .main-container {
@@ -43,9 +51,7 @@
   }
 }
 
-
-
-.link{
+.link {
   /* color: #a2d4e9;
   color: #a99ec3; */
   /* color: #2a136c; */
@@ -73,17 +79,42 @@
   background-color: transparent;
   height: 100%;
   cursor: pointer;
+  font-size: 16px;
 }
 .btnEdit {
   margin-right: 5px;
   color: #cccc;
 }
 
-.btnEdit span{
+.btnEdit span {
   font-weight: bold;
   font-size: 22px;
 }
 
 .btnEdit:hover {
   color: #222;
+}
+.iconEdit {
+  font-weight: normal;
+  font-style: normal;
+  font-size: 18px;
+  /* Preferred icon size */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+  cursor: none;
+  /* Support for all WebKit browsers. */
+  -webkit-font-smoothing: antialiased;
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Support for IE. */
+  font-feature-settings: "liga";
 }
