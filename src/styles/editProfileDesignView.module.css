@@ -1,17 +1,19 @@
-
 .containerPersonalData {
   margin-top: 15px;
 }
 .rows {
-  display:  flex;
+  display: flex;
   align-items: center;
-  margin:auto;
+  margin: auto;
   margin-top: 10px;
   padding: 20px;
   box-sizing: border-box;
   /* height: 40px; */
   border-radius: 5px;
   background-color: #eeeeee;
+  color: rgb(71, 71, 71) ;
+
+
 }
 
 .secondaryLink {
@@ -45,32 +47,54 @@
   margin-right: 15px;
   font-size: 25px;
 }
-.btnColor1{
- height: 10px;
+
+.gridContainer {
+  height: 70px;
+  display: grid;
+  grid-template-columns: auto auto auto;
+  padding: 10px;
 }
-.btnColor2{
-  background-color: aqua;
+.gridItem {
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  color: white;
+  text-align: center;
 }
-.btnColor3{
-  background-color: black;
+
+
+
+.imageContainer {
+  height: 100%;
+}
+
+.imageContainer,
+.containerBtnSave {
+  /* background-color: red; */
+  width: 100%;
+  display: flex;
+  align-items: center;
+  vertical-align: middle;
+  justify-content: center;
+}
+.imgPreview {
+  width: 400px;
+  height: 200px;
 }
 
 
-
-
+.btnSave{
+  width: 400px;
+  text-align: center;
+  align-items: center;
+}
 
 @media screen and (max-width: 768px) {
- .cols{
-   margin-top: 10px;
- }
-
-
-
+  .cols {
+    margin-top: 10px;
+  }
 }
 @media screen and (min-width: 900px) {
   .main-container {
-    width: 800px;
+    width: 900px;
   }
 }
-
 

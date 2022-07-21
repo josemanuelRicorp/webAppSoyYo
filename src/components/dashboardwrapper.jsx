@@ -7,7 +7,14 @@ import logoMtcorp from "../assets/img/logo-mt-corp.svg";
 // import images from '../utils/images';
 
 // import logo from "../assets/img/soyyo.png";
-import { Container, Nav, Navbar, Row, Stack } from "react-bootstrap";
+import {
+  Container,
+  Nav,
+  Navbar,
+  NavDropdown,
+  Row,
+  Stack,
+} from "react-bootstrap";
 import { FaLocationArrow } from "react-icons/fa";
 import { AiOutlineMail } from "react-icons/ai";
 
@@ -26,9 +33,7 @@ export default function DashboardWrapper({ children }) {
         <Container>
           <Navbar.Brand>
             <Link to="/" className={`${style.logo}`}>
-
-
-            {/* <img src={images[0].img}  alt={images[0].alt}  /> */}
+              {/* <img src={images[0].img}  alt={images[0].alt}  /> */}
               <img src={logo} alt="Logotipo" />
             </Link>
           </Navbar.Brand>
@@ -37,14 +42,38 @@ export default function DashboardWrapper({ children }) {
             id="responsive-navbar-nav"
             className="justify-content-end"
           >
-            <Nav
-            // className="me-auto my-2 my-lg-0"
-            >
-              <Link to="/perfil">Perfil</Link>
-              <Link to="/diseno">Diseño</Link>
-              <Link to="/enlaces/principales">Enlaces principales</Link>
-              <Link to="/enlaces/secundarios">Enlaces secundarios</Link>
-              <Link to="/cerrar-sesion">Salir</Link>
+            <Nav className="mr-auto">
+              <Link className="nav-link" to="/">
+                Inicio
+              </Link>
+              <NavDropdown
+                title="Configuración del perfil"
+                id="collasible-nav-dropdown"
+              >
+                <Link className="dropdown-item" to="/perfil/informacion">
+                  Información personal del perfil
+                </Link>
+                <Link className="dropdown-item" to="/perfil/diseno">
+                  Diseño del perfil
+                </Link>
+              </NavDropdown>
+              <NavDropdown
+                title="Configuración de los enlaces"
+                id="collasible-nav-dropdown"
+              >
+                <Link className="dropdown-item" to="/enlaces/principales">
+                  Enlaces principales
+                </Link>
+                <Link className="dropdown-item" to="/enlaces/secundarios">
+                  Enlaces secundarios
+                </Link>
+                <Link className="dropdown-item" to="/enlaces/personalizados">
+                  Enlaces personalizados
+                </Link>
+              </NavDropdown>
+              <Link className="nav-link" to="/cerrar-sesion">
+                Salir
+              </Link>
             </Nav>
           </Navbar.Collapse>
         </Container>

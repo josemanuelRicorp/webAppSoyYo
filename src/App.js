@@ -23,8 +23,8 @@ function App() {
         <Route exact path="/iniciar-sesion" element={<LoginView />}></Route>
         <Route exact path="/enlaces/principales" element={<LinksPrimaryView />}></Route>
         <Route exact path="/enlaces/secundarios" element={<LinksSecondaryView />}></Route>
-        <Route exact path="/perfil" element={<EditProfileView />}></Route>
-        <Route exact path="/diseno" element={<EditProfileDesignView />}></Route>
+        <Route exact path="/perfil/informacion" element={<EditProfileView />}></Route>
+        <Route exact path="/perfil/diseno" element={<EditProfileDesignView />}></Route>
         <Route exact path="cerrar-sesion" element={<SignOutView />}></Route>
         <Route exact path="u/:publicId" element={<PublicProfileView />}></Route>
         <Route exact path="/asignar-alias" element={<ChooseUserNameView />}></Route>

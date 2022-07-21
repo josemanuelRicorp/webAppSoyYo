@@ -1,42 +1,88 @@
-.first {
-  background: rgba(125, 164, 120, 0.8);
-  background: rgba(125, 164, 120, 0.8);
-  background: rgba(125, 164, 120, 0.8);
-  /* background: #A39171; */
-  /* background: #D499B9; */
-  /* background: #6CAE75; */
-  /* background:#24272B; */
-  /* background: #6E7E85; */
-  /* background: #BBBAC6; */
-  /* background:#785589; */
-  /* background: #DB5A42; */
-  /* background: rgba(125,164,120,0.8); */
-  background: #4ba3c3;
-}
-.firstHover:hover {
-  background: #273c2c;
-  background: #273c2c;
-  background: #273c2c;
-  /* background:#6D4C3D; */
-  /* background:#E8C1C5; */
-  /* background:#8BBD8B; */
-  /* background:#4A525A; */
-  /* background:#B7CECE; */
-  /* background:#E2E2E2; */
-  /* background:#977390; */
-  /* background:rgba(219,90,66,0.7);  */
-  /* background:#273C2C; */
-  background: #175676;
-}
-.second {
+.color1:hover {
+  background-color: #273c2c;
   background: rgba(125, 164, 120, 0.8);
 }
-.secondHover:hover {
-  background: #273c2c;
+.color1:hover.rec,
+.color1 {
+  background: rgba(125, 164, 120, 0.8);
+  background-color: #273c2c;
+
 }
-.third {
-    background: #DB5A42;
+.color2:hover {
+  background-color:  #175676;
+  background-color: #e00000;
 }
-.thirdHover:hover {
-    background:rgba(219,90,66,0.7); 
+.color2:hover.rec,
+.color2 {
+  background-color:  #4ba3c3;
+  background-color: #ad0101;
+
+
 }
+.color3:hover {
+  background-color:rgba(219,90,66,0.7);
+}
+.color3:hover.rec,
+.color3 {
+  background-color:rgba(219,90,66,1); 
+
+}
+
+.color4:hover {
+  background-color: #977390;
+}
+.color4:hover.rec,
+.color4 {
+  background-color: #785589;
+}
+.color5:hover {
+  background-color: #4A525A;
+  background-color: #E8C1C5; 
+  /* background-color: #242423  */
+}
+.color5:hover.rec,
+.color5 {
+  background-color: #24272B;
+  background-color: #D499B9;
+  /* background-color: #333533; */
+}
+.color6:hover{
+  background-color: #8BBD8B;
+  background-color:  #175676;
+}
+.color6:hover.rec,
+.color6 {
+  background-color: #6CAE75;
+  background-color:  #4ba3c3;
+}
+.color7:hover {
+  background-color: #E8C1C5; 
+  background-color: #00276c;
+  background-color: #120052;
+}
+.color7:hover.rec,
+.color7 {
+  background-color: #D499B9;
+  background-color: #24272B;
+  background-color: #120052;
+  background-color: #00276c;
+}
+.color8:hover {
+  background-color: #6D4C3D; 
+}
+.color8:hover.rec,
+.color8 {
+  background-color: #A39171;
+}
+
+.color9:hover {
+  background-color: #f9db5c;
+
+}
+.color9:hover.rec,
+.color9 {
+background-color: #f9db5c;
+background-color: #FFD23F;
+background-color: #ffd900;
+}
+

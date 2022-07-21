@@ -33,7 +33,7 @@ export function AuthProviders({
             displayName: user.displayName,
             email: "",
             profilePicture: "gs://soyyo-5ff46.appspot.com/default/user.png",
-            theme:"default",
+            theme:"color6",
             username: "",
             career: "",
             description: "",
