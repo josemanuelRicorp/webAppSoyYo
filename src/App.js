@@ -13,6 +13,7 @@ import PublicProfileView from './routes/publicProfileView';
 import ChooseUserNameView from './routes/chooseUsernameView';
 import DashboardView from './routes/dashboardView';
 import EditProfileDesignView from './routes/editProfileDesignView';
+import LinksCustomView from './routes/linksCustomView';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route exact path="/iniciar-sesion" element={<LoginView />}></Route>
         <Route exact path="/enlaces/principales" element={<LinksPrimaryView />}></Route>
         <Route exact path="/enlaces/secundarios" element={<LinksSecondaryView />}></Route>
+        <Route exact path="/enlaces/personalizados" element={<LinksCustomView />}></Route>
         <Route exact path="/perfil/informacion" element={<EditProfileView />}></Route>
         <Route exact path="/perfil/diseno" element={<EditProfileDesignView />}></Route>
         <Route exact path="cerrar-sesion" element={<SignOutView />}></Route>

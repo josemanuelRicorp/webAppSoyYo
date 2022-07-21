@@ -109,6 +109,19 @@ export async function insertNewLink(link) {
     }
 }
 
+export async function insertNewLinkCustoms(link) {
+    try {
+      const docRef = collection(db, "links_customs");
+      const res = await addDoc(docRef, link);
+      return res;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  
+
+
+
 export async function getLinks(uid) {
     const links = [];
     try {
@@ -125,6 +138,28 @@ export async function getLinks(uid) {
         console.error(error);
     }
 }
+
+export async function getLinksCustoms(uid) {
+    const links = [];
+    try {
+      const collectionRef = collection(db, "links_customs");
+      const q = query(collectionRef, where("uid", "==", uid));
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+        const link = { ...doc.data() };
+        link.docId = doc.id;
+        links.push(link);
+      });
+      return links;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+
+
+
+
 export async function getLinksBySocialMedia(uid, socialmedia) {
     const links = [];
     try {
@@ -207,6 +242,25 @@ export async function deleteLink(docId) {
         console.error(error);
     }
 }
+
+export async function deleteCustomLink(docId) {
+    try {
+        const docRef = doc(db, 'links', docId);
+        const res = await deleteDoc(docRef);
+        return res;
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+
+
+
+
+
+
+
+
 export async function setDefaultProfilePhoto() {
     try {
         const imageRef = ref(storage, `gs://treelinkcv.appspot.com/images/user.png`);

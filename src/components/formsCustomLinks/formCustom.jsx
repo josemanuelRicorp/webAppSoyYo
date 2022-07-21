@@ -1,28 +1,31 @@
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { useEffect, useRef, useState } from "react";
-import { Col, Form, Row } from "react-bootstrap";
-import { linkWhatsApp } from "../../utils/socialMediaLinks";
-import MessageInputs from "../messageInputs";
+import { Form } from "react-bootstrap";
 import { v4 as uuidv4 } from "uuid";
 import {
   getLinksBySocialMedia,
-  insertNewLink,
-  updateLink,
+  insertNewLinkCustoms,
+  storage,
 } from "../../firebase/firebase";
+import defaultImg from "../../assets/img/undefined.png";
+
 import { link2FieldsWhatsapp } from "../../utils/socialMediaFields";
+import MessageInputsCustoms from "../messageInputsCustoms";
 
 export const FormCustom = ({ style, user }) => {
-
   const [currentUser, setCurrentUser] = useState(user);
-
+  const [state, setState] = useState(0);
   const [openCustom, setOpenCustom] = useState(false);
-  const [customLinkDocId, setCustomLinkDocId] = useState("");
+  const [progress, setProgress] = useState(0);
+  const [iconFile, setIconFile] = useState(defaultImg);
   const [customUrl, setCustomUrl] = useState("");
+  const [customWebSite, setCustomWebSite] = useState("");
+
   const customUrlRef = useRef(null);
-
-
-
+  const customWebSiteRef = useRef(null);
 
   useEffect(() => {
+    setState(0);
     initWhatsAppInfo(user.uid);
   }, []);
 
@@ -30,80 +33,137 @@ export const FormCustom = ({ style, user }) => {
     const resLinksWhatsapp = await getLinksBySocialMedia(uid, "whatsapp");
     if (resLinksWhatsapp.length > 0) {
       const linkObject = [...resLinksWhatsapp][0];
-      
-      let fieldsData = link2FieldsWhatsapp(linkObject.url);      
+
+      let fieldsData = link2FieldsWhatsapp(linkObject.url);
     }
   }
 
+  const formIcon = async (e) => {
+    e.preventDefault();
+    if (state === 1) {
+      const file = e.target.files[0];
+      await uploadFiles(file);
+      setIconFile("");
+    }
+  };
+
+  const uploadFiles = (file) => {
+    if (!file) return;
+    const storageRef = ref(storage, `/icons/${file.name}`);
+    const uploadTask = uploadBytesResumable(storageRef, file);
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        const prog = Math.round(
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        );
+        setProgress(prog);
+      },
+      (err) => console.log(err),
+      function () {
+        getDownloadURL(uploadTask.snapshot.ref).then((iconUrl) => {
+          setIconFile(iconUrl);
+        });
+      }
+    );
+    setState(1);
+  };
+
   function addLink() {
-    if (customUrl!== "") {
+    if (customWebSite !== "" && customUrl !== "") {
       const newLink = {
         id: uuidv4(),
-        title: "WhatsApp",
-        category: "primary",
-        socialmedia: "whatsapp",
+        website: customWebSite,
         url: customUrl,
+        icon: iconFile,
         uid: currentUser.uid,
       };
-      const res = insertNewLink(newLink);
+      const res = insertNewLinkCustoms(newLink);
       newLink.docId = res.id;
+      setCustomUrl("");
+      setCustomWebSite("");
       return newLink.docId;
     }
   }
 
-
   const handleOnSubmitCustom = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-   
+    if (customUrl !== "" && customWebSite !== "") {
+      e.preventDefault();
+      e.stopPropagation();
       addLink();
-    handleMessageConfirmation();
+      handleMessageConfirmation();
+    }
   };
-  
+
   function handleOnChangeCustomUrl() {
     setCustomUrl(customUrlRef.current.value);
   }
+  function handleOnChangeCustomWebSite() {
+    setCustomWebSite(customWebSiteRef.current.value);
+  }
 
   function handleMessageConfirmation() {
-    setOpenCustom( true);
+    setOpenCustom(true);
     setTimeout(() => {
-      setOpenCustom( false);
+      setOpenCustom(false);
+      window.location.reload();
     }, 3000);
   }
- 
 
   return (
     <>
+      {" "}
+      <h2>Datos para los Enlaces Personales</h2>
+      <br />
       <Form className={style} onSubmit={handleOnSubmitCustom}>
         {openCustom ? (
-          <MessageInputs
+          <MessageInputsCustoms
             open={openCustom}
             type={"success"}
             socialmedia={" "}
-          ></MessageInputs>
+          ></MessageInputsCustoms>
         ) : (
           ""
         )}
-        <h2>Datos para los enlaces personales</h2>
-       
-        <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
-          <Form.Label column lg="4">
-            URL :
-          </Form.Label>
-          <Col lg="8">
-            <Form.Control
-              className="input"
-              type="text"
-              name="msg"
-              autoComplete="off"
-              placeholder="Inserte el enlace"
-              value={customUrl}
-              ref={customUrlRef}
-              onChange={handleOnChangeCustomUrl}
-            />
-          </Col>
-        </Form.Group>
-        <input className="btn-custom" type="submit" value="Guardar datos" />
+
+        <br />
+        <Form.Control
+          className="input"
+          type="text"
+          name="sitio"
+          placeholder="Nombre del Sitio"
+          value={customWebSite}
+          ref={customWebSiteRef}
+          onChange={handleOnChangeCustomWebSite}
+        />
+        <br />
+        <Form.Control
+          className="input"
+          type="text"
+          name="url"
+          placeholder="URL Sitio Web"
+          value={customUrl}
+          ref={customUrlRef}
+          onChange={handleOnChangeCustomUrl}
+        />
+        <br />
+        <>
+          <Form.Control
+            className="input"
+            type="file"
+            name="icono"
+            onChange={formIcon}
+          />
+          <br />
+          <h2>Subiendo {progress}%</h2>
+        </>
+        <br />
+        <br />
+        <input
+          className="btn-custom"
+          type="submit"
+          value="Agregar Nuevo Enlace"
+        />
       </Form>
     </>
   );
