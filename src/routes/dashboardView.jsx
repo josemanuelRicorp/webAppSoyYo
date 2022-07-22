@@ -1,5 +1,5 @@
-import { doc, onSnapshot } from "firebase/firestore";
-import { useState } from "react";
+import { doc, getDoc, onSnapshot } from "firebase/firestore";
+import { useEffect, useState } from "react";
 import { Card, Col, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { AuthProviders } from "../components/authProvider";
@@ -10,21 +10,21 @@ export default function DashboardView() {
   const navigate = useNavigate();
   const [currentUser, setCurrentUser] = useState({});
   const [state, setState] = useState(0);
-//variables para guardar redes primarias y secundarias
-const [links, setLinks] = useState({
-  whatsApp: 0,
-  shareRRSS: 0,
-  email: 0,
-  phone: 0,
-  maps: 0,
-  linkedin: 0,
-  facebook: 0,
-  instagram: 0,
-  tiktok: 0,
-  twitter: 0,
-  twitch: 0,
-  qrOffline: 0
-});
+  //variables para guardar redes primarias y secundarias
+  const [links, setLinks] = useState({
+    whatsapp: 0,
+    shareRRSS: 0,
+    email: 0,
+    phone: 0,
+    maps: 0,
+    linkedin: 0,
+    facebook: 0,
+    instagram: 0,
+    tiktok: 0,
+    twitter: 0,
+    twitch: 0,
+    qrOffline: 0,
+  });
   async function handleUserLoggeIn(user) {
     setCurrentUser(user);
     setState(2);
@@ -36,6 +36,23 @@ const [links, setLinks] = useState({
     navigate("/iniciar-sesion");
   }
 
+  async function getVista(idUser) {
+    const docRef = doc(db, "VisitsCounter", idUser);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      console.log("Document data:", docSnap.data());
+      setLinks(docSnap.data());
+    } else {
+      // doc.data() will be undefined in this case
+      console.log("No such document!");
+    }
+  }
+  useEffect(() => {
+    if (currentUser.publicId) {
+      getVista(currentUser.publicId);
+    }
+  }, [currentUser]);
+
   if (state === 0) {
     return (
       <AuthProviders
@@ -46,36 +63,17 @@ const [links, setLinks] = useState({
     );
   }
 
-
-//obtener la lista de redes por usuario y mistrarlas en su perfil
-const docRef = doc(db, 'VisitsCounter', currentUser.publicId)
-onSnapshot(docRef, (doc) => {
-  setLinks({
-    whatsApp: doc.data().whatsapp,
-    shareRRSS: doc.data().shareRRSS,
-    email: doc.data().email,
-    phone: doc.data().phone,
-    maps: doc.data().maps,
-    linkedin: doc.data().linkedin,
-    facebook: doc.data().facebook,
-    instagram: doc.data().instagram,
-    tiktok: doc.data().tiktok,
-    twitter: doc.data().twitter,
-    twitch: doc.data().twitch,
-    qrOffline: doc.data().qrOffline
-  })
-})
-
-
   return (
     <DashboardWrapper>
       <h1>Tablero</h1>
-      <small>En este apartado puedes ver las interacciones que tuvo tu perfil.</small>
-    <Row sm={2}>
+      <small>
+        En este apartado puedes ver las interacciones que tuvo tu perfil.
+      </small>
+      <Row sm={2}>
         <Col>
           <Card className="mt-3 text-center">
             <Card.Body>
-              <Card.Title>{links.whatsApp}</Card.Title>
+              <Card.Title>{links.whatsapp}</Card.Title>
               <Card.Text>Whatsapp</Card.Text>
             </Card.Body>
           </Card>

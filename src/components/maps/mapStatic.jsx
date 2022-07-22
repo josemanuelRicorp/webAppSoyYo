@@ -16,7 +16,7 @@ export const MapStatic = ({ mapLatLng }) => {
         id="mapStatic"
         center={position}
         zoom={17}
-        // scrollWheelZoom={false}
+        scrollWheelZoom={false}
         placeholder={<MapPlaceholder />}
       >
         <TileLayer
