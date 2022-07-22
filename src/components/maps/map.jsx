@@ -10,7 +10,7 @@ export const Map = ({ show, handleOnHide, handlePositionMarker }) => {
     -17.783310801661553, -63.18212983710896
   ]);
   const [state, setState] = useState(9);
-  function handleLocation() {
+  function handleSaveLocation() {
     setState(11);
     setTimeout(() => {
     setState(9);
@@ -92,7 +92,7 @@ export const Map = ({ show, handleOnHide, handlePositionMarker }) => {
                 <button
                   style={{ float: "right" }}
                   className="btn-custom"
-                  onClick={handleLocation}
+                  onClick={handleSaveLocation}
                 >
                   Guardar
                 </button>

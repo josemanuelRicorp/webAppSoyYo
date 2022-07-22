@@ -46,9 +46,7 @@ export default function LinksCustomView() {
     }, 1400);
   }
 
-  function handledDeleteCustomLink(){
-    
-  }
+  
 
   if (state === 0) {
     return (
@@ -103,16 +101,7 @@ export default function LinksCustomView() {
                   <Accordion.Body>
                   <Stack direction="horizontal" gap={3}>
       <div >{link.url}</div>
-      <div >
-      <button
-                    className={style.btnEdit}
-                    onClick={handledDeleteCustomLink}
-                  >
-                   
-                    <span><FaTrash className={style.iconEdit}></FaTrash></span>
-                    
-                  </button>
-      </div>
+      
       
     </Stack>
                   </Accordion.Body>

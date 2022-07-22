@@ -69,7 +69,7 @@ export default function EditProfileView() {
     loadPhoto();
     setTimeout(() => {
       setShow(false);
-    }, 1400);
+    }, 1000);
   }
 
   function handleEditUsername() {
@@ -184,44 +184,31 @@ export default function EditProfileView() {
       if (exists) {
         setState(5);
       } else {
-        const tmp = { ...currentUser };
-        tmp.username = username;
-        await updateUser(tmp);
-        setCurrentUser(...tmp);
+        currentUser.username = username;
+        await updateUser(currentUser);
         setState(6);
       }
     }
   }
   async function handleUpdateDisplayName() {
-      const tmp = { ...currentUser };
-      tmp.displayName = displayName;
-      await updateUser(tmp);
-      setCurrentUser(...tmp);
-    
+    currentUser.displayName = displayName;
+    await updateUser(currentUser);
   }
   async function handleUpdateCareer() {
-      const tmp = { ...currentUser };
-      tmp.career = career;
-      await updateUser(tmp);
-      setCurrentUser(...tmp);
+    currentUser.career = career;
+    await updateUser(currentUser);
   }
   async function handleUpdatePersonalPhone() {
-      const tmp = { ...currentUser };
-      tmp.personalPhone = personalPhone;
-      await updateUser(tmp);
-      setCurrentUser(...tmp);
+    currentUser.personalPhone = personalPhone;
+    await updateUser(currentUser);
   }
   async function handleUpdateEmail() {
-      const tmp = { ...currentUser };
-      tmp.email = email;
-      await updateUser(tmp);
-      setCurrentUser(...tmp);
+    currentUser.email = email;
+    await updateUser(currentUser);
   }
   async function handleUpdateDescription() {
-      const tmp = { ...currentUser };
-      tmp.description = description;
-      await updateUser(tmp);
-      setCurrentUser(...tmp);
+    currentUser.description = description;
+    await updateUser(currentUser);
   }
 
   function handleLink() {
@@ -247,9 +234,12 @@ export default function EditProfileView() {
         <div className={style.profilePictureContainer}>
           <div>
             <div className={style.profilePicture} width={100}>
-            <img className={style.profilePictureImg} src={profileUrl} alt="profile_photo"  />
+              <img
+                className={style.profilePictureImg}
+                src={profileUrl}
+                alt="profile_photo"
+              />
             </div>
-            
           </div>
           <div>
             <button
@@ -312,13 +302,14 @@ export default function EditProfileView() {
                   </Row>
                 </>
               ) : (
-                <> 
+                <>
                   <button
                     className={style.btnEdit}
                     onClick={handleEditUsername}
                   >
-                   
-                    <span><FaPen className={style.iconEdit}></FaPen></span>
+                    <span>
+                      <FaPen className={style.iconEdit}></FaPen>
+                    </span>
                     {/*  <span><FaPen className={style.iconEdit}></FaPen></span> */}
                   </button>
                   {username}
@@ -383,7 +374,9 @@ export default function EditProfileView() {
                     className={style.btnEdit}
                     onClick={handleEditDisplayName}
                   >
-                     <span><FaPen className={style.iconEdit}></FaPen></span>
+                    <span>
+                      <FaPen className={style.iconEdit}></FaPen>
+                    </span>
                   </button>
                   {displayName}
                 </>
@@ -427,7 +420,9 @@ export default function EditProfileView() {
               ) : (
                 <>
                   <button className={style.btnEdit} onClick={handleEditEmail}>
-                     <span><FaPen className={style.iconEdit}></FaPen></span>
+                    <span>
+                      <FaPen className={style.iconEdit}></FaPen>
+                    </span>
                   </button>
                   {email}
                 </>
@@ -471,7 +466,9 @@ export default function EditProfileView() {
               ) : (
                 <>
                   <button className={style.btnEdit} onClick={handleEditCareer}>
-                     <span><FaPen className={style.iconEdit}></FaPen></span>
+                    <span>
+                      <FaPen className={style.iconEdit}></FaPen>
+                    </span>
                   </button>
                   {career}
                 </>
@@ -519,7 +516,9 @@ export default function EditProfileView() {
                     className={style.btnEdit}
                     onClick={handleEditPersonalPhone}
                   >
-                     <span><FaPen className={style.iconEdit}></FaPen></span>
+                    <span>
+                      <FaPen className={style.iconEdit}></FaPen>
+                    </span>
                   </button>
                   {personalPhone}
                 </>
@@ -571,7 +570,9 @@ export default function EditProfileView() {
                     className={style.btnEdit}
                     onClick={handleEditDescription}
                   >
-                     <span><FaPen className={style.iconEdit}></FaPen></span>
+                    <span>
+                      <FaPen className={style.iconEdit}></FaPen>
+                    </span>
                   </button>
                   {description}
                 </>

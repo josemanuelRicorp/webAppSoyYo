@@ -22,6 +22,7 @@ import "../styles/theme.css";
 
 import { Button, ButtonGroup, Col, Form, Row, Stack } from "react-bootstrap";
 import Loading from "../components/loading";
+import MessageTheme from "../components/others/messageTheme";
 
 export default function EditProfileDesignView() {
   const navigate = useNavigate();
@@ -29,6 +30,7 @@ export default function EditProfileDesignView() {
   const [state, setState] = useState(0);
   const [theme, setTheme] = useState("color1");
   const [themeSaved, setThemeSaved] = useState("");
+  const [openTheme, setOpenTheme] = useState(false);
   const [urlImg, setUrlImg] = useState(`${color1}`);
   const themeList = [
     { normal: "color1" },
@@ -107,7 +109,6 @@ export default function EditProfileDesignView() {
   function handleOnClick(color, item) {
     handleImagePath(color);
     setTheme(color);
-    
   }
 
   function handleOnSubmitTheme(e) {
@@ -118,14 +119,19 @@ export default function EditProfileDesignView() {
   }
 
   async function handleUpdateTheme() {
-    console.log(theme);
-    const tmp = { ...currentUser };
-    tmp.theme = theme;
-    await updateUser(tmp);
-    setCurrentUser(...tmp);
- }
+    // const tmp = { ...currentUser };
+    currentUser.theme = theme;
+    await updateUser(currentUser);
+    // setCurrentUser(...tmp);
+    handleMessageConfirmation();
+  }
 
-
+  function handleMessageConfirmation() {
+    setOpenTheme(true);
+    setTimeout(() => {
+      setOpenTheme(false);
+    }, 2000);
+  }
 
   if (state !== 2) {
     return (
@@ -144,6 +150,11 @@ export default function EditProfileDesignView() {
         <h1>Editar diseño del perfil</h1>
         <div className={style.containerPersonalData}>
           <Row className={style.rows}>
+            {openTheme ? (
+              <MessageTheme open={openTheme} type={"success"}></MessageTheme>
+            ) : (
+              ""
+            )}
             <Col>
               <Form onSubmit={handleOnSubmitTheme}>
                 <Row>

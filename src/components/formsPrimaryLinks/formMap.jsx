@@ -94,7 +94,7 @@ export const FormMap = ({ style, user, handleAccordion }) => {
 
   function handleOnHideMap() {
     setShowMap(false);
-    handleOnSubmitMaps();
+    // handleOnSubmitMaps();
   }
 
   function handlePositionMarker(value) {

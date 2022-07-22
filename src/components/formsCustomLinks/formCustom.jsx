@@ -25,26 +25,13 @@ export const FormCustom = ({ style, user }) => {
   const customWebSiteRef = useRef(null);
 
   useEffect(() => {
-    setState(0);
-    initWhatsAppInfo(user.uid);
   }, []);
-
-  async function initWhatsAppInfo(uid) {
-    const resLinksWhatsapp = await getLinksBySocialMedia(uid, "whatsapp");
-    if (resLinksWhatsapp.length > 0) {
-      const linkObject = [...resLinksWhatsapp][0];
-
-      let fieldsData = link2FieldsWhatsapp(linkObject.url);
-    }
-  }
 
   const formIcon = async (e) => {
     e.preventDefault();
-    if (state === 1) {
-      const file = e.target.files[0];
-      await uploadFiles(file);
-      setIconFile("");
-    }
+    const file = e.target.files[0];
+    await uploadFiles(file);
+    setIconFile("");
   };
 
   const uploadFiles = (file) => {
@@ -66,7 +53,6 @@ export const FormCustom = ({ style, user }) => {
         });
       }
     );
-    setState(1);
   };
 
   function addLink() {
@@ -155,7 +141,9 @@ export const FormCustom = ({ style, user }) => {
             onChange={formIcon}
           />
           <br />
+          <h5>Espere a completar la carga.</h5>
           <h2>Subiendo {progress}%</h2>
+          
         </>
         <br />
         <br />
