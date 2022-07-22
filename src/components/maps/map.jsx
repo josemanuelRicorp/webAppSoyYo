@@ -5,7 +5,7 @@ import { MdAdsClick } from "react-icons/md";
 import { MapPlaceholder, MapMarker } from "../maps";
 
 //  {lat: -17.806098458690858, lng: -63.16360831260682}
-export const Map = ({ show, handleOnHide, handlePositionMarker }) => {
+export const Map = ({ show, handleOnHide, handlePositionMarker, handleOnSubmitMaps }) => {
   const [position, setPosition] = useState([
     -17.783310801661553, -63.18212983710896
   ]);
@@ -14,6 +14,7 @@ export const Map = ({ show, handleOnHide, handlePositionMarker }) => {
     setState(11);
     setTimeout(() => {
     setState(9);
+    handleOnSubmitMaps();
     handleOnHide();
     },1800);
     

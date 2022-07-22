@@ -129,6 +129,7 @@ export const FormMap = ({ style, user, handleAccordion }) => {
           user={currentUser}
           show={showMap}
           handleOnHide={handleOnHideMap}
+          handleOnSubmitMaps={handleOnSubmitMaps}
           handlePositionMarker={handlePositionMarker}
         />
       </div>

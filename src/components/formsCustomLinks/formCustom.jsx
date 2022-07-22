@@ -60,7 +60,8 @@ export const FormCustom = ({ style, user }) => {
       const newLink = {
         id: uuidv4(),
         website: customWebSite,
-        url: customUrl,
+        
+        url: "https://" + customUrl.replace("https://", ""),
         icon: iconFile,
         uid: currentUser.uid,
       };
