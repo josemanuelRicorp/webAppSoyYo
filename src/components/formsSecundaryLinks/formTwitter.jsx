@@ -44,7 +44,6 @@ socialmedia: "twitter",
         
         uid: currentUser.uid,
       };
-      console.log(newLink);
       const res = insertNewLink(newLink);
       newLink.docId = res.id;
       return newLink.docId;

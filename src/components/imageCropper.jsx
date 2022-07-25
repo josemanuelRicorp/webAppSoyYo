@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Col, Modal, Row, Spinner } from "react-bootstrap";
-import { BiFullscreen } from "react-icons/bi";
 import "cropperjs/dist/cropper.css";
 import Cropper from "react-cropper";
 import style from "../styles/imageCropper.module.css";
@@ -33,7 +32,6 @@ export default function ImageCropper({ show, handleOnHide, user }) {
     if (fileReader && files && files.length > 0) {
       const reader = new FileReader();
       reader.onload = async function () {
-        console.log({ file: files[0] });
         setImage(reader.result);
         setState(10);
       };

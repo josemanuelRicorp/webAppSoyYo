@@ -1,15 +1,11 @@
-import React, { useMemo, useRef, useState } from "react";
-import { Marker, Popup, useMapEvents } from "react-leaflet";
+import React, {  useRef, useState } from "react";
+import { Marker, Popup } from "react-leaflet";
 import { MapIconLocationCustom } from "./mapIconLocationCustom";
 
 export function MapMarkerStatic({ setPosition }) {
   const [markerPosition, setMarkerPosition] = useState({});
-
   const markerRef = useRef(null);
-  const map = useMapEvents({
-  
-  });
- 
+
   return markerPosition === null ? (
     ""
   ) : (

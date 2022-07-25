@@ -9,11 +9,11 @@ import LinksPrimaryView from './routes/linksPrimaryView';
 import LinksSecondaryView from './routes/linksSecondaryView';
 import EditProfileView from './routes/editProfileView';
 import SignOutView from './routes/signOutView';
-import PublicProfileView from './routes/publicProfileView';
 import ChooseUserNameView from './routes/chooseUsernameView';
 import DashboardView from './routes/dashboardView';
 import EditProfileDesignView from './routes/editProfileDesignView';
 import LinksCustomView from './routes/linksCustomView';
+import "./utils/dropConsole";
 
 function App() {
   return (
@@ -28,7 +28,6 @@ function App() {
         <Route exact path="/perfil/informacion" element={<EditProfileView />}></Route>
         <Route exact path="/perfil/diseno" element={<EditProfileDesignView />}></Route>
         <Route exact path="cerrar-sesion" element={<SignOutView />}></Route>
-        <Route exact path="u/:publicId" element={<PublicProfileView />}></Route>
         <Route exact path="/asignar-alias" element={<ChooseUserNameView />}></Route>
       </Routes>
     </HashRouter>

@@ -47,7 +47,7 @@ export default function DashboardWrapper({ children }) {
                 Inicio
               </Link>
               <NavDropdown
-                title="Configuración del perfil"
+                title="Personalización del perfil"
                 id="collasible-nav-dropdown"
               >
                 <Link className="dropdown-item" to="/perfil/informacion">
@@ -58,7 +58,7 @@ export default function DashboardWrapper({ children }) {
                 </Link>
               </NavDropdown>
               <NavDropdown
-                title="Configuración de los enlaces"
+                title="Personalización de los enlaces"
                 id="collasible-nav-dropdown"
               >
                 <Link className="dropdown-item" to="/enlaces/principales">
@@ -68,7 +68,7 @@ export default function DashboardWrapper({ children }) {
                   Enlaces secundarios
                 </Link>
                 <Link className="dropdown-item" to="/enlaces/personalizados">
-                  Enlaces personalizados
+                  Enlaces personales
                 </Link>
               </NavDropdown>
               <Link className="nav-link" to="/cerrar-sesion">

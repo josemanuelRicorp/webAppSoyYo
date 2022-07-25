@@ -9,7 +9,7 @@ import { link2FieldsTiktok } from "../../utils/socialMediaFields";
 import MessageInputs from "../messageInputs";
 import { v4 as uuidv4 } from "uuid";
 import { linkTiktok } from "../../utils/socialMediaLinks";
-import { FaTiktok, FaTwitterSquare } from "react-icons/fa";
+import { FaTiktok } from "react-icons/fa";
 
 export const FormTikTok = ({ style, user, handleAccordion }) => {
   const [currentUser, setCurrentUser] = useState(user);

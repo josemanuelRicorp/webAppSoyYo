@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Col, Modal, Row, Spinner } from "react-bootstrap";
+import React, {  useState } from "react";
+import { Modal, Row, Spinner } from "react-bootstrap";
 import { MapContainer, TileLayer } from "react-leaflet";
 import { MdAdsClick } from "react-icons/md";
 import { MapPlaceholder, MapMarker } from "../maps";
@@ -9,6 +9,7 @@ export const Map = ({ show, handleOnHide, handlePositionMarker, handleOnSubmitMa
   const [position, setPosition] = useState([
     -17.783310801661553, -63.18212983710896
   ]);
+
   const [state, setState] = useState(9);
   function handleSaveLocation() {
     setState(11);
@@ -25,6 +26,7 @@ export const Map = ({ show, handleOnHide, handlePositionMarker, handleOnSubmitMa
     handlePositionMarker(value);
   }
 
+
   return (
     <Modal
     size="lg"
@@ -40,10 +42,7 @@ export const Map = ({ show, handleOnHide, handlePositionMarker, handleOnSubmitMa
       </Modal.Header>
       <Modal.Body>
         <Row className="mapContainer">
-          {/* <Col> */}
-            {/* <div> */}
-              {/* <div className="mapContainer" style={{ width: "100%" }}> */}
-                <MapContainer
+         <MapContainer
                   id="map"
                   center={position}
                   zoom={13}
@@ -54,11 +53,11 @@ export const Map = ({ show, handleOnHide, handlePositionMarker, handleOnSubmitMa
                     attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                   />
-                  <MapMarker setMarkerPosition={setMarkerPosition} />
+                  <MapMarker 
+                  setMarkerPosition={setMarkerPosition} 
+                  />
                 </MapContainer>
-              {/* </div> */}
-            {/* </div> */}
-          {/* </Col> */}
+             
         </Row>
       </Modal.Body>
       <Modal.Footer>

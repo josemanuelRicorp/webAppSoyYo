@@ -9,7 +9,6 @@ import { link2FieldsFacebook } from "../../utils/socialMediaFields";
 import { linkFacebook } from "../../utils/socialMediaLinks";
 import MessageInputs from "../messageInputs";
 import { v4 as uuidv4 } from "uuid";
-import { RiFacebookBoxFill } from "react-icons/ri";
 import { FaFacebookF } from "react-icons/fa";
 export const FormFacebook = ({ style, user, handleAccordion }) => {
   const [currentUser, setCurrentUser] = useState(user);

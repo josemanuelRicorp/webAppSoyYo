@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   getLinksBySocialMedia,
   insertNewLink,
@@ -23,7 +23,6 @@ export const FormMap = ({ style, user, handleAccordion }) => {
   };
   const [mapLatLng, setMapLatLng] = useState(initialPositionCoords);
   const [mapsLinkDocId, setMapsLinkDocId] = useState("");
-  const mapMarkerRef = useRef(null);
 
   const [showMap, setShowMap] = useState(false);
   useEffect(() => {
@@ -37,14 +36,9 @@ export const FormMap = ({ style, user, handleAccordion }) => {
         const linkObject = [...resLinksMaps][0];
         setMapsLinkDocId(linkObject.docId);
         let fieldsData = link2FieldsMaps(linkObject.url);
-        console.log({ fl: fieldsData.lat, fln: fieldsData.lng });
-
         setMapLat(fieldsData.lat);
         setMapLng(fieldsData.lng);
         setMapLatLng({ lat: fieldsData.lat, lng: fieldsData.lng });
-
-        console.log({ mapLat, mapLng, mapLatLng });
-
         setState(1);
       }
     }, 2000);
@@ -94,7 +88,6 @@ export const FormMap = ({ style, user, handleAccordion }) => {
 
   function handleOnHideMap() {
     setShowMap(false);
-    // handleOnSubmitMaps();
   }
 
   function handlePositionMarker(value) {
@@ -133,7 +126,7 @@ export const FormMap = ({ style, user, handleAccordion }) => {
           handlePositionMarker={handlePositionMarker}
         />
       </div>
-      <div>{state == 1 ? <MapStatic mapLatLng={mapLatLng} /> : <></>}</div>
+      <div>{state === 1 ? <MapStatic mapLatLng={mapLatLng} /> : <></>}</div>
     </>
   );
 };

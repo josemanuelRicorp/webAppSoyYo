@@ -32,17 +32,7 @@ export default function EditProfileDesignView() {
   const [themeSaved, setThemeSaved] = useState("");
   const [openTheme, setOpenTheme] = useState(false);
   const [urlImg, setUrlImg] = useState(`${color1}`);
-  const themeList = [
-    { normal: "color1" },
-    { normal: "color2" },
-    { normal: "color3" },
-    { normal: "color4" },
-    { normal: "color5" },
-    { normal: "color6" },
-    { normal: "color7" },
-    { normal: "color8" },
-    { normal: "color9" },
-  ];
+
   const darkTones = [
     { normal: "color1" },
     { normal: "color2" },
@@ -58,11 +48,9 @@ export default function EditProfileDesignView() {
     { normal: "color6" },
     { normal: "color9" },
   ];
-  const usernameRef = useRef(null);
 
   async function handleUserLoggeIn(user) {
     setCurrentUser(user);
-    console.log(user.theme);
     setState(2);
   }
   function handleUserNotRegistered(user) {

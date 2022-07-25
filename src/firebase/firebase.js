@@ -83,7 +83,7 @@ export async function updateUser(user) {
     try {
         const collectionRef = collection(db, 'users');
         const docRef = doc(collectionRef, user.uid);
-        await setDoc(docRef, user).then((res) => { console.log("User editado"); console.log({res});});
+        await setDoc(docRef, user).then((res) => { console.log("User editado")});
     } catch (error) {
         console.error(error);
     }
@@ -198,26 +198,6 @@ export async function getLinksSocialMedia(uid) {
         console.error(error);
     }
 }
-export async function getLinkBySocialMedia(uid, socialmedia) {
-    if (!socialmedia) {
-        console.log("noreconoce", socialmedia);
-    }
-    else {
-        try {
-            const collectionRef = collection(db, "links");
-            const q = query(collectionRef, where("uid", "==", uid), where("socialmedia", "==", socialmedia));
-            const docSnapshot = await getDoc(q);
-            // if (docSnapshot.exists) {
-            const link = docSnapshot.data();
-            link.docId = docSnapshot.id;
-            return link;
-            // }
-        } catch (error) {
-            console.error(error);
-        }
-    }
-
-}
 
 
 
@@ -266,16 +246,14 @@ export async function setDefaultProfilePhoto() {
         const imageRef = ref(storage, `gs://treelinkcv.appspot.com/images/user.png`);
         return imageRef;
     } catch (error) {
-        console.log(error);
+        console.error(error);
     }
 }
 
 export async function setUserProfilePhoto(uid, file) {
     try {
         const imageRef = ref(storage, `images/${uid}`);
-        console.log("upload", { upload: imageRef });
         const resUpload = await uploadBytes(imageRef, file);
-        
         return resUpload;
     } catch (error) {
         console.error(error);
@@ -284,7 +262,6 @@ export async function setUserProfilePhoto(uid, file) {
 export async function getProfilePhotoUrl(profilePicture) {
     try {
         const imageRef = ref(storage, profilePicture);
-        console.log("download", { download: imageRef });
         const url = await getDownloadURL(imageRef);
         return url;
     } catch (error) {

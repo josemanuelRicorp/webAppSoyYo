@@ -1,9 +1,7 @@
 import {
   GoogleAuthProvider,
   FacebookAuthProvider,
-  signInWithPopup,
-  fetchSignInMethodsForEmail,
-  EmailAuthProvider,
+  signInWithPopup
 } from "firebase/auth";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -41,7 +39,6 @@ export default function LoginView() {
   async function signInWithGoogle(googleProvider) {
     try {
       const res = await signInWithPopup(auth, googleProvider);
-      console.log(res);
     } catch (error) {
       if (
         error.code === "auth/popup-closed-by-user" ||
@@ -49,7 +46,6 @@ export default function LoginView() {
       )
         return;
       else console.error(error);
-      console.log({ error });
     }
   }
   async function handleOnClickFacebook() {
@@ -61,44 +57,17 @@ export default function LoginView() {
     }
   }
   async function signInWithFacebook(facebookProvider) {
-    let existingEmail = null,
-      pendinCredentials = null;
     try {
       const res = await signInWithPopup(auth, facebookProvider);
-      console.log(facebookProvider);
-      console.log({ res: res });
     } catch (error) {
-      console.log({ error });
       if (
         error.code === "auth/popup-closed-by-user" ||
         error.code === "auth/cancelled-popup-request"
       ) {
         return;
       } else if (
-        error.code == "auth/account-exists-with-different-credential"
+        error.code === "auth/account-exists-with-different-credential"
       ) {
-        existingEmail = error.email;
-        pendinCredentials = error.credential;
-        fetchSignInMethodsForEmail(auth, existingEmail).then(
-          (signInMethods) => {
-            if (
-              signInMethods.indexOf(
-                EmailAuthProvider.EMAIL_PASSWORD_SIGN_IN_METHOD
-              ) != -1
-            ) {
-              // User can sign in with email/password.
-              console.log(" sign in with  email/password.");
-            }
-            if (
-              signInMethods.indexOf(
-                EmailAuthProvider.EMAIL_LINK_SIGN_IN_METHOD
-              ) != -1
-            ) {
-              // User can sign in with email/link.
-              console.log(" sign in with email/link.");
-            }
-          }
-        );
       } else {
         console.error(error);
       }

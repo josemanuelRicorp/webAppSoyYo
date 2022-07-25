@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import { AuthProviders } from "../components/authProvider";
 import Loading from "../components/loading";
 import { existUsername, updateUser } from "../firebase/firebase";

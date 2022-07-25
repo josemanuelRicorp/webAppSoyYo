@@ -14,7 +14,6 @@ export const FormEmail = ({ style, user, handleAccordion }) => {
   const [currentUser, setCurrentUser] = useState(user);
   const [openEmail, setOpenEmail] = useState(false);
   const [state, setState] = useState(0);
-  const [isDisabled, setIsDisabled] = useState(false);
   const [emailLinkDocId, setEmailLinkDocId] = useState("");
   const [emailAddress, setEmailAddress] = useState("");
   const [emailSubject, setEmailSubject] = useState("");
@@ -51,7 +50,6 @@ export const FormEmail = ({ style, user, handleAccordion }) => {
       };
       const res = insertNewLink(newLink);
       newLink.docId = res.id;
-
       return newLink.docId;
     }
   }
@@ -79,13 +77,6 @@ export const FormEmail = ({ style, user, handleAccordion }) => {
     e.preventDefault();
     e.stopPropagation();
     handleButton();
-    // if (emailLinkDocId !== "") {
-    //   editLink(emailLinkDocId);
-    // } else {
-    //   addLink();
-    // }
-    // handleMessageConfirmation();
-    // handleAccordion();
   }
 
   function handleOnChangeEmailAddress() {
@@ -99,7 +90,6 @@ export const FormEmail = ({ style, user, handleAccordion }) => {
   }
   function handleButton() {
     setState(11);
-    setIsDisabled(true);
     if (emailLinkDocId !== "") {
       editLink(emailLinkDocId);
     } else {
@@ -116,7 +106,6 @@ export const FormEmail = ({ style, user, handleAccordion }) => {
     setState(10);
     setTimeout(() => {
       setState(0);
-      setIsDisabled(false);
       setOpenEmail(false);
     }, 2000);
   }
@@ -178,8 +167,7 @@ export const FormEmail = ({ style, user, handleAccordion }) => {
             />
           </Col>
         </Form.Group>
-        {/* {isDisabled ? ( */}
-        {state == 10 ? (
+        {state === 10 ? (
           <button className="btn-custom disabled" disabled type="submit">
             <Spinner
               className="me-1"

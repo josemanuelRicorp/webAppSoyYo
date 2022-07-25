@@ -16,17 +16,26 @@ export function MapMarker({ setMarkerPosition }) {
         setIsCurrentLocation(true);
       }
     },
-    keyup() {
-      // if (isCurrentLocation === false) {
-      //   map.locate({
-      //     enableHighAccuracy: true,
-      //   });
-      //   setIsCurrentLocation(true);
-      // }
+    keyup(e) {
+      const keyName = e.originalEvent.key;
+      if (
+        keyName === "ArrowRight" ||
+        keyName === "ArrowDown" ||
+        keyName === "ArrowUp" ||
+        keyName === "ArrowLeft"
+      ) {
+        setPosition({
+          lat: map.getCenter().lat,
+          lng: map.getCenter().lng,
+        });
+        setMarkerPosition({
+          lat: map.getCenter().lat,
+          lng: map.getCenter().lng,
+        });
+      }
+      
     },
-    preclick() {
-      console.log("preclick");
-    },
+    
     click(e) {
       if (isCurrentLocation) {
         map.setView(
@@ -39,12 +48,11 @@ export function MapMarker({ setMarkerPosition }) {
           lat: e.latlng.lat.toPrecision(20),
           lng: e.latlng.lng.toPrecision(20),
         });
-       
+
         setMarkerPosition({
           lat: e.latlng.lat.toPrecision(20),
           lng: e.latlng.lng.toPrecision(20),
-        }); 
-        console.log({ "setMarkerPositionClick": e.latlng });
+        });
       }
     },
     locationfound(e) {
