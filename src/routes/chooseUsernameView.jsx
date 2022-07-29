@@ -1,9 +1,9 @@
 import { useState } from "react";
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { AuthProviders } from "../components/authProvider";
 import Loading from "../components/loading";
 import { existUsername, updateUser } from "../firebase/firebase";
-import style from '../styles/chooseUsername.module.css';
+import style from "../styles/chooseUsername.module.css";
 export default function ChooseUserNameView() {
   const navigate = useNavigate();
   const [state, setState] = useState(0);
@@ -23,7 +23,7 @@ export default function ChooseUserNameView() {
   function handleInputUsername(e) {
     setUsername(e.target.value);
   }
- 
+
   async function handleContinue() {
     if (username !== "") {
       const exists = await existUsername(username);
@@ -33,9 +33,7 @@ export default function ChooseUserNameView() {
         const tmp = { ...currentUser };
         tmp.username = username;
         tmp.processCompleted = true;
-        await updateUser(tmp).then(
-          navigate("/")
-        );
+        await updateUser(tmp).then(navigate("/"));
         // setState(6);
       }
     }
@@ -45,13 +43,22 @@ export default function ChooseUserNameView() {
     return (
       <div className={style.chooseUsernameContainer}>
         <h1>¡Bienvenido {currentUser.displayName}!</h1>
-        <p>Para cerrar el proceso de registro, por favor escoja un nombre de usuario.</p>
-        {state === 5 ? <p>Ese nombre de usuario ya existe, por favor elija otro</p> : ""}
+        <p>
+          Para cerrar el proceso de registro, por favor escoja un nombre de
+          usuario.
+        </p>
+        {state === 5 ? (
+          <p>Ese nombre de usuario ya existe, por favor elija otro</p>
+        ) : (
+          ""
+        )}
         <div>
-          <input className="input" type="text"  onChange={handleInputUsername} />
+          <input className="input" type="text" onChange={handleInputUsername} />
         </div>
         <div>
-          <button className="btn-custom" onClick={handleContinue}>Continuar</button>
+          <button className="btn-custom mt-2" onClick={handleContinue}>
+            Continuar
+          </button>
         </div>
       </div>
     );

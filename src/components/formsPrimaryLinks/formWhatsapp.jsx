@@ -10,7 +10,7 @@ import {
 } from "../../firebase/firebase";
 import { link2FieldsWhatsapp } from "../../utils/socialMediaFields";
 
-export const FormWhatsapp = ({ style, user , handleAccordion }) => {
+export const FormWhatsapp = ({ style, user, handleAccordion }) => {
   const [openWhatsApp, setOpenWhatsApp] = useState(false);
   const [whatsappLinkDocId, setWhatsappLinkDocId] = useState("");
   const [whatsappNumber, setWhatsappNumber] = useState("");
@@ -21,13 +21,17 @@ export const FormWhatsapp = ({ style, user , handleAccordion }) => {
 
   useEffect(() => {
     initWhatsAppInfo(user.uid);
-  }, []);
+    console.log(
+      "🚀 ~ file: formWhatsapp.jsx ~ line 26 ~ FormWhatsapp ~ whatsappLinkDocId",
+      whatsappLinkDocId
+    );
+  }, [whatsappLinkDocId]);
 
   async function initWhatsAppInfo(uid) {
     const resLinksWhatsapp = await getLinksBySocialMedia(uid, "whatsapp");
     if (resLinksWhatsapp.length > 0) {
       const linkObject = [...resLinksWhatsapp][0];
-      
+
       setWhatsappLinkDocId(linkObject.docId);
       let fieldsData = link2FieldsWhatsapp(linkObject.url);
       setWhatsappNumber(fieldsData.phone);
@@ -36,8 +40,8 @@ export const FormWhatsapp = ({ style, user , handleAccordion }) => {
   }
 
   function addLink() {
-    if (whatsappNumber!== "") {
-      const newURL=linkWhatsApp(whatsappNumber, whatsappMsg);
+    if (whatsappNumber !== "") {
+      const newURL = linkWhatsApp(whatsappNumber, whatsappMsg);
       const newLink = {
         id: uuidv4(),
         title: "WhatsApp",
@@ -64,6 +68,7 @@ export const FormWhatsapp = ({ style, user , handleAccordion }) => {
       };
       const res = updateLink(currentLinkDocId, link);
       link.docId = res.id;
+      initWhatsAppInfo(user.uid);
     }
   }
 
@@ -86,12 +91,11 @@ export const FormWhatsapp = ({ style, user , handleAccordion }) => {
   }
 
   function handleMessageConfirmation() {
-    setOpenWhatsApp( true);
+    setOpenWhatsApp(true);
     setTimeout(() => {
-      setOpenWhatsApp( false);
+      setOpenWhatsApp(false);
     }, 3000);
   }
- 
 
   return (
     <>

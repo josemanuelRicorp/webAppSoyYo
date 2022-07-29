@@ -21,6 +21,8 @@ import { AiOutlineMail } from "react-icons/ai";
 import { TiSocialFacebook, TiSocialLinkedin } from "react-icons/ti";
 
 export default function DashboardWrapper({ children }) {
+  
+ 
   return (
     <div>
       <Navbar
@@ -71,6 +73,9 @@ export default function DashboardWrapper({ children }) {
                   Enlaces personales
                 </Link>
               </NavDropdown>
+              {/* <Link className="nav-link" to="/visitar-perfil">
+                Visitar perfil
+              </Link> */}
               <Link className="nav-link" to="/cerrar-sesion">
                 Salir
               </Link>

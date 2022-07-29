@@ -19,7 +19,6 @@ export function link2FieldsWhatsapp(link) {
     msg = msg.replaceAll("%26", "&");
     msg = msg.replaceAll("%3D", "=");
     msg = msg.replaceAll("%3F", "?");
-    // console.log([phone, msg]);
     return { phone, msg };
 }
 
@@ -75,7 +74,6 @@ export function link2FieldsMaps(link){
     lng = tempLink.split("+")[1];
     return { lat:lat, lng:lng };;
 }
-console.log(link2FieldsMaps("http://maps.google.com/maps?z=17&t=m&q=loc:-17.791873100000000107+-63.178807100000000219"));
 
 
 
@@ -123,7 +121,6 @@ function cutLink(indexStart = 0, endCut = 0, link = "") {
 
 
 
-// console.log(link2FieldsTiktok("https://www.tiktok.com/@jedielsoncosta"));
 
 
 

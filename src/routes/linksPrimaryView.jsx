@@ -80,7 +80,7 @@ export default function LinksPrimaryView() {
           </Accordion.Body>
         </Accordion.Item>
         <Accordion.Item eventKey="4" className={style.accordionItemCustom}>
-          <Accordion.Header> <RiMapPinUserLine className={style.linkIcon}></RiMapPinUserLine> Mapas</Accordion.Header>
+          <Accordion.Header> <RiMapPinUserLine className={style.linkIcon}></RiMapPinUserLine> Ubicación</Accordion.Header>
           <Accordion.Body>
           <FormMap user={currentUser} style={style.entryContainer} handleAccordion={closeAccordion} />
 

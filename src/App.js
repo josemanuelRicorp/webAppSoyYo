@@ -14,6 +14,7 @@ import DashboardView from './routes/dashboardView';
 import EditProfileDesignView from './routes/editProfileDesignView';
 import LinksCustomView from './routes/linksCustomView';
 import "./utils/dropConsole";
+import VisitProfile from './routes/visitProfile';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
         <Route exact path="/perfil/informacion" element={<EditProfileView />}></Route>
         <Route exact path="/perfil/diseno" element={<EditProfileDesignView />}></Route>
         <Route exact path="cerrar-sesion" element={<SignOutView />}></Route>
+        <Route exact path="/visitar-perfil" element={<VisitProfile />}></Route>
         <Route exact path="/asignar-alias" element={<ChooseUserNameView />}></Route>
       </Routes>
     </HashRouter>

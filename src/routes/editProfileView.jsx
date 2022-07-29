@@ -317,7 +317,52 @@ export default function EditProfileView() {
               )}
             </Col>
           </Row>
-
+          <Row className={style.rows}>
+            <Col md lg={5}>
+              <strong>Profesión</strong>
+            </Col>
+            <Col md lg={7} className={style.cols}>
+              {editCareer ? (
+                <Stack direction="horizontal" gap={2}>
+                  <Form.Control
+                    className="me-auto"
+                    placeholder="Escribe tu profesión"
+                    name="career"
+                    type="text"
+                    maxLength="40"
+                    autoComplete="off"
+                    ref={careerRef}
+                    value={career}
+                    onChange={handleChangeCareer}
+                  />
+                  <button
+                    type="button"
+                    className="btn-custom negative small"
+                    onClick={handleCancelEditCareer}
+                  >
+                    <CgClose />
+                  </button>
+                  <div className="vr" />
+                  <button
+                    className="btn-custom small"
+                    onClick={handleSuccessEditCareer}
+                    type="button"
+                  >
+                    <HiCheck />
+                  </button>
+                </Stack>
+              ) : (
+                <>
+                  <button className={style.btnEdit} onClick={handleEditCareer}>
+                    <span>
+                      <FaPen className={style.iconEdit}></FaPen>
+                    </span>
+                  </button>
+                  {career}
+                </>
+              )}
+            </Col>
+          </Row>
           <Row className={style.rows}>
             <Col md lg={5}>
               <strong>Enlace del perfil</strong>
@@ -429,52 +474,7 @@ export default function EditProfileView() {
               )}
             </Col>
           </Row>
-          <Row className={style.rows}>
-            <Col md lg={5}>
-              <strong>Profesión</strong>
-            </Col>
-            <Col md lg={7} className={style.cols}>
-              {editCareer ? (
-                <Stack direction="horizontal" gap={2}>
-                  <Form.Control
-                    className="me-auto"
-                    placeholder="Escribe tu profesión"
-                    name="career"
-                    type="text"
-                    maxLength="40"
-                    autoComplete="off"
-                    ref={careerRef}
-                    value={career}
-                    onChange={handleChangeCareer}
-                  />
-                  <button
-                    type="button"
-                    className="btn-custom negative small"
-                    onClick={handleCancelEditCareer}
-                  >
-                    <CgClose />
-                  </button>
-                  <div className="vr" />
-                  <button
-                    className="btn-custom small"
-                    onClick={handleSuccessEditCareer}
-                    type="button"
-                  >
-                    <HiCheck />
-                  </button>
-                </Stack>
-              ) : (
-                <>
-                  <button className={style.btnEdit} onClick={handleEditCareer}>
-                    <span>
-                      <FaPen className={style.iconEdit}></FaPen>
-                    </span>
-                  </button>
-                  {career}
-                </>
-              )}
-            </Col>
-          </Row>
+          
 
           <Row className={style.rows}>
             <Col md lg={5}>

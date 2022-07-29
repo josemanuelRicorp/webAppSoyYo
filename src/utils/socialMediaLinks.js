@@ -62,8 +62,7 @@ export function linkGoogleMaps(p_latitud, p_longitud) {
     // // http://maps.google.com/maps?z={zoom}&t={typeMap}&q=loc:{latitude}+{longitude}
     // let url2 = `https://maps.google.com/maps?z=17&t=m&q=loc:${value.lat}+${value.lng}`;
     // linkGoogleMaps(value.lat, value.lng);
-    // console.log(url.toString());
-    // console.log(url2.toString());
+
     // https://www.google.com/maps/@-17.7919974,-63.1788297,3a,75y,350.12h,93.64t/data=!3m7!1e1!3m5!1s05rB-2zasTh9rvoiDt-f1Q!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fpanoid%3D05rB-2zasTh9rvoiDt-f1Q%26cb_client%3Dsearch.revgeo_and_fetch.gps%26w%3D96%26h%3D64%26yaw%3D328.88287%26pitch%3D0%26thumbfov%3D100!7i13312!8i6656
     // https://www.google.com/maps/@-17.7915573,-63.178627,15z
     // https://www.google.com/maps/@{latitud},{longitud},{zoom}z
