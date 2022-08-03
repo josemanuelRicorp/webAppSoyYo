@@ -3,6 +3,7 @@ import {
   getLinksBySocialMedia,
   insertNewLink,
   updateLink,
+  deleteLink,
 } from "../../firebase/firebase";
 import { link2FieldsMaps } from "../../utils/socialMediaFields";
 import { v4 as uuidv4 } from "uuid";
@@ -10,11 +11,13 @@ import { v4 as uuidv4 } from "uuid";
 import MessageInputs from "../messageInputs";
 import { linkGoogleMaps } from "../../utils/socialMediaLinks";
 import { Map, MapStatic } from "../maps";
+import MessageDelete from "../messages/messageDelete";
 
 export const FormMap = ({ style, user, handleAccordion }) => {
   const [state, setState] = useState(0);
   const [currentUser, setCurrentUser] = useState(user);
   const [openMap, setOpenMap] = useState(false);
+  const [openMapDelete, setOpenMapDelete] = useState(false);
   const [mapLat, setMapLat] = useState("");
   const [mapLng, setMapLng] = useState("");
   const initialPositionCoords = {
@@ -27,21 +30,19 @@ export const FormMap = ({ style, user, handleAccordion }) => {
   const [showMap, setShowMap] = useState(false);
   useEffect(() => {
     initMapsInfo(user.uid);
-  }, []);
+  }, [handleDeleteMap, handleOnSubmitMaps]);
 
   async function initMapsInfo(uid) {
     const resLinksMaps = await getLinksBySocialMedia(uid, "maps");
-    setTimeout(() => {
-      if (resLinksMaps.length > 0) {
-        const linkObject = [...resLinksMaps][0];
-        setMapsLinkDocId(linkObject.docId);
-        let fieldsData = link2FieldsMaps(linkObject.url);
-        setMapLat(fieldsData.lat);
-        setMapLng(fieldsData.lng);
-        setMapLatLng({ lat: fieldsData.lat, lng: fieldsData.lng });
-        setState(1);
-      }
-    }, 2000);
+    if (resLinksMaps.length > 0) {
+      const linkObject = [...resLinksMaps][0];
+      setMapsLinkDocId(linkObject.docId);
+      let fieldsData = link2FieldsMaps(linkObject.url);
+      setMapLat(fieldsData.lat);
+      setMapLng(fieldsData.lng);
+      setMapLatLng({ lat: fieldsData.lat, lng: fieldsData.lng });
+      setState(1);
+    }
   }
 
   function addLink() {
@@ -102,6 +103,14 @@ export const FormMap = ({ style, user, handleAccordion }) => {
       setOpenMap(false);
     }, 2600);
   }
+
+  function handleDeleteMap() {
+    const res = deleteLink(mapsLinkDocId);
+    setState(0);
+    handleMessageConfirmation();
+    handleAccordion();
+  }
+
   return (
     <>
       <div className={style}>
@@ -115,9 +124,28 @@ export const FormMap = ({ style, user, handleAccordion }) => {
         ) : (
           ""
         )}
+        {openMapDelete ? (
+          <MessageDelete
+            open={openMap}
+            type={"dark"}
+            socialmedia={"ubicación"}
+          ></MessageDelete>
+        ) : (
+          ""
+        )}
         <button className="btn-custom" onClick={() => setShowMap(true)}>
           Editar ubicación
         </button>
+        {mapsLinkDocId ? (
+          <>
+            <button className="btn-custom negative" onClick={handleDeleteMap}>
+              Eliminar ubicación registrada
+            </button>
+          </>
+        ) : (
+          <></>
+        )}
+
         <Map
           user={currentUser}
           show={showMap}
