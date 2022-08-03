@@ -62,7 +62,7 @@ export default function LinksPrimaryView() {
         className={style.accordionCustom}
       >
         <Accordion.Item eventKey="1" className={style.accordionItemCustom}>
-          <Accordion.Header> <AiOutlineWhatsApp  className={style.linkIcon}></AiOutlineWhatsApp>  WhatsApp</Accordion.Header>
+          <Accordion.Header  translate="no" > <AiOutlineWhatsApp  className={style.linkIcon}></AiOutlineWhatsApp>  WhatsApp</Accordion.Header>
           <Accordion.Body>
           <FormWhatsapp user={currentUser} style={style.entryContainer}  handleAccordion={closeAccordion}/>
           </Accordion.Body>

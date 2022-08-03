@@ -22,7 +22,7 @@ import "../styles/theme.css";
 
 import { Button, ButtonGroup, Col, Form, Row, Stack } from "react-bootstrap";
 import Loading from "../components/loading";
-import MessageTheme from "../components/others/messageTheme";
+import MessageTheme from "../components/messages/messageTheme";
 
 export default function EditProfileDesignView() {
   const navigate = useNavigate();
