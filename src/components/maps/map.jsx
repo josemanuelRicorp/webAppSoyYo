@@ -57,7 +57,6 @@ export const Map = ({ show, handleOnHide, handlePositionMarker, handleOnSubmitMa
                   setMarkerPosition={setMarkerPosition} 
                   />
                 </MapContainer>
-             
         </Row>
       </Modal.Body>
       <Modal.Footer>

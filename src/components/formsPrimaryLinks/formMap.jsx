@@ -106,9 +106,9 @@ export const FormMap = ({ style, user, handleAccordion }) => {
 
   function handleDeleteMap() {
     const res = deleteLink(mapsLinkDocId);
-    setState(0);
     handleMessageConfirmation();
     handleAccordion();
+    setState(0);
   }
 
   return (
@@ -127,7 +127,7 @@ export const FormMap = ({ style, user, handleAccordion }) => {
         {openMapDelete ? (
           <MessageDelete
             open={openMap}
-            type={"dark"}
+            type={"success"}
             socialmedia={"ubicación"}
           ></MessageDelete>
         ) : (
@@ -145,7 +145,6 @@ export const FormMap = ({ style, user, handleAccordion }) => {
         ) : (
           <></>
         )}
-
         <Map
           user={currentUser}
           show={showMap}

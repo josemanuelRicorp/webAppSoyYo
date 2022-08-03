@@ -1,4 +1,4 @@
-import {  useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthProviders } from "../components/authProvider";
 
@@ -6,11 +6,15 @@ import DashboardWrapper from "../components/dashboardwrapper";
 import style from "../styles/dashboardView.module.css";
 
 import { Accordion } from "react-bootstrap";
-import { FormEmail, FormMap, FormPhone, FormWhatsapp } from "../components/formsPrimaryLinks";
-import { MdEmail} from "react-icons/md";
-import { RiMapPinUserLine} from "react-icons/ri";
+import {
+  FormEmail,
+  FormMap,
+  FormPhone,
+  FormWhatsapp,
+} from "../components/formsPrimaryLinks";
+import { MdEmail } from "react-icons/md";
+import { RiMapPinUserLine } from "react-icons/ri";
 import { AiOutlineWhatsApp, AiFillPhone } from "react-icons/ai";
-
 
 export default function LinksPrimaryView() {
   const navigate = useNavigate();
@@ -30,15 +34,13 @@ export default function LinksPrimaryView() {
   }
 
   function handleSelection(eventKey, e) {
-    setStateAccordion(eventKey);
+      setStateAccordion(eventKey);
   }
   function closeAccordion() {
     setTimeout(() => {
       setStateAccordion("0");
-    }, 1400);
+    }, 1000);
   }
-
-
 
   if (state === 0) {
     return (
@@ -62,28 +64,61 @@ export default function LinksPrimaryView() {
         className={style.accordionCustom}
       >
         <Accordion.Item eventKey="1" className={style.accordionItemCustom}>
-          <Accordion.Header  translate="no" > <AiOutlineWhatsApp  className={style.linkIcon}></AiOutlineWhatsApp>  WhatsApp</Accordion.Header>
+          <Accordion.Header translate="no">
+            {" "}
+            <AiOutlineWhatsApp
+              className={style.linkIcon}
+            ></AiOutlineWhatsApp>{" "}
+            WhatsApp
+          </Accordion.Header>
           <Accordion.Body>
-          <FormWhatsapp user={currentUser} style={style.entryContainer}  handleAccordion={closeAccordion}/>
+            <FormWhatsapp
+              user={currentUser}
+              style={style.entryContainer}
+              handleAccordion={closeAccordion}
+            />
           </Accordion.Body>
         </Accordion.Item>
         <Accordion.Item eventKey="2" className={style.accordionItemCustom}>
-          <Accordion.Header> <MdEmail  className={style.linkIcon}></MdEmail>  Correo electrónico</Accordion.Header>
+          <Accordion.Header>
+            {" "}
+            <MdEmail className={style.linkIcon}></MdEmail> Correo electrónico
+          </Accordion.Header>
           <Accordion.Body>
-            <FormEmail user={currentUser} style={style.entryContainer} handleAccordion={closeAccordion} />
+            <FormEmail
+              user={currentUser}
+              style={style.entryContainer}
+              handleAccordion={closeAccordion}
+            />
           </Accordion.Body>
         </Accordion.Item>
         <Accordion.Item eventKey="3" className={style.accordionItemCustom}>
-          <Accordion.Header> <AiFillPhone className={style.linkIcon}></AiFillPhone>  Telefóno</Accordion.Header>
+          <Accordion.Header>
+            {" "}
+            <AiFillPhone className={style.linkIcon}></AiFillPhone> Telefóno
+          </Accordion.Header>
           <Accordion.Body>
-          <FormPhone user={currentUser} style={style.entryContainer} handleAccordion={closeAccordion} />
+            <FormPhone
+              user={currentUser}
+              style={style.entryContainer}
+              handleAccordion={closeAccordion}
+            />
           </Accordion.Body>
         </Accordion.Item>
         <Accordion.Item eventKey="4" className={style.accordionItemCustom}>
-          <Accordion.Header> <RiMapPinUserLine className={style.linkIcon}></RiMapPinUserLine> Ubicación</Accordion.Header>
+          <Accordion.Header>
+            {" "}
+            <RiMapPinUserLine
+              className={style.linkIcon}
+            ></RiMapPinUserLine>{" "}
+            Ubicación
+          </Accordion.Header>
           <Accordion.Body>
-          <FormMap user={currentUser} style={style.entryContainer} handleAccordion={closeAccordion} />
-
+            <FormMap
+              user={currentUser}
+              style={style.entryContainer}
+              handleAccordion={closeAccordion}
+            />
           </Accordion.Body>
         </Accordion.Item>
       </Accordion>
