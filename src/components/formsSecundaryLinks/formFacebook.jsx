@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from "react";
 import { Col, Form, FormControl, InputGroup, Row } from "react-bootstrap";
 import {
   deleteLink,
-  deleteLinks,
   getLinksBySocialMedia,
   insertNewLink,
   updateLink,

@@ -39,7 +39,7 @@ export default function LinksPrimaryView() {
   function closeAccordion() {
     setTimeout(() => {
       setStateAccordion("0");
-    }, 1000);
+    }, 3000);
   }
 
   if (state === 0) {
