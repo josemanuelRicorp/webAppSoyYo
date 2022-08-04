@@ -11,7 +11,7 @@ import { link2FieldsTwitter } from "../../utils/socialMediaFields";
 import { linkTwitter } from "../../utils/socialMediaLinks";
 import { v4 as uuidv4 } from "uuid";
 import MessageInputs from "../messageInputs";
-import {  BsTwitter } from "react-icons/bs";
+import { BsTwitter } from "react-icons/bs";
 
 export const FormTwitter = ({ style, user, handleAccordion }) => {
   const [currentUser, setCurrentUser] = useState(user);
@@ -19,7 +19,7 @@ export const FormTwitter = ({ style, user, handleAccordion }) => {
   const [openTwitter, setOpenTwitter] = useState(false);
   const [twitterLinkDocId, setTwitterLinkDocId] = useState("");
   const usernameRef = useRef(null);
-
+  const [removeLink, setRemoveLink] = useState(false);
   useEffect(() => {
     initTwitter(user.uid);
   }, []);
@@ -40,9 +40,8 @@ export const FormTwitter = ({ style, user, handleAccordion }) => {
         id: uuidv4(),
         title: "Twitter",
         category: "secondary",
-socialmedia: "twitter",
+        socialmedia: "twitter",
         url: newURL,
-        
         uid: currentUser.uid,
       };
       const res = insertNewLink(newLink);
@@ -53,54 +52,61 @@ socialmedia: "twitter",
   }
 
   function editLink(currentLinkDocId) {
-//     if (twitterUsername) {
-//       const newURL = linkTwitter(twitterUsername);
-//       const link = {
-//         title: "Twitter",
-//         category: "secondary",
-//  socialmedia: "twitter",
-//         url: newURL,
-       
-//         uid: currentUser.uid,
-//       };
-//       const res = updateLink(currentLinkDocId, link);
-     
-//       link.docId = res.id;
-//     }
-console.log('DELETE LINKS', 'DENTRO DEL THEN TWITTER')
-if (twitterUsername) {
-  const newURL = linkTwitter(twitterUsername);
-  const link = {
-    title: "Twitter",
-    category: "secondary",
-    socialmedia: "twitter",
-    url: newURL,
-    uid: currentUser.uid,
-  };
-  const res = updateLink(currentLinkDocId, link);
-  link.docId = res.id;
-} else {
-  deleteLink(twitterLinkDocId);
-}
+    console.log("DELETE LINKS", "DENTRO DEL THEN TWITTER");
+    if (twitterUsername) {
+      const newURL = linkTwitter(twitterUsername);
+      const link = {
+        title: "Twitter",
+        category: "secondary",
+        socialmedia: "twitter",
+        url: newURL,
+        uid: currentUser.uid,
+      };
+      const res = updateLink(currentLinkDocId, link);
+      link.docId = res.id;
+    } else {
+      deleteLink(twitterLinkDocId);
+    }
   }
+
+  function removeLinkLinkdin(currentLinkDocId) {
+    if (twitterUsername.replace(" ","") ==="" ||  /\s/.test(twitterUsername)) {
+      deleteLink(currentLinkDocId);
+      return;
+    }
+  }
+
 
   function handleOnSubmitTwitter(e) {
     e.preventDefault();
     e.stopPropagation();
-    if (twitterLinkDocId !== "") {
+    if(twitterUsername.replace(" ","") ==="" ||  /\s/.test(twitterUsername)){
+      setTwitterUsername("");
+      removeLinkLinkdin(twitterLinkDocId)
+      handleMessageRemoveLink();
+    }else if (twitterLinkDocId !== "") {
       editLink(twitterLinkDocId);
+      handleMessageConfirmation();
     } else {
       addLink();
+      handleMessageConfirmation();
     }
-    handleMessageConfirmation();
     handleAccordion();
   }
 
   function handleMessageConfirmation() {
     setOpenTwitter(true);
+    setRemoveLink(false);
     setTimeout(() => {
       setOpenTwitter(false);
-    }, 2000);
+    }, 3000);
+  }
+  function handleMessageRemoveLink() {
+    setOpenTwitter(true);
+    setRemoveLink(true)
+    setTimeout(() => {
+      setOpenTwitter(false);
+    }, 3000);
   }
   function handleOnChangeTwitterUsername() {
     setTwitterUsername(usernameRef.current.value);
@@ -113,13 +119,13 @@ if (twitterUsername) {
         autoComplete={"off"}
         onSubmit={handleOnSubmitTwitter}
       >
-          <h2>Datos de tu usuario de Twitter</h2>
+        <h2>Datos de tu usuario de Twitter</h2>
         {openTwitter ? (
-          <MessageInputs
-            open={openTwitter}
-            type={"success"}
-            socialmedia={"Twitter"}
-          ></MessageInputs>
+         <MessageInputs
+         open={openTwitter}
+         type={removeLink?"danger":"success"}
+         socialmedia={"Twitter"}
+       ></MessageInputs>
         ) : (
           ""
         )}
@@ -139,17 +145,21 @@ if (twitterUsername) {
                   value={twitterUsername}
                   ref={usernameRef}
                   onChange={handleOnChangeTwitterUsername}
-                   autoComplete="off"
+                  autoComplete="off"
                   aria-label="Nombre de usuario"
                 />
               </InputGroup>
             </Form.Group>
           </Col>
           <Col md className="mt-2">
-            <input className="btn-custom" type="submit" value="Guardar datos" style={{width:"100%"}} />
+            <input
+              className="btn-custom"
+              type="submit"
+              value="Guardar datos"
+              style={{ width: "100%" }}
+            />
           </Col>
         </Row>
-      
       </Form>
     </>
   );

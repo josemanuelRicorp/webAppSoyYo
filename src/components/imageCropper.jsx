@@ -49,10 +49,11 @@ export default function ImageCropper({ show, handleOnHide, user }) {
           const imageData = fileReader.result;
           const res = await setUserProfilePhoto(currentUser.uid, imageData);
           if (res) {
-            const tmpUser = { ...currentUser };
-            tmpUser.profilePicture = res.metadata.fullPath;
-            await updateUser(tmpUser).then(handleOnHide());
-            setCurrentUser({ ...tmpUser });
+            // const tmpUser = { ...currentUser };
+            // tmpUser.profilePicture = res.metadata.fullPath;
+            // await updateUser(tmpUser).then(handleOnHide());
+            // setCurrentUser({ ...tmpUser });
+            handleOnHide();
           }
         };
       });

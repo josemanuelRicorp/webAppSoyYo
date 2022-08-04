@@ -17,7 +17,7 @@ export const FormLinkedIn = ({ style, user, handleAccordion }) => {
   const [linkedinLinkDocId, setLinkedinLinkDocId] = useState("");
   const [linkedinUsername, setLinkedinUsername] = useState("");
   const usernameRef = useRef(null);
-
+  const [removeLink, setRemoveLink] = useState(false);
   useEffect(() => {
     initLinkedin(user.uid);
   }, []);
@@ -63,7 +63,7 @@ export const FormLinkedIn = ({ style, user, handleAccordion }) => {
     //   const res = updateLink(currentLinkDocId, link);
     //   link.docId = res.id;
     // }
-    console.log('DELETE LINKS', 'DENTRO DEL THEN LINKEDIN')
+    console.log("DELETE LINKS", "DENTRO DEL THEN LINKEDIN");
     if (linkedinUsername) {
       const newURL = linkLinkedin(linkedinUsername);
       const link = {
@@ -79,16 +79,33 @@ export const FormLinkedIn = ({ style, user, handleAccordion }) => {
       deleteLink(linkedinLinkDocId);
     }
   }
+  function removeLinkeLinkdin(currentLinkDocId) {
+    if (
+      linkedinUsername.replace(" ", "") === "" ||
+      /\s/.test(linkedinUsername)
+    ) {
+      deleteLink(currentLinkDocId);
+      return;
+    }
+  }
 
   function handleOnSubmitLinkedin(e) {
     e.preventDefault();
     e.stopPropagation();
-    if (linkedinLinkDocId !== "") {
+    if (
+      linkedinUsername.replace(" ", "") === "" ||
+      /\s/.test(linkedinUsername)
+    ) {
+      setLinkedinUsername("");
+      removeLinkeLinkdin(linkedinLinkDocId);
+      handleMessageRemoveLink();
+    } else if (linkedinLinkDocId !== "") {
       editLink(linkedinLinkDocId);
+      handleMessageConfirmation();
     } else {
       addLink();
+      handleMessageConfirmation();
     }
-    handleMessageConfirmation();
     handleAccordion();
   }
   function handleOnChangeLinkedin() {
@@ -97,11 +114,18 @@ export const FormLinkedIn = ({ style, user, handleAccordion }) => {
 
   function handleMessageConfirmation() {
     setOpenLinkedin(true);
+    setRemoveLink(false);
     setTimeout(() => {
       setOpenLinkedin(false);
     }, 2000);
   }
-
+  function handleMessageRemoveLink() {
+    setOpenLinkedin(true);
+    setRemoveLink(true);
+    setTimeout(() => {
+      setOpenLinkedin(false);
+    }, 3000);
+  }
   return (
     <>
       <Form
@@ -109,11 +133,11 @@ export const FormLinkedIn = ({ style, user, handleAccordion }) => {
         className={style}
         onSubmit={handleOnSubmitLinkedin}
       >
-         <h2>Datos de tu usuario de LinkedIn</h2>
+        <h2>Datos de tu usuario de LinkedIn</h2>
         {openLinkedin ? (
           <MessageInputs
             open={openLinkedin}
-            type="success"
+            type={removeLink ? "danger" : "success"}
             socialmedia="Linkedin"
           ></MessageInputs>
         ) : (
@@ -143,7 +167,12 @@ export const FormLinkedIn = ({ style, user, handleAccordion }) => {
             </Form.Group>
           </Col>
           <Col md className="mt-2">
-            <input className="btn-custom" type="submit" value="Guardar datos" style={{width:"100%"}} />
+            <input
+              className="btn-custom"
+              type="submit"
+              value="Guardar datos"
+              style={{ width: "100%" }}
+            />
           </Col>
         </Row>
       </Form>

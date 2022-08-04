@@ -19,6 +19,7 @@ export const FormTikTok = ({ style, user, handleAccordion }) => {
   const [openTiktok, setOpenTiktok] = useState(false);
   const [tiktokLinkDocId, setTiktokLinkDocId] = useState("");
   const usernameRef = useRef(null);
+  const [removeLink, setRemoveLink] = useState(false);
 
   useEffect(() => {
     initTiktok(user.uid);
@@ -81,15 +82,27 @@ export const FormTikTok = ({ style, user, handleAccordion }) => {
       deleteLink(tiktokLinkDocId);
     }
   }
+  function removeLinkTiktok(currentLinkDocId) {
+    if (tiktokUsername.replace(" ","") ==="" || /\s/.test(tiktokUsername)) {
+      deleteLink(currentLinkDocId);
+      return;
+    }
+  }
+
   function handleOnSubmitTiktok(e) {
     e.preventDefault();
     e.stopPropagation();
-    if (tiktokLinkDocId !== "") {
+    if(tiktokUsername.replace(" ","") ==="" || /\s/.test(tiktokUsername)){
+      setTiktokUsername("");
+      removeLinkTiktok(tiktokLinkDocId)
+      handleMessageRemoveLink();
+    }else if (tiktokLinkDocId !== "") {
       editLink(tiktokLinkDocId);
+      handleMessageConfirmation();
     } else {
       addLink();
+      handleMessageConfirmation();
     }
-    handleMessageConfirmation();
     handleAccordion();
   }
 
@@ -98,6 +111,13 @@ export const FormTikTok = ({ style, user, handleAccordion }) => {
   }
   function handleMessageConfirmation() {
     setOpenTiktok(true);
+    setTimeout(() => {
+      setOpenTiktok(false);
+    }, 3000);
+  }
+  function handleMessageRemoveLink() {
+    setOpenTiktok(true);
+    setRemoveLink(true)
     setTimeout(() => {
       setOpenTiktok(false);
     }, 3000);
@@ -111,11 +131,11 @@ export const FormTikTok = ({ style, user, handleAccordion }) => {
       >
           <h2>Datos de tu usuario de Tiktok</h2>
         {openTiktok ? (
-          <MessageInputs
-            open={openTiktok}
-            type={"success"}
-            socialmedia={"Tiktok"}
-          ></MessageInputs>
+         <MessageInputs
+         open={openTiktok}
+         type={removeLink?"danger":"success"}
+         socialmedia={"Tiktok"}
+       ></MessageInputs>
         ) : (
           ""
         )}

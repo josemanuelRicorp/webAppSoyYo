@@ -19,7 +19,7 @@ export const FormFacebook = ({ style, user, handleAccordion }) => {
   const [openFacebook, setOpenFacebook] = useState(false);
   const [facebookLinkDocId, setFacebookLinkDocId] = useState("");
   const usernameRef = useRef(null);
-
+  const [removeLink, setRemoveLink] = useState(false);
   useEffect(() => {
     initFacebook(user.uid);
   }, []);
@@ -52,7 +52,7 @@ export const FormFacebook = ({ style, user, handleAccordion }) => {
   }
 
   function editLink(currentLinkDocId) {
-    console.log('DELETE LINKS', 'DENTRO DEL THEN FACEBOOK')
+    console.log("DELETE LINKS", "DENTRO DEL THEN FACEBOOK");
     if (facebookUsername) {
       const newURL = linkFacebook(facebookUsername);
       const link = {
@@ -68,15 +68,31 @@ export const FormFacebook = ({ style, user, handleAccordion }) => {
       deleteLink(facebookLinkDocId);
     }
   }
+
+  function removeLinkFacebook(currentLinkDocId) {
+    if (
+      facebookUsername.replace(" ", "") === "" ||
+      /\s/.test(facebookUsername)
+    ) {
+      deleteLink(currentLinkDocId);
+      return;
+    }
+  }
+
   function handleOnSubmitFacebook(e) {
     e.preventDefault();
     e.stopPropagation();
-    if (facebookLinkDocId !== "") {
+    if(facebookUsername.replace(" ","") ==="" ||  /\s/.test(facebookUsername)){
+      setFacebookUsername("");
+      removeLinkFacebook(facebookLinkDocId);
+      handleMessageRemoveLink();
+    } else if (facebookLinkDocId !== "") {
       editLink(facebookLinkDocId);
+      handleMessageConfirmation();
     } else {
       addLink();
+      handleMessageConfirmation();
     }
-    handleMessageConfirmation();
     handleAccordion();
   }
   function onChangeFacebookUsername() {
@@ -84,6 +100,14 @@ export const FormFacebook = ({ style, user, handleAccordion }) => {
   }
   function handleMessageConfirmation() {
     setOpenFacebook(true);
+    setRemoveLink(false);
+    setTimeout(() => {
+      setOpenFacebook(false);
+    }, 3000);
+  }
+  function handleMessageRemoveLink() {
+    setOpenFacebook(true);
+    setRemoveLink(true);
     setTimeout(() => {
       setOpenFacebook(false);
     }, 3000);
@@ -99,7 +123,7 @@ export const FormFacebook = ({ style, user, handleAccordion }) => {
         {openFacebook ? (
           <MessageInputs
             open={openFacebook}
-            type="success"
+            type={removeLink ? "danger" : "success"}
             socialmedia="Facebook"
           ></MessageInputs>
         ) : (
@@ -137,7 +161,6 @@ export const FormFacebook = ({ style, user, handleAccordion }) => {
             />
           </Col>
         </Row>
-
       </Form>
     </>
   );

@@ -18,7 +18,7 @@ export const FormInstagram = ({ style, user, handleAccordion }) => {
   const [openInstagram, setOpenInstagram] = useState(false);
   const [instagramLinkDocId, setInstagramLinkDocId] = useState("");
   const usernameRef = useRef(null);
-
+  const [removeLink, setRemoveLink] = useState(false);
   useEffect(() => {
     initInstagram(user.uid);
   }, []);
@@ -60,20 +60,6 @@ export const FormInstagram = ({ style, user, handleAccordion }) => {
   }
 
   function editLink(currentLinkDocId) {
-    // if (instagramUsername) {
-    //   const newURL = linkInstagram(instagramUsername);
-    //   const link = {
-    //     title: "Instagram",
-    //     category: "secondary",
-    //     url: newURL,
-    //     socialmedia: "instagram",
-    //     uid: currentUser.uid,
-    //   };
-    //   const res = updateLink(currentLinkDocId, link);
-    //   link.docId = res.id;
-    // } else {
-    //   deleteLink(currentLinkDocId);
-    // }
     console.log('DELETE', "DENTTRO DE INSTAGRAM")
     if (instagramUsername) {
       const newURL = linkInstagram(instagramUsername);
@@ -90,25 +76,60 @@ export const FormInstagram = ({ style, user, handleAccordion }) => {
       deleteLink(instagramLinkDocId);
     }
   }
+  
+  function removeLinkInstagram(currentLinkDocId) {
+    if (instagramUsername.replace(" ","") ==="" || /\s/.test(instagramUsername)) {
+      deleteLink(currentLinkDocId);
+      return;
+    }
+  }
 
+  // function handleOnSubmitInstagram(e) {
+  //   e.preventDefault();
+  //   e.stopPropagation();
+  //   if (instagramLinkDocId !== "") {
+  //     editLink(instagramLinkDocId);
+  //     console.log('instagramLinkDocId', instagramLinkDocId)
+  //   } else {
+  //     addLink();
+  //     console.log('agregar link', "HOLA")
+  //   }
+  //   handleMessageConfirmation();
+  //   handleAccordion();
+  // }
   function handleOnSubmitInstagram(e) {
     e.preventDefault();
     e.stopPropagation();
-    if (instagramLinkDocId !== "") {
+    if(instagramUsername.replace(" ","") ==="" ||  /\s/.test(instagramUsername)){
+      setInstagramUsername("");
+      removeLinkInstagram(instagramLinkDocId);
+      handleMessageRemoveLink();
+    }else if (instagramLinkDocId !== "") {
       editLink(instagramLinkDocId);
-      console.log('instagramLinkDocId', instagramLinkDocId)
+      handleMessageConfirmation();
     } else {
       addLink();
-      console.log('agregar link', "HOLA")
+      handleMessageConfirmation();
     }
-    handleMessageConfirmation();
     handleAccordion();
   }
+
+
+
+  
   function onChangeInstagramUsername() {
     setInstagramUsername(usernameRef.current.value);
   }
   function handleMessageConfirmation() {
     setOpenInstagram(true);
+    setRemoveLink(false);
+    setTimeout(() => {
+      setOpenInstagram(false);
+    }, 3000);
+  }
+  function handleMessageRemoveLink() {
+    setOpenInstagram(true);
+    setRemoveLink(true)
     setTimeout(() => {
       setOpenInstagram(false);
     }, 3000);
@@ -123,11 +144,11 @@ export const FormInstagram = ({ style, user, handleAccordion }) => {
       >
         <h2>Datos de tu usuario de Instagram</h2>
         {openInstagram ? (
-          <MessageInputs
-            open={openInstagram}
-            type={"success"}
-            socialmedia={"Instagram"}
-          ></MessageInputs>
+           <MessageInputs
+           open={openInstagram}
+           type={removeLink?"danger":"success"}
+           socialmedia={"Instagram"}
+         ></MessageInputs>
         ) : (
           ""
         )}

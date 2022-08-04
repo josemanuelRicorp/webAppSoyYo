@@ -9,7 +9,7 @@ export default function MessageInputs({ open, type, socialmedia }) {
           {type === "success"
             ? " se guardo exitosamente"
             : type === "danger"
-            ? " no fue guardado"
+            ? " fue eliminado correctamente"
             : ""}
           .
         </Alert>
