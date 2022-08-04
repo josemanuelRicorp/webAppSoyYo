@@ -1,7 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from 'firebase/auth';
 import { getStorage, ref, uploadBytes, getDownloadURL, getBytes } from 'firebase/storage';
-import { getFirestore, collection, addDoc, getDocs, doc, getDoc, query, where, setDoc, deleteDoc } from 'firebase/firestore';
+import { getFirestore, collection, addDoc, getDocs, doc, getDoc, query, where, setDoc, deleteDoc, collectionGroup } from 'firebase/firestore';
 
 const firebaseConfig = {
     apiKey: process.env.REACT_APP_apiKey,
@@ -72,7 +72,6 @@ export async function registerNewUser(user) {
 export async function logout() {
     try {
         await auth.signOut();
-       
     } catch (error) {
         console.error(error);
     }
@@ -209,6 +208,23 @@ export async function updateLink(docId, link) {
     } catch (error) {
         console.error(error);
         return error;
+    }
+}
+
+export async function deleteLinks(uid, media) {
+    console.log('Delete links', "ANTES DEL TRY")
+    try {
+        const d = query(collection(db, 'links'), where('uid', '==', uid), where('socialmedia', '==', media));
+        const docSnap = await getDocs(d);
+        docSnap.forEach((doc) => {
+            console.log(doc.data())
+            deleteDoc(doc.ref);
+        });
+        // const q = query(docRef, where("uid", "=", { uid }))
+        // const res = await deleteDoc(docRef);
+        // return res;
+    } catch (error) {
+        console.error(error);
     }
 }
 

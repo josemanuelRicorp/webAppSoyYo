@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { Col, Form, FormControl, InputGroup, Row } from "react-bootstrap";
 import {
+  deleteLinks,
+  deleteLink,
   getLinksBySocialMedia,
   insertNewLink,
   updateLink,
@@ -22,14 +24,22 @@ export const FormInstagram = ({ style, user, handleAccordion }) => {
   }, []);
 
   async function initInstagram(uid) {
-    const resLinks = await getLinksBySocialMedia(uid, "instagram");
-    if (resLinks.length > 0) {
-      const linkObject = [...resLinks][0];
+    // const resLinks = await getLinksBySocialMedia(uid, "instagram");
+    // if (resLinks.length > 0) {
+    //   const linkObject = [...resLinks][0];
 
-      setInstagramLinkDocId(linkObject.docId);
-      let fieldsData = link2FieldsInstagram(linkObject.url);
-      setInstagramUsername(fieldsData.username);
-    }
+    //   setInstagramLinkDocId(linkObject.docId);
+    //   let fieldsData = link2FieldsInstagram(linkObject.url);
+    //   setInstagramUsername(fieldsData.username);
+    // }
+    getLinksBySocialMedia(uid, "instagram").then((resLinks) => {
+      if (resLinks.length > 0) {
+        const linkObject = [...resLinks][0];
+        setInstagramLinkDocId(linkObject.docId);
+        let fieldsData = link2FieldsInstagram(linkObject.url);
+        setInstagramUsername(fieldsData.username);
+      }
+    })
   }
   function addLink() {
     if (instagramUsername !== "") {
@@ -44,22 +54,40 @@ export const FormInstagram = ({ style, user, handleAccordion }) => {
       };
       const res = insertNewLink(newLink);
       newLink.docId = res.id;
+      initInstagram(currentUser.uid)
+      return newLink.docId;
     }
   }
 
   function editLink(currentLinkDocId) {
+    // if (instagramUsername) {
+    //   const newURL = linkInstagram(instagramUsername);
+    //   const link = {
+    //     title: "Instagram",
+    //     category: "secondary",
+    //     url: newURL,
+    //     socialmedia: "instagram",
+    //     uid: currentUser.uid,
+    //   };
+    //   const res = updateLink(currentLinkDocId, link);
+    //   link.docId = res.id;
+    // } else {
+    //   deleteLink(currentLinkDocId);
+    // }
+    console.log('DELETE', "DENTTRO DE INSTAGRAM")
     if (instagramUsername) {
       const newURL = linkInstagram(instagramUsername);
       const link = {
         title: "Instagram",
         category: "secondary",
-
         url: newURL,
         socialmedia: "instagram",
         uid: currentUser.uid,
       };
       const res = updateLink(currentLinkDocId, link);
       link.docId = res.id;
+    } else {
+      deleteLink(instagramLinkDocId);
     }
   }
 
@@ -68,8 +96,10 @@ export const FormInstagram = ({ style, user, handleAccordion }) => {
     e.stopPropagation();
     if (instagramLinkDocId !== "") {
       editLink(instagramLinkDocId);
+      console.log('instagramLinkDocId', instagramLinkDocId)
     } else {
       addLink();
+      console.log('agregar link', "HOLA")
     }
     handleMessageConfirmation();
     handleAccordion();

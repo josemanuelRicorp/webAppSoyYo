@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Col, Form, Row } from "react-bootstrap";
 import {
+  deleteLink,
   getLinksBySocialMedia,
   insertNewLink,
   updateLink,
@@ -46,6 +47,7 @@ export const FormPhone = ({ style, user, handleAccordion }) => {
       };
       const res = insertNewLink(newLink);
       newLink.docId = res.id;
+      initPhoneInfo(currentUser.uid);
       return newLink.docId;
     }
   }
@@ -62,6 +64,8 @@ export const FormPhone = ({ style, user, handleAccordion }) => {
       };
       const res = updateLink(currentLinkDocId, link);
       link.docId = res.id;
+    } else {
+      deleteLink(phoneLinkDocId);
     }
   }
 

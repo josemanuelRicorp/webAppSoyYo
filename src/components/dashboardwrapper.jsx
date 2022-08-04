@@ -5,7 +5,7 @@ import style from "../styles/dashboardwrapper.module.css";
 import logo from "../assets/img/logoSoyYo.svg";
 import logoMtcorp from "../assets/img/logo-mt-corp.svg";
 // import images from '../utils/images';
-
+import { useState } from "react";
 // import logo from "../assets/img/soyyo.png";
 import {
   Container,
@@ -47,6 +47,9 @@ export default function DashboardWrapper({ children }) {
             <Nav className="mr-auto">
               <Link className="nav-link" to="/">
                 Inicio
+              </Link>
+              <Link className="nav-link" to="/visitar-perfil">
+                Perfil Público
               </Link>
               <NavDropdown
                 title="Personalización del perfil"

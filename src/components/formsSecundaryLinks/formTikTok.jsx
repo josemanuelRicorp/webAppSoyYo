@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { Col, Form, FormControl, InputGroup, Row } from "react-bootstrap";
 import {
+  deleteLink,
+  deleteLinks,
   getLinksBySocialMedia,
   insertNewLink,
   updateLink,
@@ -25,7 +27,6 @@ export const FormTikTok = ({ style, user, handleAccordion }) => {
     const resLinks = await getLinksBySocialMedia(uid, "tiktok");
     if (resLinks.length > 0) {
       const linkObject = [...resLinks][0];
-
       setTiktokLinkDocId(linkObject.docId);
       let fieldsData = link2FieldsTiktok(linkObject.url);
       setTiktokUsername(fieldsData.username);
@@ -39,29 +40,45 @@ export const FormTikTok = ({ style, user, handleAccordion }) => {
         title: "TikTok",
         url: newURL,
         category: "secondary",
-
         socialmedia: "tiktok",
         uid: currentUser.uid,
       };
       const res = insertNewLink(newLink);
       newLink.docId = res.id;
+      initTiktok(currentUser.uid);
       return newLink.docId;
     }
   }
 
   function editLink(currentLinkDocId) {
+    // if (tiktokUsername) {
+    //   const newURL = linkTiktok(tiktokUsername);
+    //   const link = {
+    //     title: "TikTok",
+    //     url: newURL,
+    //     category: "secondary",
+    //     socialmedia: "tiktok",
+    //     uid: currentUser.uid,
+    //   };
+    //   const res = updateLink(currentLinkDocId, link);
+    //   link.docId = res.id;
+    // } else {
+    //   deleteLink(currentLinkDocId);
+    // }
+    console.log('DELETE LINKS', 'DENTRO DEL THEN TIKTOK')
     if (tiktokUsername) {
       const newURL = linkTiktok(tiktokUsername);
       const link = {
         title: "TikTok",
         url: newURL,
         category: "secondary",
-
         socialmedia: "tiktok",
         uid: currentUser.uid,
       };
       const res = updateLink(currentLinkDocId, link);
       link.docId = res.id;
+    } else {
+      deleteLink(tiktokLinkDocId);
     }
   }
   function handleOnSubmitTiktok(e) {

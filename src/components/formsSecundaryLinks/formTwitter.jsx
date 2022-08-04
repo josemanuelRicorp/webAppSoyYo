@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { Col, Form, FormControl, InputGroup, Row } from "react-bootstrap";
 import {
+  deleteLink,
+  deleteLinks,
   getLinksBySocialMedia,
   insertNewLink,
   updateLink,
@@ -34,7 +36,6 @@ export const FormTwitter = ({ style, user, handleAccordion }) => {
   function addLink() {
     if (twitterUsername !== "") {
       const newURL = linkTwitter(twitterUsername);
-      
       const newLink = {
         id: uuidv4(),
         title: "Twitter",
@@ -46,25 +47,41 @@ socialmedia: "twitter",
       };
       const res = insertNewLink(newLink);
       newLink.docId = res.id;
+      initTwitter(currentUser.uid);
       return newLink.docId;
     }
   }
 
   function editLink(currentLinkDocId) {
-    if (twitterUsername) {
-      const newURL = linkTwitter(twitterUsername);
-      const link = {
-        title: "Twitter",
-        category: "secondary",
- socialmedia: "twitter",
-        url: newURL,
+//     if (twitterUsername) {
+//       const newURL = linkTwitter(twitterUsername);
+//       const link = {
+//         title: "Twitter",
+//         category: "secondary",
+//  socialmedia: "twitter",
+//         url: newURL,
        
-        uid: currentUser.uid,
-      };
-      const res = updateLink(currentLinkDocId, link);
+//         uid: currentUser.uid,
+//       };
+//       const res = updateLink(currentLinkDocId, link);
      
-      link.docId = res.id;
-    }
+//       link.docId = res.id;
+//     }
+console.log('DELETE LINKS', 'DENTRO DEL THEN TWITTER')
+if (twitterUsername) {
+  const newURL = linkTwitter(twitterUsername);
+  const link = {
+    title: "Twitter",
+    category: "secondary",
+    socialmedia: "twitter",
+    url: newURL,
+    uid: currentUser.uid,
+  };
+  const res = updateLink(currentLinkDocId, link);
+  link.docId = res.id;
+} else {
+  deleteLink(twitterLinkDocId);
+}
   }
 
   function handleOnSubmitTwitter(e) {

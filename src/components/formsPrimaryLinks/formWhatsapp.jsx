@@ -4,6 +4,7 @@ import { linkWhatsApp } from "../../utils/socialMediaLinks";
 import MessageInputs from "../messageInputs";
 import { v4 as uuidv4 } from "uuid";
 import {
+  deleteLink,
   getLinksBySocialMedia,
   insertNewLink,
   updateLink,
@@ -52,6 +53,7 @@ export const FormWhatsapp = ({ style, user, handleAccordion }) => {
       };
       const res = insertNewLink(newLink);
       newLink.docId = res.id;
+      initWhatsAppInfo(currentUser.uid);
       return newLink.docId;
     }
   }
@@ -69,6 +71,8 @@ export const FormWhatsapp = ({ style, user, handleAccordion }) => {
       const res = updateLink(currentLinkDocId, link);
       link.docId = res.id;
       initWhatsAppInfo(user.uid);
+    } else {
+      deleteLink(whatsappLinkDocId);
     }
   }
 

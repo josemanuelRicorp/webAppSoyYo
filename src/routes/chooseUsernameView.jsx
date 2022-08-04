@@ -48,7 +48,7 @@ export default function ChooseUserNameView() {
           usuario.
         </p>
         {state === 5 ? (
-          <p>Ese nombre de usuario ya existe, por favor elija otro</p>
+          <p className="span-info-user">Ese nombre de usuario ya existe, por favor elija otro</p>
         ) : (
           ""
         )}

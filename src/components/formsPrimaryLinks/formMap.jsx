@@ -153,7 +153,7 @@ export const FormMap = ({ style, user, handleAccordion }) => {
           handlePositionMarker={handlePositionMarker}
         />
       </div>
-      <div>{state === 1 ? <MapStatic mapLatLng={mapLatLng} /> : <></>}</div>
+      <div>{state === 1 ? <MapStatic mapLatLng={mapLatLng} /> : <> </>}</div>
     </>
   );
 };

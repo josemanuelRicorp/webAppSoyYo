@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import {
+  deleteLink,
   getLinksBySocialMedia,
   insertNewLink,
   updateLink,
@@ -50,10 +51,15 @@ export const FormEmail = ({ style, user, handleAccordion }) => {
       };
       const res = insertNewLink(newLink);
       newLink.docId = res.id;
+      initEmailInfo(currentUser.uid);
       return newLink.docId;
     }
   }
 
+/**
+ * If the user has entered an email address, then update the link with the new email address, otherwise
+ * delete the link.
+ */
   function editLink(currentLinkDocId) {
     if (emailAddress) {
       const newURL = linkEmail(emailAddress, emailSubject, emailBody);
@@ -66,6 +72,8 @@ export const FormEmail = ({ style, user, handleAccordion }) => {
       };
       const res = updateLink(currentLinkDocId, link);
       link.docId = res.id;
+    } else {
+      deleteLink(emailLinkDocId);
     }
   }
 

@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { Col, Form, FormControl, InputGroup, Row } from "react-bootstrap";
 import {
+  deleteLink,
+  deleteLinks,
   getLinksBySocialMedia,
   insertNewLink,
   updateLink,
@@ -44,11 +46,13 @@ export const FormFacebook = ({ style, user, handleAccordion }) => {
       };
       const res = insertNewLink(newLink);
       newLink.docId = res.id;
+      initFacebook(currentUser.uid);
       return newLink.docId;
     }
   }
 
   function editLink(currentLinkDocId) {
+    console.log('DELETE LINKS', 'DENTRO DEL THEN FACEBOOK')
     if (facebookUsername) {
       const newURL = linkFacebook(facebookUsername);
       const link = {
@@ -60,6 +64,8 @@ export const FormFacebook = ({ style, user, handleAccordion }) => {
       };
       const res = updateLink(currentLinkDocId, link);
       link.docId = res.id;
+    } else {
+      deleteLink(facebookLinkDocId);
     }
   }
   function handleOnSubmitFacebook(e) {

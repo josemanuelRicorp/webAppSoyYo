@@ -1,4 +1,4 @@
-import DashboardWrapper from "../components/dashboardwrapper";
+import DashboardWrapper, { getUID } from "../components/dashboardwrapper";
 import { AuthProviders } from "../components/authProvider";
 import { Link, useNavigate } from "react-router-dom";
 import { useRef, useState } from "react";

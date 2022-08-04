@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Col, Form, FormControl, InputGroup, Row } from "react-bootstrap";
 import {
+  deleteLink,
   getLinksBySocialMedia,
   insertNewLink,
   updateLink,
@@ -44,11 +45,25 @@ export const FormLinkedIn = ({ style, user, handleAccordion }) => {
       };
       const res = insertNewLink(newLink);
       newLink.docId = res.id;
+      initLinkedin(currentUser.uid);
       return newLink.docId;
     }
   }
 
   function editLink(currentLinkDocId) {
+    // if (linkedinUsername) {
+    //   const newURL = linkLinkedin(linkedinUsername);
+    //   const link = {
+    //     title: "LinkedIn",
+    //     socialmedia: "linkedin",
+    //     category: "secondary",
+    //     url: newURL,
+    //     uid: currentUser.uid,
+    //   };
+    //   const res = updateLink(currentLinkDocId, link);
+    //   link.docId = res.id;
+    // }
+    console.log('DELETE LINKS', 'DENTRO DEL THEN LINKEDIN')
     if (linkedinUsername) {
       const newURL = linkLinkedin(linkedinUsername);
       const link = {
@@ -60,6 +75,8 @@ export const FormLinkedIn = ({ style, user, handleAccordion }) => {
       };
       const res = updateLink(currentLinkDocId, link);
       link.docId = res.id;
+    } else {
+      deleteLink(linkedinLinkDocId);
     }
   }
 

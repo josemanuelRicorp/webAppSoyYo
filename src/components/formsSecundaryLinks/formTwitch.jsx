@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { Col, Form, FormControl, InputGroup, Row } from "react-bootstrap";
 import {
+  deleteLink,
+  deleteLinks,
   getLinksBySocialMedia,
   insertNewLink,
   updateLink,
@@ -41,30 +43,47 @@ export const FormTwitch = ({ style, user,handleAccordion }) => {
         id: uuidv4(),
         title: "Twitch",
         category: "secondary",
-
         url: newURL,
         socialmedia: "twitch",
         uid: currentUser.uid,
       };
       const res = insertNewLink(newLink);
       newLink.docId = res.id;
+      initTwitch(currentUser.uid);
+      return newLink.docId;
       }
   }
 
   function editLink(currentLinkDocId) {
+    // if (twitchUsername) {
+    //   const newURL = linkTwitch(twitchUsername);
+    //   const link = {
+    //     title: "Twitch",
+    //     category: "secondary",
+    //     url: newURL,
+    //     socialmedia: "twitch",
+    //     uid: currentUser.uid,
+    //   };
+    //   const res = updateLink(currentLinkDocId, link);
+    //   link.docId = res.id;
+    //  } else {
+    //   deleteLink(currentLinkDocId);
+    //  }
+    console.log('DELETE LINKS', 'DENTRO DEL THEN TWITCH')
     if (twitchUsername) {
       const newURL = linkTwitch(twitchUsername);
       const link = {
         title: "Twitch",
         category: "secondary",
-
         url: newURL,
         socialmedia: "twitch",
         uid: currentUser.uid,
       };
       const res = updateLink(currentLinkDocId, link);
       link.docId = res.id;
-     }
+    } else {
+      deleteLink(twitchLinkDocId);
+    }
   }
   function handleOnSubmitTwitch(e) {
     e.preventDefault();

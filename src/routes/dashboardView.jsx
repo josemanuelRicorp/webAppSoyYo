@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Card, Col, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { AuthProviders } from "../components/authProvider";
-import DashboardWrapper from "../components/dashboardwrapper";
+import DashboardWrapper, { getUID }  from "../components/dashboardwrapper";
 import { db } from "../firebase/firebase";
 import style from '../styles/dashboardView.module.css';
 
@@ -63,7 +63,7 @@ export default function DashboardView() {
       ></AuthProviders>
     );
   }
-
+  console.log('USER', currentUser.publicId)
   return (
     <DashboardWrapper>
       <h1>Tablero</h1>

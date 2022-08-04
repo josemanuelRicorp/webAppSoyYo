@@ -106,6 +106,12 @@ input[type="text"] {
   /* background-color: red; */
   height: 100%;
 }
+
+
+.span-info-user{
+  color :red;
+  font-weight: bolder;
+}
 @media screen and (max-width: 500px) {
   .main-container {
     width: 100%;
