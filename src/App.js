@@ -15,6 +15,8 @@ import EditProfileDesignView from './routes/editProfileDesignView';
 import LinksCustomView from './routes/linksCustomView';
 import "./utils/dropConsole";
 import VisitProfile from './routes/visitProfile';
+import VerifyEmail from './routes/verifyEmail';
+import RegisterView from './routes/registerView';
 
 function App() {
   return (
@@ -23,8 +25,10 @@ function App() {
         <Route exact path="/" element={<DashboardView />}></Route>
         <Route exact path="/inicio" element={<DashboardView />}></Route>
         <Route exact path="/iniciar-sesion" element={<LoginView />}></Route>
-        <Route exact path="/enlaces/principales" element={<LinksPrimaryView />}></Route>
-        <Route exact path="/enlaces/secundarios" element={<LinksSecondaryView />}></Route>
+        <Route exact path="/registrarse" element={<RegisterView />}></Route>
+        <Route exact path="/verificar-email" element={<VerifyEmail />}></Route>
+        <Route exact path="/enlaces/principales/:key" element={<LinksPrimaryView />}></Route>
+        <Route exact path="/enlaces/secundarios/:key" element={<LinksSecondaryView />}></Route>
         <Route exact path="/enlaces/personalizados" element={<LinksCustomView />}></Route>
         <Route exact path="/perfil/informacion" element={<EditProfileView />}></Route>
         <Route exact path="/perfil/diseno" element={<EditProfileDesignView />}></Route>

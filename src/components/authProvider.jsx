@@ -13,16 +13,6 @@ export function AuthProviders({
   onUserNotRegistered,
   onUserNotLoggedIn,
 }) {
-
-
-
-
-
-
-
-
-
-
   useEffect(() => {
     //onAuthStateChanged
     onAuthStateChanged(auth, async (user) => {
@@ -40,12 +30,12 @@ export function AuthProviders({
             uid: user.uid,
             displayName: user.displayName,
             email: "",
-            profilePicture: "gs://soyyo-5ff46.appspot.com/default/user.png", 
-            theme:"color6",
+            profilePicture: "gs://soyyo-5ff46.appspot.com/default/user.png",
+            theme: "color6",
             username: "",
             career: "",
             description: "",
-            personalPhone:"",
+            personalPhone: "",
             publicId: uuidv4(),
             processCompleted: false,
           });

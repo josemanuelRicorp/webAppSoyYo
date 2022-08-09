@@ -21,8 +21,6 @@ import { AiOutlineMail } from "react-icons/ai";
 import { TiSocialFacebook, TiSocialLinkedin } from "react-icons/ti";
 
 export default function DashboardWrapper({ children }) {
-  
- 
   return (
     <div>
       <Navbar
@@ -66,12 +64,47 @@ export default function DashboardWrapper({ children }) {
                 title="Personalización de los enlaces"
                 id="collasible-nav-dropdown"
               >
-                <Link className="dropdown-item" to="/enlaces/principales">
+                <NavDropdown title=" Enlaces principales" id="sub2" className="menu" >
+                  <Link className="dropdown-item nav-link" to="/enlaces/principales/1">
+                    Formulario WhatsApp
+                  </Link>
+                  <Link className="dropdown-item nav-link" to="/enlaces/principales/2">
+                    Formulario e-mail de contacto
+                  </Link>
+                  <Link className="dropdown-item nav-link" to="/enlaces/principales/3">
+                    Formulario teléfono de contacto
+                  </Link>
+                  <Link className="dropdown-item nav-link" to="/enlaces/principales/4">
+                    Formulario ubicación de contacto
+                  </Link>
+                </NavDropdown>
+                <NavDropdown title=" Enlaces secundarios" id="sub">
+                  <Link className="dropdown-item" to="/enlaces/secundarios/1">
+                    Formulario de LinkedIn
+                  </Link>
+                  <Link className="dropdown-item" to="/enlaces/secundarios/2">
+                    Formulario de Facebook
+                  </Link>
+                  <Link className="dropdown-item" to="/enlaces/secundarios/3">
+                    Formulario de Instagram
+                  </Link>
+                  <Link className="dropdown-item" to="/enlaces/secundarios/4">
+                    Formulario de Tiktok
+                  </Link>
+                  <Link className="dropdown-item" to="/enlaces/secundarios/5">
+                    Formulario de Twitter
+                  </Link>
+                  <Link className="dropdown-item" to="/enlaces/secundarios/6">
+                    Formulario de Twitch
+                  </Link>
+                </NavDropdown>
+                {/* <Link className="dropdown-item" to="/enlaces/principales">
                   Enlaces principales
                 </Link>
                 <Link className="dropdown-item" to="/enlaces/secundarios">
                   Enlaces secundarios
                 </Link>
+                 */}
                 <Link className="dropdown-item" to="/enlaces/personalizados">
                   Enlaces personales
                 </Link>

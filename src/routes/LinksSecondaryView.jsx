@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { AuthProviders } from "../components/authProvider";
 import {  getLinks} from "../firebase/firebase";
 import DashboardWrapper from "../components/dashboardwrapper";
@@ -16,10 +16,17 @@ import {
 
 export default function LinksSecondaryView() {
   const navigate = useNavigate();
+  const params = useParams(); 
+  const paramsStateAccordion = params.key;
   const [stateAccordion, setStateAccordion] = useState("0");
   const [currentUser, setCurrentUser] = useState({});
   const [state, setState] = useState(0);
   const [links, setLinks] = useState([]);
+
+
+  useEffect(() => {
+    setStateAccordion(paramsStateAccordion);
+  }, [paramsStateAccordion]);
 
   async function handleUserLoggeIn(user) {
     setCurrentUser(user);

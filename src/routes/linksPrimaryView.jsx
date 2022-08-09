@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { AuthProviders } from "../components/authProvider";
 
 import DashboardWrapper from "../components/dashboardwrapper";
@@ -17,12 +17,22 @@ import { RiMapPinUserLine } from "react-icons/ri";
 import { AiOutlineWhatsApp, AiFillPhone } from "react-icons/ai";
 
 export default function LinksPrimaryView() {
+
   const navigate = useNavigate();
+  const params = useParams(); 
+  const paramsStateAccordion = params.key;
   const [stateAccordion, setStateAccordion] = useState("0");
   const [state, setState] = useState(0);
   const [currentUser, setCurrentUser] = useState({});
 
+useEffect(() => {
+  setStateAccordion(paramsStateAccordion);
+}, [paramsStateAccordion]);
+
+
   async function handleUserLoggeIn(user) {
+    console.log({paramsStateAccordion});
+    setStateAccordion(paramsStateAccordion);
     setCurrentUser(user);
     setState(2);
   }
@@ -36,6 +46,9 @@ export default function LinksPrimaryView() {
   function handleSelection(eventKey, e) {
       setStateAccordion(eventKey);
   }
+
+  
+
   function closeAccordion() {
     setTimeout(() => {
       setStateAccordion("0");
@@ -105,7 +118,7 @@ export default function LinksPrimaryView() {
             />
           </Accordion.Body>
         </Accordion.Item>
-        <Accordion.Item eventKey="4" className={style.accordionItemCustom}>
+        <Accordion.Item eventKey="4" className={style.accordionItemCustom} id="mapa">
           <Accordion.Header>
             {" "}
             <RiMapPinUserLine
