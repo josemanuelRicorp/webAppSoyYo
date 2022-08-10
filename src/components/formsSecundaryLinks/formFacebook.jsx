@@ -11,9 +11,13 @@ import { linkFacebook } from "../../utils/socialMediaLinks";
 import MessageInputs from "../messageInputs";
 import { v4 as uuidv4 } from "uuid";
 import { FaFacebookF } from "react-icons/fa";
+import { ModalFacebook } from "../modals/modalFacebook";
+import { BsInfoSquareFill } from "react-icons/bs";
+import styles from "../../styles/editProfileView.module.css";
+
 export const FormFacebook = ({ style, user, handleAccordion }) => {
   const [currentUser, setCurrentUser] = useState(user);
-
+  const [show, setShow] = useState(false);
   const [facebookUsername, setFacebookUsername] = useState("");
   const [openFacebook, setOpenFacebook] = useState(false);
   const [facebookLinkDocId, setFacebookLinkDocId] = useState("");
@@ -81,8 +85,10 @@ export const FormFacebook = ({ style, user, handleAccordion }) => {
   function handleOnSubmitFacebook(e) {
     e.preventDefault();
     e.stopPropagation();
-    if(facebookUsername.replace(" ","") ==="" ||  /\s/.test(facebookUsername)){
-      setFacebookUsername("");
+    if (
+      facebookUsername.replace(" ", "") === "" ||
+      /\s/.test(facebookUsername)
+    ) {setFacebookUsername("");
       removeLinkFacebook(facebookLinkDocId);
       handleMessageRemoveLink();
     } else if (facebookLinkDocId !== "") {
@@ -111,8 +117,21 @@ export const FormFacebook = ({ style, user, handleAccordion }) => {
       setOpenFacebook(false);
     }, 3000);
   }
+  function handleOnHide() {
+    setShow(false);
+  }
   return (
     <>
+      <div className="container">
+        <h2>
+          Datos de tu usuario de Facebook
+          <BsInfoSquareFill
+            className={styles.btnInfo}
+            onClick={() => setShow(true)}
+          ></BsInfoSquareFill>
+        </h2>
+        <ModalFacebook show={show} handleOnHide={handleOnHide}></ModalFacebook>
+      </div>
       <Form
         autoComplete={"off"}
         className={style}

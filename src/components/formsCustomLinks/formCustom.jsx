@@ -1,20 +1,14 @@
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { useEffect, useRef, useState } from "react";
-import { Form } from "react-bootstrap";
+import { Form, ProgressBar } from "react-bootstrap";
 import { v4 as uuidv4 } from "uuid";
-import {
-  getLinksBySocialMedia,
-  insertNewLinkCustoms,
-  storage,
-} from "../../firebase/firebase";
+import { insertNewLinkCustoms, storage } from "../../firebase/firebase";
 import defaultImg from "../../assets/img/undefined.png";
-
-import { link2FieldsWhatsapp } from "../../utils/socialMediaFields";
 import MessageInputsCustoms from "../messageInputsCustoms";
+import styles from "../../styles/editProfileView.module.css";
 
 export const FormCustom = ({ style, user }) => {
   const [currentUser, setCurrentUser] = useState(user);
-  const [state, setState] = useState(0);
   const [openCustom, setOpenCustom] = useState(false);
   const [progress, setProgress] = useState(0);
   const [iconFile, setIconFile] = useState(defaultImg);
@@ -24,8 +18,7 @@ export const FormCustom = ({ style, user }) => {
   const customUrlRef = useRef(null);
   const customWebSiteRef = useRef(null);
 
-  useEffect(() => {
-  }, []);
+  useEffect(() => {}, []);
 
   const formIcon = async (e) => {
     e.preventDefault();
@@ -60,7 +53,7 @@ export const FormCustom = ({ style, user }) => {
       const newLink = {
         id: uuidv4(),
         website: customWebSite,
-        
+
         url: "https://" + customUrl.replace("https://", ""),
         icon: iconFile,
         uid: currentUser.uid,
@@ -136,6 +129,7 @@ export const FormCustom = ({ style, user }) => {
         <br />
         <>
           <Form.Control
+            accept="image/x-png,image/jpeg"
             className="input"
             type="file"
             name="icono"
@@ -144,7 +138,14 @@ export const FormCustom = ({ style, user }) => {
           <br />
           <h5>Espere a completar la carga.</h5>
           <h2>Subiendo {progress}%</h2>
-          
+          <ProgressBar
+            className={styles.barra}
+            striped
+            variant="success"
+            animated
+            now={progress}
+            label={`${progress}%`}
+          />
         </>
         <br />
         <br />

@@ -12,6 +12,16 @@ import MessageInputs from "../messageInputs";
 import { v4 as uuidv4 } from "uuid";
 import { link2FieldsTwitch } from "../../utils/socialMediaFields";
 import { RiTwitchFill } from "react-icons/ri";
+import { ModalTwitch } from "../modals/modalTwitch";
+import { BsInfoSquareFill } from "react-icons/bs";
+import styles from "../../styles/editProfileView.module.css";
+
+
+
+
+
+
+
 export const FormTwitch = ({ style, user, handleAccordion }) => {
   const [currentUser, setCurrentUser] = useState(user);
   const [twitchUsername, setTwitchUsername] = useState("");
@@ -19,6 +29,7 @@ export const FormTwitch = ({ style, user, handleAccordion }) => {
   const [twitchLinkDocId, setTwitchLinkDocId] = useState("");
   const usernameRef = useRef(null);
   const [removeLink, setRemoveLink] = useState(false);
+  const [show, setShow] = useState(false);
 
   useEffect(() => {
     initTwitch(user.uid);
@@ -123,8 +134,21 @@ export const FormTwitch = ({ style, user, handleAccordion }) => {
       setOpenTwitch(false);
     }, 3000);
   }
+  function handleOnHide() {
+    setShow(false);
+  }
   return (
     <>
+     <div className="container">
+        <h2>
+          Datos de tu usuario de Twitch
+          <BsInfoSquareFill
+            className={styles.btnInfo}
+            onClick={() => setShow(true)}
+          ></BsInfoSquareFill>
+        </h2>
+        <ModalTwitch show={show} handleOnHide={handleOnHide}></ModalTwitch>
+      </div>
       <Form
         className={style.entryContainer}
         autoComplete={"off"}

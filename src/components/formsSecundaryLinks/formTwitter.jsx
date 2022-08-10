@@ -12,6 +12,9 @@ import { linkTwitter } from "../../utils/socialMediaLinks";
 import { v4 as uuidv4 } from "uuid";
 import MessageInputs from "../messageInputs";
 import { BsTwitter } from "react-icons/bs";
+import { ModalTwitter } from "../modals/modalTwitter";
+import { BsInfoSquareFill } from "react-icons/bs";
+import styles from "../../styles/editProfileView.module.css";
 
 export const FormTwitter = ({ style, user, handleAccordion }) => {
   const [currentUser, setCurrentUser] = useState(user);
@@ -20,6 +23,8 @@ export const FormTwitter = ({ style, user, handleAccordion }) => {
   const [twitterLinkDocId, setTwitterLinkDocId] = useState("");
   const usernameRef = useRef(null);
   const [removeLink, setRemoveLink] = useState(false);
+  const [show, setShow] = useState(false);
+
   useEffect(() => {
     initTwitter(user.uid);
   }, []);
@@ -70,8 +75,8 @@ export const FormTwitter = ({ style, user, handleAccordion }) => {
   }
 
   function removeLinkLinkdin(currentLinkDocId) {
-    if (twitterUsername.replace(" ","") ==="" ||  /\s/.test(twitterUsername)) {
-      deleteLink(currentLinkDocId);
+ if (twitterUsername.replace(" ", "") === "" || /\s/.test(twitterUsername)) {
+         deleteLink(currentLinkDocId);
       return;
     }
   }
@@ -80,7 +85,7 @@ export const FormTwitter = ({ style, user, handleAccordion }) => {
   function handleOnSubmitTwitter(e) {
     e.preventDefault();
     e.stopPropagation();
-    if(twitterUsername.replace(" ","") ==="" ||  /\s/.test(twitterUsername)){
+    if (twitterUsername.replace(" ", "") === "" || /\s/.test(twitterUsername)) {
       setTwitterUsername("");
       removeLinkLinkdin(twitterLinkDocId)
       handleMessageRemoveLink();
@@ -111,9 +116,21 @@ export const FormTwitter = ({ style, user, handleAccordion }) => {
   function handleOnChangeTwitterUsername() {
     setTwitterUsername(usernameRef.current.value);
   }
-
+  function handleOnHide() {
+    setShow(false);
+  }
   return (
     <>
+     <div className="container">
+        <h2>
+          Datos de tu usuario de Twitter
+          <BsInfoSquareFill
+            className={styles.btnInfo}
+            onClick={() => setShow(true)}
+          ></BsInfoSquareFill>
+        </h2>
+        <ModalTwitter show={show} handleOnHide={handleOnHide}></ModalTwitter>
+      </div>
       <Form
         className={style}
         autoComplete={"off"}
@@ -121,11 +138,11 @@ export const FormTwitter = ({ style, user, handleAccordion }) => {
       >
         <h2>Datos de tu usuario de Twitter</h2>
         {openTwitter ? (
-         <MessageInputs
-         open={openTwitter}
-         type={removeLink?"danger":"success"}
-         socialmedia={"Twitter"}
-       ></MessageInputs>
+          <MessageInputs
+          open={openTwitter}
+          type={removeLink ? "danger" : "success"}
+          socialmedia={"Twitter"}
+        ></MessageInputs>
         ) : (
           ""
         )}

@@ -12,6 +12,12 @@ import { linkInstagram } from "../../utils/socialMediaLinks";
 import MessageInputs from "../messageInputs";
 import { v4 as uuidv4 } from "uuid";
 import { RiInstagramFill } from "react-icons/ri";
+import { ModalInstagram } from "../modals/modalInstagram";
+import { BsInfoSquareFill } from "react-icons/bs";
+import styles from "../../styles/editProfileView.module.css";
+
+
+
 export const FormInstagram = ({ style, user, handleAccordion }) => {
   const [currentUser, setCurrentUser] = useState(user);
   const [instagramUsername, setInstagramUsername] = useState("");
@@ -19,6 +25,7 @@ export const FormInstagram = ({ style, user, handleAccordion }) => {
   const [instagramLinkDocId, setInstagramLinkDocId] = useState("");
   const usernameRef = useRef(null);
   const [removeLink, setRemoveLink] = useState(false);
+  const [show, setShow] = useState(false);
   useEffect(() => {
     initInstagram(user.uid);
   }, []);
@@ -134,9 +141,24 @@ export const FormInstagram = ({ style, user, handleAccordion }) => {
       setOpenInstagram(false);
     }, 3000);
   }
-
+  function handleOnHide() {
+    setShow(false);
+  }
   return (
     <>
+      <div className="container">
+        <h2>
+          Datos de tu usuario de Instagram
+          <BsInfoSquareFill
+            className={styles.btnInfo}
+            onClick={() => setShow(true)}
+          ></BsInfoSquareFill>
+        </h2>
+        <ModalInstagram
+          show={show}
+          handleOnHide={handleOnHide}
+        ></ModalInstagram>
+      </div>
       <Form
         className={style}
         autoComplete={"off"}
@@ -146,7 +168,7 @@ export const FormInstagram = ({ style, user, handleAccordion }) => {
         {openInstagram ? (
            <MessageInputs
            open={openInstagram}
-           type={removeLink?"danger":"success"}
+           type={removeLink ? "danger" : "success"}
            socialmedia={"Instagram"}
          ></MessageInputs>
         ) : (

@@ -11,6 +11,10 @@ import { linkLinkedin } from "../../utils/socialMediaLinks";
 import MessageInputs from "../messageInputs";
 import { v4 as uuidv4 } from "uuid";
 import { RiLinkedinFill } from "react-icons/ri";
+import { ModalLinkedin } from "../modals/modalLinkedin";
+import { BsInfoSquareFill } from "react-icons/bs";
+import styles from "../../styles/editProfileView.module.css";
+
 export const FormLinkedIn = ({ style, user, handleAccordion }) => {
   const [currentUser, setCurrentUser] = useState(user);
   const [openLinkedin, setOpenLinkedin] = useState(false);
@@ -18,6 +22,7 @@ export const FormLinkedIn = ({ style, user, handleAccordion }) => {
   const [linkedinUsername, setLinkedinUsername] = useState("");
   const usernameRef = useRef(null);
   const [removeLink, setRemoveLink] = useState(false);
+  const [show, setShow] = useState(false);
   useEffect(() => {
     initLinkedin(user.uid);
   }, []);
@@ -117,7 +122,7 @@ export const FormLinkedIn = ({ style, user, handleAccordion }) => {
     setRemoveLink(false);
     setTimeout(() => {
       setOpenLinkedin(false);
-    }, 2000);
+    },2000);
   }
   function handleMessageRemoveLink() {
     setOpenLinkedin(true);
@@ -126,8 +131,21 @@ export const FormLinkedIn = ({ style, user, handleAccordion }) => {
       setOpenLinkedin(false);
     }, 3000);
   }
+  function handleOnHide() {
+    setShow(false);
+  }
   return (
     <>
+     <div className="container">
+        <h2>
+          Datos de tu usuario de LinkedIn
+          <BsInfoSquareFill
+            className={styles.btnInfo}
+            onClick={() => setShow(true)}
+          ></BsInfoSquareFill>
+        </h2>
+        <ModalLinkedin show={show} handleOnHide={handleOnHide}></ModalLinkedin>
+      </div>
       <Form
         autoComplete={"off"}
         className={style}

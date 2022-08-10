@@ -2,12 +2,12 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthProviders } from "../components/authProvider";
-import { getLinksCustoms } from "../firebase/firebase";
+import { deleteCustomLink,getLinksCustoms } from "../firebase/firebase";
 import DashboardWrapper from "../components/dashboardwrapper";
 import style from "../styles/dashboardView.module.css";
 import { Accordion, Stack } from "react-bootstrap";
 import { FormCustom } from "../components/formsCustomLinks/formCustom";
-// import { useEffect } from "react";
+import { ModalForm } from "../components/formsCustomLinks/modalForm";
 import { FaTrash } from "react-icons/fa";
 export default function LinksCustomView() {
   const navigate = useNavigate();
@@ -15,7 +15,8 @@ export default function LinksCustomView() {
   const [stateAccordion, setStateAccordion] = useState("0");
   const [state, setState] = useState(0);
   const [links, setLinks] = useState([]);
-
+  const [show, setShow] = useState(false);
+  const [linkCustom, setLinkCustom] = useState({});
   // useEffect(() => {
   //   cargarLista(currentUser);
   // });
@@ -46,7 +47,20 @@ export default function LinksCustomView() {
     }, 1400);
   }
 
-  
+  const updateItem = (link_custom) => {
+    setShow(true);
+    setLinkCustom(link_custom);
+    return linkCustom;
+  };
+  const deleteItem = (indexItem, link) => {
+    deleteCustomLink(link.docId);
+    setLinks((prevState) =>
+      prevState.filter((todo, index) => index !== indexItem)
+    );
+  };
+  function handleOnHide() {
+    setShow(false);
+  }
 
   if (state === 0) {
     return (
@@ -60,59 +74,75 @@ export default function LinksCustomView() {
 
   return (
     <DashboardWrapper>
-      <div>
-        <h1>Enlaces Personalizados</h1>
-        <p>
-          En este apartado podras agregar la información de los nuevos enlaces
-          que quieras tener en tu perfil.
-        </p>
-        <Accordion
-          onSelect={handleSelection}
-          activeKey={stateAccordion}
-          className={style.accordionCustom}
-        >
-          <FormCustom
-            user={currentUser}
-            style={style.entryContainer}
-            handleAccordion={closeAccordion}
-          ></FormCustom>
-        </Accordion>
-      </div>
-      <br />
-      <div>
-        {links.length > 0 ? (
-          <>
-            <h2>Lista Enlaces Personales</h2>
-            <Accordion
-              onSelect={handleSelection}
-              activeKey={stateAccordion}
-              className={style.accordionCustom}
-            >
-              {links.map((link, key) => (
-                <Accordion.Item
-                  key={key}
-                  eventKey={key}
-                  className={style.accordionItemCustom}
-                >
-                  <Accordion.Header>
-                    <img className={style.icono} src={link.icon} />
-                    {link.website}
-                  </Accordion.Header>
-                  <Accordion.Body>
-                  <Stack direction="horizontal" gap={3}>
-      <div >{link.url}</div>
-      
-      
-    </Stack>
-                  </Accordion.Body>
-                </Accordion.Item>
-              ))}
-            </Accordion>
-          </>
-        ) : (
-          ""
-        )}
-      </div>
-    </DashboardWrapper>
+    <div>
+      <h1>Enlaces Personalizados</h1>
+      <p>
+        En este apartado podras agregar la información de los nuevos enlaces
+        que quieras tener en tu perfil.
+      </p>
+      <Accordion
+        onSelect={handleSelection}
+        activeKey={stateAccordion}
+        className={style.accordionCustom}
+      >
+        <FormCustom
+          user={currentUser}
+          style={style.entryContainer}
+          handleAccordion={closeAccordion}
+        ></FormCustom>
+      </Accordion>
+    </div>
+    <br />
+    <div>
+      {links.length > 0 ? (
+        <>
+          <h2>Lista Enlaces Personales</h2>
+          <Accordion
+            onSelect={handleSelection}
+            activeKey={stateAccordion}
+            className={style.accordionCustom}
+          >
+            {links.map((link, key) => (
+              <Accordion.Item
+                key={key}
+                eventKey={key}
+                className={style.accordionItemCustom}
+              >
+                <Accordion.Header>
+                  <img className={style.icono} src={link.icon} />
+                  {link.website}
+                </Accordion.Header>
+                <Accordion.Body>
+                  <p>{link.url}</p>
+                  <button
+                    type="button"
+                    className="btn-custom small"
+                    onClick={() => updateItem(link)}
+                  >
+                    Editar
+                  </button>
+
+                  <button
+                    type="button"
+                    className="btn-custom negative small"
+                    onClick={() => deleteItem(key, link)}
+                  >
+                    Eliminar
+                  </button>
+                </Accordion.Body>
+              </Accordion.Item>
+            ))}
+            <ModalForm
+              user={linkCustom}
+              show={show}
+              handleOnHide={handleOnHide}
+            ></ModalForm>
+          </Accordion>
+        </>
+      ) : (
+        ""
+      )}
+    </div>
+  </DashboardWrapper>
   );
 }

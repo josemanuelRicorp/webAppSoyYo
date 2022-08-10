@@ -1,4 +1,6 @@
 import DashboardWrapper, { getUID } from "../components/dashboardwrapper";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import {storage} from "../firebase/firebase";
 import { AuthProviders } from "../components/authProvider";
 import { Link, useNavigate } from "react-router-dom";
 import { useRef, useState } from "react";
@@ -7,6 +9,7 @@ import {
   existUsername,
   getProfilePhotoUrl,
   updateUser,
+  insertContact,
 } from "../firebase/firebase";
 import { Col, Form, Row, Stack } from "react-bootstrap";
 import ImageCropper from "../components/imageCropper";
@@ -14,13 +17,13 @@ import Loading from "../components/loading";
 import { HiCheck } from "react-icons/hi";
 import { CgClose } from "react-icons/cg";
 import { FaPen } from "react-icons/fa";
-
+import VCard from "vcard-creator";
+import { v4 as uuidv4 } from "uuid";
 export default function EditProfileView() {
   const navigate = useNavigate();
   const [currentUser, setCurrentUser] = useState({});
   const [state, setState] = useState(0);
   const [profileUrl, setProfileUrl] = useState(null);
-
   const [show, setShow] = useState(false);
   const [username, setUsername] = useState("");
   const [publicId, setPublicId] = useState("");
@@ -41,6 +44,8 @@ export default function EditProfileView() {
   const descriptionRef = useRef(null);
   const personalPhoneRef = useRef(null);
   const emailRef = useRef(null);
+  const myCanvasProfile = useRef();
+
   async function handleUserLoggeIn(user) {
     setCurrentUser(user);
     const url = await getProfilePhotoUrl(user.profilePicture);
@@ -52,6 +57,7 @@ export default function EditProfileView() {
     setDescription(user.description);
     setEmail(user.email);
     setPersonalPhone(user.personalPhone);
+    getCanvasProfile(url);
     setState(2);
   }
   function handleUserNotRegistered(user) {
@@ -63,7 +69,7 @@ export default function EditProfileView() {
 
   async function loadPhoto() {
     const url = await getProfilePhotoUrl(currentUser.profilePicture);
-    setProfileUrl(url);
+    getCanvasProfile(url);
   }
   function handleOnHide() {
     loadPhoto();
@@ -81,12 +87,7 @@ export default function EditProfileView() {
   function handleEditCareer() {
     setEditCareer(true);
   }
-  function handleEditPersonalPhone() {
-    setEditPersonalPhone(true);
-  }
-  function handleEditEmail() {
-    setEditEmail(true);
-  }
+
   function handleEditDescription() {
     setEditDescription(true);
   }
@@ -103,14 +104,7 @@ export default function EditProfileView() {
     setCareer(currentUser.career);
     setEditCareer(false);
   }
-  function handleCancelEditPersonalPhone() {
-    setPersonalPhone(currentUser.personalPhone);
-    setEditPersonalPhone(false);
-  }
-  function handleCancelEditEmail() {
-    setEmail(currentUser.email);
-    setEditEmail(false);
-  }
+
   function handleCancelEditDescription() {
     setDescription(currentUser.description);
     setEditDescription(false);
@@ -134,18 +128,7 @@ export default function EditProfileView() {
       setCareer(value);
     }
   }
-  function handleChangePersonalPhone(e) {
-    const value = e.target.value;
-    if (e.target.name === "phone") {
-      setPersonalPhone(value);
-    }
-  }
-  function handleChangeEmail(e) {
-    const value = e.target.value;
-    if (e.target.name === "email") {
-      setEmail(value);
-    }
-  }
+
   function handleChangeDescription(e) {
     const value = e.target.value;
     if (e.target.name === "description") {
@@ -165,14 +148,7 @@ export default function EditProfileView() {
     handleUpdateCareer();
     setEditCareer(false);
   }
-  function handleSuccessEditPersonalPhone() {
-    handleUpdatePersonalPhone();
-    setEditPersonalPhone(false);
-  }
-  function handleSuccessEditEmail() {
-    handleUpdateEmail();
-    setEditEmail(false);
-  }
+ 
   function handleSuccessEditDescription() {
     handleUpdateDescription();
     setEditDescription(false);
@@ -185,36 +161,111 @@ export default function EditProfileView() {
         setState(5);
       } else {
         currentUser.username = username;
-        await updateUser(currentUser);
+       await updateUser(currentUser).then(createContact());
         setState(6);
       }
     }
   }
   async function handleUpdateDisplayName() {
     currentUser.displayName = displayName;
-    await updateUser(currentUser);
+   await updateUser(currentUser).then(createContact());
   }
   async function handleUpdateCareer() {
     currentUser.career = career;
-    await updateUser(currentUser);
+   await updateUser(currentUser).then(createContact());
   }
-  async function handleUpdatePersonalPhone() {
-    currentUser.personalPhone = personalPhone;
-    await updateUser(currentUser);
-  }
-  async function handleUpdateEmail() {
-    currentUser.email = email;
-    await updateUser(currentUser);
-  }
+
   async function handleUpdateDescription() {
     currentUser.description = description;
-    await updateUser(currentUser);
+   await updateUser(currentUser).then(createContact());
   }
 
   function handleLink() {
     let link = "https://soyyo.digital/u/#/" + publicId;
     return link;
   }
+  async function createContact(){
+    var myVCard = new VCard();
+    const url = await getProfilePhotoUrl(currentUser.profilePicture);
+    let image64 = await getBase64Image(url)
+    let website = handleLink();
+    if(currentUser.displayName !== "" || currentUser.displayName !== null || currentUser.displayName!== undefined){
+      myVCard.addName(currentUser.displayName);
+    }
+    if(currentUser.email !== "" || currentUser.email !== null || currentUser.email!== undefined){
+      myVCard.addEmail(currentUser.email,'PREF;WORK');
+    }
+    if(currentUser.personalPhone !== "" || currentUser.personalPhone !== null || currentUser.personalPhone!== undefined){
+      myVCard.addPhoneNumber(currentUser.personalPhone,'WORK');
+    }
+    // if(address !== "" || address !== null || address!== undefined){
+    //   myVCard.addAddress(address);
+    // }
+    if(currentUser.career !== "" || currentUser.career !== null || currentUser.career!== undefined){
+      myVCard.addJobtitle(currentUser.career);
+    }
+    if(website !== "" || website !== null || website!== undefined){
+      myVCard.addURL(website);
+    }
+    if(image64 !== "" || image64 !== null || image64!== undefined){
+      myVCard.addPhoto(image64);
+    }
+    const file = new Blob([myVCard.toString()], {type: 'text/x-vcard'});
+    file.name = currentUser.displayName.replaceAll(" ","")+"-"+currentUser.publicId+".vcf";
+    console.log(currentUser);
+    uploadFiles(file);
+  }
+  
+
+  async function getBase64Image(urlImage) {
+    var img = new Image();
+    img.crossOrigin="anonymous";
+    img.src = urlImage;
+    return new Promise((resolve)=>{
+      img.onload = () => {
+        var canvas = document.createElement("canvas");
+        canvas.width = img.width;
+        canvas.height = img.height;
+        var ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0);
+        var dataURL = canvas.toDataURL("image/png");
+        resolve( dataURL.replace(/^data:image\/(png|jpg);base64,/, ""));
+      }
+    });
+  }
+
+  async function getCanvasProfile(url) {
+    const context = myCanvasProfile.current.getContext("2d");
+    const image = new Image();
+    image.src = url;
+    image.onload = () => {
+      context.canvas.width = image.width;
+      context.canvas.height = image.height;
+      context.drawImage(image, 0, 0);
+    };
+  }
+
+  const uploadFiles = (file) => {
+    if (!file) return;
+    const storageRef = ref(storage, `/contact/${file.name}`);
+    const uploadTask = uploadBytesResumable(storageRef, file);
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        const prog = Math.round(
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        );
+        // setProgress(prog);
+      },
+      (err) => console.log(err),
+      function () {
+        getDownloadURL(uploadTask.snapshot.ref).then((iconUrl) => {
+          // setIconFile(iconUrl);
+        });
+      }
+    );
+  };
+
 
   if (state !== 2) {
     return (
@@ -234,11 +285,11 @@ export default function EditProfileView() {
         <div className={style.profilePictureContainer}>
           <div>
             <div className={style.profilePicture} width={100}>
-              <img
+            <canvas
                 className={style.profilePictureImg}
-                src={profileUrl}
-                alt="profile_photo"
-              />
+                ref={myCanvasProfile}
+                id="canvas-profile"
+              ></canvas>
             </div>
           </div>
           <div>
@@ -428,103 +479,7 @@ export default function EditProfileView() {
               )}
             </Col>
           </Row>
-          <Row className={style.rows}>
-            <Col md lg={5}>
-              <strong>Correo electrónico personal</strong>
-            </Col>
-            <Col md lg={7} className={style.cols}>
-              {editEmail ? (
-                <Stack direction="horizontal" gap={2}>
-                  <Form.Control
-                    className="me-auto"
-                    placeholder="Escribe tu correo electrónico"
-                    name="email"
-                    type="text"
-                    maxLength="40"
-                    autoComplete="off"
-                    ref={emailRef}
-                    value={email}
-                    onChange={handleChangeEmail}
-                  />
-                  <button
-                    type="button"
-                    className="btn-custom negative small"
-                    onClick={handleCancelEditEmail}
-                  >
-                    <CgClose />
-                  </button>
-                  <div className="vr" />
-                  <button
-                    className="btn-custom small"
-                    onClick={handleSuccessEditEmail}
-                    type="button"
-                  >
-                    <HiCheck />
-                  </button>
-                </Stack>
-              ) : (
-                <>
-                  <button className={style.btnEdit} onClick={handleEditEmail}>
-                    <span>
-                      <FaPen className={style.iconEdit}></FaPen>
-                    </span>
-                  </button>
-                  {email}
-                </>
-              )}
-            </Col>
-          </Row>
-          
-
-          <Row className={style.rows}>
-            <Col md lg={5}>
-              <strong>Teléfono personal</strong>
-            </Col>
-            <Col md lg={7} className={style.cols}>
-              {editPersonalPhone ? (
-                <Stack direction="horizontal" gap={2}>
-                  <Form.Control
-                    className="me-auto"
-                    placeholder="Escribe tu teléfono de contacto"
-                    name="phone"
-                    type="text"
-                    maxLength="40"
-                    autoComplete="off"
-                    ref={personalPhoneRef}
-                    value={personalPhone}
-                    onChange={handleChangePersonalPhone}
-                  />
-                  <button
-                    type="button"
-                    className="btn-custom negative small"
-                    onClick={handleCancelEditPersonalPhone}
-                  >
-                    <CgClose />
-                  </button>
-                  <div className="vr" />
-                  <button
-                    className="btn-custom small"
-                    onClick={handleSuccessEditPersonalPhone}
-                    type="button"
-                  >
-                    <HiCheck />
-                  </button>
-                </Stack>
-              ) : (
-                <>
-                  <button
-                    className={style.btnEdit}
-                    onClick={handleEditPersonalPhone}
-                  >
-                    <span>
-                      <FaPen className={style.iconEdit}></FaPen>
-                    </span>
-                  </button>
-                  {personalPhone}
-                </>
-              )}
-            </Col>
-          </Row>
+        
           <Row className={style.rows}>
             <Col md lg={5}>
               <strong>Acerca de mi</strong>

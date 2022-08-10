@@ -9259,6 +9259,11 @@
   "resolved" "https://registry.npmjs.org/vary/-/vary-1.1.2.tgz"
   "version" "1.1.2"
 
+"vcard-creator@^0.4.2":
+  "integrity" "sha512-MnIxp/mNdlrYhRZgjZsYGVj17CgXEqQosb2/mYBcAvEu5gPH75U03gMsD33VnFZO2hVDLrnor1U8tqtN5rs54Q=="
+  "resolved" "https://registry.npmjs.org/vcard-creator/-/vcard-creator-0.4.2.tgz"
+  "version" "0.4.2"
+
 "w3c-hr-time@^1.0.2":
   "integrity" "sha512-z8P5DvDNjKDoFIHK7q8r8lackT6l+jo/Ye3HOle7l9nICP9lf1Ci25fy9vHd0JOWewkIFzXIEig3TdKT7JQ5fQ=="
   "resolved" "https://registry.npmjs.org/w3c-hr-time/-/w3c-hr-time-1.0.2.tgz"

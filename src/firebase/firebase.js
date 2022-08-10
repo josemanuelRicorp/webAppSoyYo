@@ -119,7 +119,7 @@ export async function insertNewLinkCustoms(link) {
   }
   
 
-
+ 
 
 export async function getLinks(uid) {
     const links = [];
@@ -210,7 +210,18 @@ export async function updateLink(docId, link) {
         return error;
     }
 }
-
+export async function updateCustomLink(docId, link) {
+    try {
+      const docRef = doc(db, "links_customs", docId);
+      const res = await setDoc(docRef, link).then(() => {
+        console.log("actualizado :D");
+      });
+      return res;
+    } catch (error) {
+      console.error(error);
+      return error;
+    }
+  }
 export async function deleteLinks(uid, media) {
     console.log('Delete links', "ANTES DEL TRY")
     try {
@@ -241,13 +252,13 @@ export async function deleteLink(docId) {
 
 export async function deleteCustomLink(docId) {
     try {
-        const docRef = doc(db, 'links', docId);
-        const res = await deleteDoc(docRef);
-        return res;
+      const docRef = doc(db, "links_customs", docId);
+      const res = await deleteDoc(docRef);
+      return res;
     } catch (error) {
-        console.error(error);
+      console.error(error);
     }
-}
+  }
 
 
 
@@ -298,7 +309,15 @@ export async function getUserPublicProfileInfo(uid) {
 }
 
 
-
+export async function insertUserContact(link) {
+    try {
+      const docRef = collection(db, "users_contact");
+      const res = await addDoc(docRef, link);
+      return res;
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
 
 

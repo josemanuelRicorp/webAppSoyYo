@@ -12,7 +12,9 @@ import MessageInputs from "../messageInputs";
 import { v4 as uuidv4 } from "uuid";
 import { linkTiktok } from "../../utils/socialMediaLinks";
 import { FaTiktok } from "react-icons/fa";
-
+import { ModalTiktok } from "../modals/modalTiktok";
+import { BsInfoSquareFill } from "react-icons/bs";
+import styles from "../../styles/editProfileView.module.css";
 export const FormTikTok = ({ style, user, handleAccordion }) => {
   const [currentUser, setCurrentUser] = useState(user);
   const [tiktokUsername, setTiktokUsername] = useState("");
@@ -20,7 +22,7 @@ export const FormTikTok = ({ style, user, handleAccordion }) => {
   const [tiktokLinkDocId, setTiktokLinkDocId] = useState("");
   const usernameRef = useRef(null);
   const [removeLink, setRemoveLink] = useState(false);
-
+  const [show, setShow] = useState(false);
   useEffect(() => {
     initTiktok(user.uid);
   }, []);
@@ -83,7 +85,7 @@ export const FormTikTok = ({ style, user, handleAccordion }) => {
     }
   }
   function removeLinkTiktok(currentLinkDocId) {
-    if (tiktokUsername.replace(" ","") ==="" || /\s/.test(tiktokUsername)) {
+    if (tiktokUsername.replace(" ", "") === "" || /\s/.test(tiktokUsername)) {
       deleteLink(currentLinkDocId);
       return;
     }
@@ -92,11 +94,11 @@ export const FormTikTok = ({ style, user, handleAccordion }) => {
   function handleOnSubmitTiktok(e) {
     e.preventDefault();
     e.stopPropagation();
-    if(tiktokUsername.replace(" ","") ==="" || /\s/.test(tiktokUsername)){
+    if (tiktokUsername.replace(" ", "") === "" || /\s/.test(tiktokUsername)) {
       setTiktokUsername("");
       removeLinkTiktok(tiktokLinkDocId)
       handleMessageRemoveLink();
-    }else if (tiktokLinkDocId !== "") {
+    } else if (tiktokLinkDocId !== "") {
       editLink(tiktokLinkDocId);
       handleMessageConfirmation();
     } else {
@@ -122,8 +124,22 @@ export const FormTikTok = ({ style, user, handleAccordion }) => {
       setOpenTiktok(false);
     }, 3000);
   }
+  function handleOnHide() {
+    setShow(false);
+  }
+
   return (
     <>
+     <div className="container">
+        <h2>
+          Datos de tu usuario de TikTok
+          <BsInfoSquareFill
+            className={styles.btnInfo}
+            onClick={() => setShow(true)}
+          ></BsInfoSquareFill>
+        </h2>
+        <ModalTiktok show={show} handleOnHide={handleOnHide}></ModalTiktok>
+      </div>
       <Form
         className={style}
         autoComplete={"off"}
@@ -133,7 +149,7 @@ export const FormTikTok = ({ style, user, handleAccordion }) => {
         {openTiktok ? (
          <MessageInputs
          open={openTiktok}
-         type={removeLink?"danger":"success"}
+         type={removeLink ? "danger" : "success"}
          socialmedia={"Tiktok"}
        ></MessageInputs>
         ) : (

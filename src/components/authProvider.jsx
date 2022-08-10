@@ -30,7 +30,7 @@ export function AuthProviders({
             uid: user.uid,
             displayName: user.displayName,
             email: "",
-            profilePicture: "gs://soyyo-5ff46.appspot.com/default/user.png",
+            profilePicture: "gs://soyyo-5ff46.appspot.com/default/user.png", 
             theme: "color6",
             username: "",
             career: "",
