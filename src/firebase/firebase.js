@@ -1,7 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from 'firebase/auth';
 import { getStorage, ref, uploadBytes, getDownloadURL, getBytes } from 'firebase/storage';
-import { getFirestore, collection, addDoc, getDocs, doc, getDoc, query, where, setDoc, deleteDoc, collectionGroup } from 'firebase/firestore';
+import { getFirestore, collection, addDoc, getDocs, doc, getDoc, query, where, setDoc, deleteDoc, collectionGroup, updateDoc } from 'firebase/firestore';
 
 const firebaseConfig = {
     apiKey: process.env.REACT_APP_apiKey,
@@ -82,7 +82,7 @@ export async function updateUser(user) {
     try {
         const collectionRef = collection(db, 'users');
         const docRef = doc(collectionRef, user.uid);
-        await setDoc(docRef, user).then((res) => { console.log("User editado")});
+        await updateDoc(docRef, user).then((res) => { console.log("User editado") });
     } catch (error) {
         console.error(error);
     }

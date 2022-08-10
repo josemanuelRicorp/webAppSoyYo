@@ -151,7 +151,6 @@ export const FormLinkedIn = ({ style, user, handleAccordion }) => {
         className={style}
         onSubmit={handleOnSubmitLinkedin}
       >
-        <h2>Datos de tu usuario de LinkedIn</h2>
         {openLinkedin ? (
           <MessageInputs
             open={openLinkedin}

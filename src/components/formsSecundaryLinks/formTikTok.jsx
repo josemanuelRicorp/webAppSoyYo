@@ -145,7 +145,6 @@ export const FormTikTok = ({ style, user, handleAccordion }) => {
         autoComplete={"off"}
         onSubmit={handleOnSubmitTiktok}
       >
-          <h2>Datos de tu usuario de Tiktok</h2>
         {openTiktok ? (
          <MessageInputs
          open={openTiktok}

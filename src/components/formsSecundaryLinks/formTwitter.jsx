@@ -136,7 +136,6 @@ export const FormTwitter = ({ style, user, handleAccordion }) => {
         autoComplete={"off"}
         onSubmit={handleOnSubmitTwitter}
       >
-        <h2>Datos de tu usuario de Twitter</h2>
         {openTwitter ? (
           <MessageInputs
           open={openTwitter}

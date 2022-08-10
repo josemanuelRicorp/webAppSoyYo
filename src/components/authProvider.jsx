@@ -17,30 +17,36 @@ export function AuthProviders({
     //onAuthStateChanged
     onAuthStateChanged(auth, async (user) => {
       if (user) {
-        const isRegistered = await userExists(user.uid);
-        if (isRegistered) {
-          const userInfo = await getUserInfo(user.uid);
-          if (userInfo.processCompleted) {
-            onUserLoggedIn(userInfo);
+        await userExists(user.uid).then(async (isRegistered) => {
+          if (isRegistered == null || isRegistered == undefined) {
+            alert("PAGA TU INTERNET");
+            console.log('FALLA INTERNET', )
+            return;
+          } else if (isRegistered) {
+            const userInfo = await getUserInfo(user.uid);
+            if (userInfo.processCompleted) {
+              onUserLoggedIn(userInfo);
+            } else {
+              onUserNotRegistered(userInfo);
+            }
           } else {
-            onUserNotRegistered(userInfo);
+            await registerNewUser({
+              uid: user.uid,
+              displayName: user.displayName,
+              email: "",
+              profilePicture: "gs://soyyo-5ff46.appspot.com/default/user.png",
+              theme: "color6",
+              username: "",
+              career: "",
+              qrCodeURL: "",
+              description: "",
+              personalPhone: "",
+              publicId: uuidv4(),
+              processCompleted: false,
+            });
+            onUserNotRegistered(user);
           }
-        } else {
-          await registerNewUser({
-            uid: user.uid,
-            displayName: user.displayName,
-            email: "",
-            profilePicture: "gs://soyyo-5ff46.appspot.com/default/user.png", 
-            theme: "color6",
-            username: "",
-            career: "",
-            description: "",
-            personalPhone: "",
-            publicId: uuidv4(),
-            processCompleted: false,
-          });
-          onUserNotRegistered(user);
-        }
+        });
       } else {
         onUserNotLoggedIn(user);
       }

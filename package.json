@@ -12,6 +12,7 @@
     "firebase": "^9.6.11",
     "intl-tel-input": "^17.0.16",
     "leaflet": "^1.8.0",
+    "qrcode": "^1.5.1",
     "react": "^18.2.0",
     "react-bootstrap": "^2.4.0",
     "react-cropper": "^2.1.8",

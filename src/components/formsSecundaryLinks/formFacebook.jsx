@@ -137,7 +137,6 @@ export const FormFacebook = ({ style, user, handleAccordion }) => {
         className={style}
         onSubmit={handleOnSubmitFacebook}
       >
-        <h2>Datos de tu usuario de Facebook</h2>
         {openFacebook ? (
           <MessageInputs
             open={openFacebook}

@@ -154,7 +154,6 @@ export const FormTwitch = ({ style, user, handleAccordion }) => {
         autoComplete={"off"}
         onSubmit={handleOnSubmitTwitch}
       >
-        <h2>Datos de tu usuario de Twitch</h2>
         {openTwitch ? (
           <MessageInputs
             open={openTwitch}

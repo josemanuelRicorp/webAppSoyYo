@@ -2,8 +2,11 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthProviders } from "../components/authProvider";
 import Loading from "../components/loading";
-import { existUsername, updateUser } from "../firebase/firebase";
+import { existUsername, storage, updateUser } from "../firebase/firebase";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import style from "../styles/chooseUsername.module.css";
+import QRCode from "qrcode";
+
 export default function ChooseUserNameView() {
   const navigate = useNavigate();
   const [state, setState] = useState(0);
@@ -23,7 +26,14 @@ export default function ChooseUserNameView() {
   function handleInputUsername(e) {
     setUsername(e.target.value);
   }
+  function generarQR(usercito) {
+    console.log('usercito', usercito.username)
+    QRCode.toDataURL("https://soyyo.digital/u/#/" + usercito.publicId).then((data) => {
+      usercito.qrCodeURL = data;
+      updateUser(usercito).then(navigate("/"));
 
+    });
+  }
   async function handleContinue() {
     if (username !== "") {
       const exists = await existUsername(username);
@@ -33,8 +43,10 @@ export default function ChooseUserNameView() {
         const tmp = { ...currentUser };
         tmp.username = username;
         tmp.processCompleted = true;
-        await updateUser(tmp).then(navigate("/"));
-        // setState(6);
+        console.log('generarQR(currentUser.publicId);', currentUser.publicId);
+        await updateUser(tmp).then(() => {
+          generarQR(tmp);
+        });
       }
     }
   }

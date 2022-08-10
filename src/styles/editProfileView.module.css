@@ -118,3 +118,13 @@
   /* Support for IE. */
   font-feature-settings: "liga";
 }
+.btnInfo{
+  width: auto;
+  height: auto;
+  margin-left: 20px;
+  margin-top: -10px;
+
+}
+.barra{
+  height: 35px;
+}

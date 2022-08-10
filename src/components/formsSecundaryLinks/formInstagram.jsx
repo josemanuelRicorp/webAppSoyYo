@@ -164,7 +164,6 @@ export const FormInstagram = ({ style, user, handleAccordion }) => {
         autoComplete={"off"}
         onSubmit={handleOnSubmitInstagram}
       >
-        <h2>Datos de tu usuario de Instagram</h2>
         {openInstagram ? (
            <MessageInputs
            open={openInstagram}
