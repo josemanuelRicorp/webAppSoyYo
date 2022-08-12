@@ -20,10 +20,10 @@ export function AuthProviders({
     onAuthStateChanged(auth, async (user) => {
       if (user) {
         await userExists(user.uid).then(async (isRegistered) => {
-          if (isRegistered == null || isRegistered == undefined) {
+          if (isRegistered === null || isRegistered === undefined) {
             // alert("ERROR DE CONEXION, INTENTA EN UNOS MINUTOS");
             // console.log('FALLA INTERNET', )
-            return (window.location = "/admin#/iniciar-sesion");
+            return (window.location = "/admin/#/iniciar-sesion");
           } else if (isRegistered) {
             const userInfo = await getUserInfo(user.uid);
             if (userInfo.processCompleted) {
@@ -32,8 +32,6 @@ export function AuthProviders({
               onUserNotRegistered(userInfo);
             }
           } else {
-            console.log({ xd: user});
-
             await registerNewUser({
               uid: user.uid,
               displayName: user.displayName,
