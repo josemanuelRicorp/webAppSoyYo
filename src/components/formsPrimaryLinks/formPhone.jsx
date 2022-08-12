@@ -10,8 +10,8 @@ import { link2FieldsPhone } from "../../utils/socialMediaFields";
 import { v4 as uuidv4 } from "uuid";
 import MessageInputs from "../messageInputs";
 import { linkPhoneNumberCall } from "../../utils/socialMediaLinks";
-import PhoneInput from 'react-phone-input-2';
-import 'react-phone-input-2/lib/style.css'
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
 export const FormPhone = ({ style, user, handleAccordion }) => {
   const [currentUser, setCurrentUser] = useState(user);
 
@@ -67,6 +67,7 @@ export const FormPhone = ({ style, user, handleAccordion }) => {
       link.docId = res.id;
     } else {
       deleteLink(phoneLinkDocId);
+      // TODO actualizar el telefono de usuario por ""
     }
   }
 
@@ -124,9 +125,9 @@ export const FormPhone = ({ style, user, handleAccordion }) => {
             <PhoneInput
               placeholder="ingrese un número telefonico"
               value={phoneNumber}
-              onChange= {setPhoneNumber}
+              onChange={setPhoneNumber}
             />
-            </Col>
+          </Col>
         </Form.Group>
         <input className="btn-custom" type="submit" value="Guardar datos" />
       </Form>

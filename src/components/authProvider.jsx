@@ -35,7 +35,7 @@ export function AuthProviders({
             await registerNewUser({
               uid: user.uid,
               displayName: user.displayName,
-              email: user.email,
+              email: "",
               profilePicture: "gs://soyyo-5ff46.appspot.com/default/user.png",
               theme: "color6",
               username: "",

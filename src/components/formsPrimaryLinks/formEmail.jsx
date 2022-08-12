@@ -39,6 +39,8 @@ export const FormEmail = ({ style, user, handleAccordion }) => {
   ]);
   const [alertInput1, setAlerInput1] = useState(false);
   const [alertInput2, setAlerInput2] = useState(false);
+  const [removeLink, setRemoveLink] = useState(false);
+
   useEffect(() => {
     initEmailInfo(user.uid);
   }, []);
@@ -106,6 +108,9 @@ export const FormEmail = ({ style, user, handleAccordion }) => {
       link.docId = res.id;
     } else {
       deleteLink(emailLinkDocId);
+
+
+      // TODO actualizar el email de usuario por ""
     }
   }
 
