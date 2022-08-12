@@ -1,8 +1,5 @@
 import { useState } from "react";
 import { Modal } from "react-bootstrap";
-import Button from 'react-bootstrap/Button';
-import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
-import Popover from 'react-bootstrap/Popover';
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { FaMapMarked } from "react-icons/fa";
 import { FaKeyboard } from "react-icons/fa";
@@ -34,8 +31,8 @@ export const ModalMapDescription = ({ show, handleOnHide,  titleDescription, ima
               width="100%"
             /> */}
             {
-              descriptions.map( description => 
-                <div className="card my-2 py-2">
+              descriptions.map( (description,index) => 
+                <div key={index} className="card my-2 py-2">
                 <h5 className="card-title mx-4"> <description.icon> </description.icon> { "" } </h5>
                 <div className="card-body">
                     <p className="card-text"> { description.description }</p>
