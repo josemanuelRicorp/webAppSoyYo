@@ -9,7 +9,15 @@ import { link2FieldsEmail } from "../../utils/socialMediaFields";
 import { linkEmail } from "../../utils/socialMediaLinks";
 import { v4 as uuidv4 } from "uuid";
 import MessageInputs from "../messageInputs";
-import { Col, Form, InputGroup, Row, Spinner, DropdownButton, Dropdown } from "react-bootstrap";
+import {
+  Col,
+  Form,
+  InputGroup,
+  Row,
+  Spinner,
+  DropdownButton,
+  Dropdown,
+} from "react-bootstrap";
 import { emailToString, stringToEmailExtention } from "../../utils/stringUtils";
 export const FormEmail = ({ style, user, handleAccordion }) => {
   const [currentUser, setCurrentUser] = useState(user);
@@ -24,7 +32,11 @@ export const FormEmail = ({ style, user, handleAccordion }) => {
   const emailSubjectRef = useRef(null);
   const emailBodyRef = useRef(null);
   const [typeInputEmail, setTypeInputEmail] = useState(false);
-  const [domainsEmail, setDomainsEmail] = useState(['gmail.com', 'hotmail.com', 'outlook.com'])
+  const [domainsEmail, setDomainsEmail] = useState([
+    "gmail.com",
+    "hotmail.com",
+    "outlook.com",
+  ]);
   const [alertInput1, setAlerInput1] = useState(false);
   const [alertInput2, setAlerInput2] = useState(false);
   useEffect(() => {
@@ -37,10 +49,13 @@ export const FormEmail = ({ style, user, handleAccordion }) => {
       setEmailLinkDocId(linkObject.docId);
       let fieldsData = link2FieldsEmail(linkObject.url);
       setEmailAddress(emailToString(fieldsData.email));
-      if(fieldsData.email !== ""){
+      if (fieldsData.email !== "") {
         setEmailExtention(stringToEmailExtention(fieldsData.email));
-        if(!domainsEmail.includes(stringToEmailExtention(fieldsData.email)))
-        setDomainsEmail([...domainsEmail, stringToEmailExtention(fieldsData.email)])
+        if (!domainsEmail.includes(stringToEmailExtention(fieldsData.email)))
+          setDomainsEmail([
+            ...domainsEmail,
+            stringToEmailExtention(fieldsData.email),
+          ]);
       }
       setEmailSubject(fieldsData.subject);
       setEmailBody(fieldsData.body);
@@ -49,7 +64,11 @@ export const FormEmail = ({ style, user, handleAccordion }) => {
 
   function addLink() {
     if (emailAddress !== "") {
-      const newURL = linkEmail(emailAddress + '@' + emailExtention, emailSubject, emailBody);
+      const newURL = linkEmail(
+        emailAddress + "@" + emailExtention,
+        emailSubject,
+        emailBody
+      );
       const newLink = {
         id: uuidv4(),
         title: "Email",
@@ -65,13 +84,17 @@ export const FormEmail = ({ style, user, handleAccordion }) => {
     }
   }
 
-/**
- * If the user has entered an email address, then update the link with the new email address, otherwise
- * delete the link.
- */
+  /**
+   * If the user has entered an email address, then update the link with the new email address, otherwise
+   * delete the link.
+   */
   function editLink(currentLinkDocId) {
     if (emailAddress) {
-      const newURL = linkEmail(emailAddress + '@' + emailExtention, emailSubject, emailBody);
+      const newURL = linkEmail(
+        emailAddress + "@" + emailExtention,
+        emailSubject,
+        emailBody
+      );
       const link = {
         title: "E-mail",
         socialmedia: "email",
@@ -86,10 +109,6 @@ export const FormEmail = ({ style, user, handleAccordion }) => {
     }
   }
 
-
-
-
-
   function handleOnSubmitEmail(e) {
     e.preventDefault();
     e.stopPropagation();
@@ -97,8 +116,8 @@ export const FormEmail = ({ style, user, handleAccordion }) => {
   }
   function handleClickExtention(value) {
     for (let i = 0; i < domainsEmail.length; i++) {
-      if(value === i){
-        setEmailExtention(domainsEmail[i])
+      if (value === i) {
+        setEmailExtention(domainsEmail[i]);
       }
     }
   }
@@ -108,11 +127,11 @@ export const FormEmail = ({ style, user, handleAccordion }) => {
   }
   function handleOnChangeEmailSubject() {
     if (emailSubjectRef.current.value.length <= 50)
-    setEmailSubject(emailSubjectRef.current.value);
+      setEmailSubject(emailSubjectRef.current.value);
   }
   function handleOnChangeEmailBody() {
     if (emailBodyRef.current.value.length <= 100)
-    setEmailBody(emailBodyRef.current.value);
+      setEmailBody(emailBodyRef.current.value);
   }
   function handleButton() {
     setState(11);
@@ -135,12 +154,11 @@ export const FormEmail = ({ style, user, handleAccordion }) => {
       setOpenEmail(false);
     }, 2000);
   }
-  function handleAlertInput(type){
-    if(type === 1){
+  function handleAlertInput(type) {
+    if (type === 1) {
       setAlerInput1(true);
       setAlerInput2(false);
-    } else
-    {
+    } else {
       setAlerInput2(true);
       setAlerInput1(false);
     }
@@ -166,11 +184,9 @@ export const FormEmail = ({ style, user, handleAccordion }) => {
             />
           </Col>
           <Col lg="3">
-            { typeInputEmail ?
-              <InputGroup> 
-                <InputGroup.Text id="">
-                  {"@"}
-                </InputGroup.Text>
+            {typeInputEmail ? (
+              <InputGroup>
+                <InputGroup.Text id="">{"@"}</InputGroup.Text>
                 <Form.Control
                   className="input"
                   type="text"
@@ -182,33 +198,40 @@ export const FormEmail = ({ style, user, handleAccordion }) => {
                   onChange={(e) => setEmailExtention(e.target.value)}
                 />
               </InputGroup>
-              :
+            ) : (
               <DropdownButton
-              variant="outline-secondary"
-              title={`@ ${emailExtention}`}
-              // key= {3}
-              id="2"
-            >
-              {
-                domainsEmail.map((domain, index) => {
-                  return <Dropdown.Item key={index} onClick={() => handleClickExtention(index)}> {domain} </Dropdown.Item>
-                })
-              }
-            </DropdownButton>
-
-          }
-          
-          
-            </Col>
+                //
+                // style={{magin:"0px"}}
+                className="input"
+                variant="outline-secondary"
+                title={`@ ${emailExtention}`}
+                // key= {3}
+                id="2"
+              >
+                {domainsEmail.map((domain, index) => {
+                  return (
+                    // <></>
+                    <Dropdown.Item
+                      key={index}
+                      onClick={() => handleClickExtention(index)}
+                    >
+                      {" "}
+                      {domain}{" "}
+                    </Dropdown.Item>
+                  );
+                })}
+              </DropdownButton>
+            )}
+          </Col>
           <Col lg="2">
-            <Form.Check 
-             onClick={() => setTypeInputEmail(!typeInputEmail)}
+            <Form.Check
+              onClick={() => setTypeInputEmail(!typeInputEmail)}
               type="switch"
               id="custom-switch"
               label="Habilitar dominio personalizado"
             />
           </Col>
-            {/* </InputGroup> */}
+          {/* </InputGroup> */}
         </Form.Group>
 
         <Form.Group as={Row} className="mb-3">
@@ -225,12 +248,18 @@ export const FormEmail = ({ style, user, handleAccordion }) => {
               value={emailSubject}
               ref={emailSubjectRef}
               onChange={handleOnChangeEmailSubject}
-              onClick = { ()=> handleAlertInput(1) }
-              isInvalid={emailSubject.length === 0 && alertInput1 ? true : false}
-             isValid={emailSubject.length > 0 ? true : false}
+              onClick={() => handleAlertInput(1)}
+              isInvalid={
+                emailSubject.length === 0 && alertInput1 ? true : false
+              }
+              isValid={emailSubject.length > 0 ? true : false}
             />
-              <Form.Control.Feedback type={emailSubject.length === 0 ? "invalid" : "valid"} tooltip={false}>
-              {`${emailSubject.length} carácteres, Máximo 50 carácteres `}            </Form.Control.Feedback>
+            <Form.Control.Feedback
+              type={emailSubject.length === 0 ? "invalid" : "valid"}
+              tooltip={false}
+            >
+              {`${emailSubject.length} carácteres, Máximo 50 carácteres `}{" "}
+            </Form.Control.Feedback>
           </Col>
         </Form.Group>
 
@@ -248,12 +277,15 @@ export const FormEmail = ({ style, user, handleAccordion }) => {
               value={emailBody}
               ref={emailBodyRef}
               onChange={handleOnChangeEmailBody}
-              onClick = { ()=> handleAlertInput(2) }
+              onClick={() => handleAlertInput(2)}
               isInvalid={emailBody.length === 0 && alertInput2 ? true : false}
               isValid={emailBody.length > 0 ? true : false}
             />
-             <Form.Control.Feedback type={emailBody.length === 0 ? "invalid" : "valid"} tooltip={false}>
-             {`${emailBody.length} carácteres, Máximo 100 carácteres `}
+            <Form.Control.Feedback
+              type={emailBody.length === 0 ? "invalid" : "valid"}
+              tooltip={false}
+            >
+              {`${emailBody.length} carácteres, Máximo 100 carácteres `}
             </Form.Control.Feedback>
           </Col>
         </Form.Group>
@@ -270,7 +302,6 @@ export const FormEmail = ({ style, user, handleAccordion }) => {
             Procesando
           </button>
         ) : (
-
           <input className="btn-custom" type="submit" value="Guardar datos" />
         )}
         {openEmail ? (

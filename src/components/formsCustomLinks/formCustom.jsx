@@ -173,8 +173,8 @@ export const FormCustom = ({ style, user }) => {
             onChange={formIcon}
           />
           <br />
-          <h5>Espere a completar la carga.</h5>
-          <h2>Subiendo {progress}%</h2>
+          {/* <h5>Espere a completar la carga.</h5>
+          <h2>Subiendo {progress}%</h2> */}
           <ProgressBar
             className={styles.barra}
             striped

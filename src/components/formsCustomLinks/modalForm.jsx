@@ -11,7 +11,7 @@ export const ModalForm = ({ style, show, handleOnHide, user }) => {
   const [iconFile, setIconFile] = useState("");
   const [customUrl, setCustomUrl] = useState("");
   const [customWebSite, setCustomWebSite] = useState("");
-  const [nameBoton, setNameBoton] = useState("Agregar Nuevo Enlace", true);
+  const [nameBoton, setNameBoton] = useState("Editar el enlace", true);
   const customUrlRef = useRef(null);
   const customWebSiteRef = useRef(null);
   const [booleanBoton, setBoleanBoton] = useState(true);
@@ -50,7 +50,7 @@ export const ModalForm = ({ style, show, handleOnHide, user }) => {
       function () {
         getDownloadURL(uploadTask.snapshot.ref).then((iconUrl) => {
           setIconFile(iconUrl);
-          setNameBoton("Agregar Nuevo Enlace");
+          setNameBoton("Editar el enlace");
           setBoleanBoton(true);
         });
       }
@@ -116,7 +116,7 @@ export const ModalForm = ({ style, show, handleOnHide, user }) => {
         aria-labelledby="example-modal-sizes-title-lg"
       >
         <Modal.Header closeButton>
-          <Modal.Title>Editar los Enlaces Personales</Modal.Title>
+          <Modal.Title>Edición del enlace personal</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           {" "}
