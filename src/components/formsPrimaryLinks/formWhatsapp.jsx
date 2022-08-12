@@ -10,7 +10,8 @@ import {
   updateLink,
 } from "../../firebase/firebase";
 import { link2FieldsWhatsapp } from "../../utils/socialMediaFields";
-
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
 export const FormWhatsapp = ({ style, user, handleAccordion }) => {
   const [openWhatsApp, setOpenWhatsApp] = useState(false);
   const [whatsappLinkDocId, setWhatsappLinkDocId] = useState("");
@@ -19,7 +20,7 @@ export const FormWhatsapp = ({ style, user, handleAccordion }) => {
   const whatsappNumberRef = useRef(null);
   const whatsappMsgRef = useRef(null);
   const [currentUser, setCurrentUser] = useState(user);
-
+  const [alertInput1, setAlerInput1] = useState(false);
   useEffect(() => {
     initWhatsAppInfo(user.uid);
     console.log(
@@ -91,7 +92,8 @@ export const FormWhatsapp = ({ style, user, handleAccordion }) => {
     setWhatsappNumber(whatsappNumberRef.current.value);
   }
   function handleOnChangeWhatsAppMsg() {
-    setWhatsappMsg(whatsappMsgRef.current.value);
+    if (whatsappMsgRef.current.value.length <= 100)
+      setWhatsappMsg(whatsappMsgRef.current.value);
   }
 
   function handleMessageConfirmation() {
@@ -118,7 +120,7 @@ export const FormWhatsapp = ({ style, user, handleAccordion }) => {
           <Form.Label column lg="4">
             Número telefónico:
           </Form.Label>
-          <Col lg="8">
+          {/* <Col lg="8">
             <Form.Control
               className="input"
               type="text"
@@ -128,6 +130,13 @@ export const FormWhatsapp = ({ style, user, handleAccordion }) => {
               onChange={handleOnChangeWhatsAppNumber}
               autoComplete="off"
               placeholder="70000000"
+            />
+          </Col> */}
+          <Col lg="1">
+            <PhoneInput
+              placeholder="ingrese un número telefonico"
+              value={whatsappNumber}
+              onChange={setWhatsappNumber}
             />
           </Col>
         </Form.Group>
@@ -145,7 +154,16 @@ export const FormWhatsapp = ({ style, user, handleAccordion }) => {
               value={whatsappMsg}
               ref={whatsappMsgRef}
               onChange={handleOnChangeWhatsAppMsg}
+              onClick={() => setAlerInput1(true)}
+              isInvalid={whatsappMsg.length === 0 && alertInput1 ? true : false}
+              isValid={whatsappMsg.length > 0 ? true : false}
             />
+            <Form.Control.Feedback
+              type={whatsappMsg.length === 0 ? "invalid" : "valid"}
+              tooltip={false}
+            >
+              {`${whatsappMsg.length} carácteres, Máximo 100 carácteres `}
+            </Form.Control.Feedback>
           </Col>
         </Form.Group>
         <input className="btn-custom" type="submit" value="Guardar datos" />

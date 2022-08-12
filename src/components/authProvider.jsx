@@ -19,9 +19,9 @@ export function AuthProviders({
       if (user) {
         await userExists(user.uid).then(async (isRegistered) => {
           if (isRegistered == null || isRegistered == undefined) {
-            alert("PAGA TU INTERNET");
+            alert("ERROR DE CONEXION, INTENTA EN UNOS MINUTOS");
             console.log('FALLA INTERNET', )
-            return;
+            return(window.location="/admin#/iniciar-sesion");
           } else if (isRegistered) {
             const userInfo = await getUserInfo(user.uid);
             if (userInfo.processCompleted) {
@@ -34,8 +34,7 @@ export function AuthProviders({
               uid: user.uid,
               displayName: user.displayName,
               email: "",
-              profilePicture: "gs://soyyo-5ff46.appspot.com/default/user.png",
-              theme: "color6",
+              profilePicture: "gs://soyyo-5ff46.appspot.com/default/user.png",               theme: "color6",
               username: "",
               career: "",
               qrCodeURL: "",

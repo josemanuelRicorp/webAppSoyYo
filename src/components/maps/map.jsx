@@ -1,12 +1,12 @@
 import React, {  useState } from "react";
-import { Modal, Row, Spinner } from "react-bootstrap";
+import {Col, Modal, Row, Spinner } from "react-bootstrap";
 import { MapContainer, TileLayer } from "react-leaflet";
 import { MdAdsClick } from "react-icons/md";
 import { MapPlaceholder, MapMarker } from "../maps";
 
 //  {lat: -17.806098458690858, lng: -63.16360831260682}
-export const Map = ({ show, handleOnHide, handlePositionMarker, handleOnSubmitMaps }) => {
-  const [position, setPosition] = useState([
+export const Map = ({ show, handleOnHide, handlePositionMarker, handleOnSubmitMaps, handleOpenModalMapDescription }) => {
+    const [position, setPosition] = useState([
     -17.783310801661553, -63.18212983710896
   ]);
 
@@ -61,6 +61,15 @@ export const Map = ({ show, handleOnHide, handlePositionMarker, handleOnSubmitMa
       </Modal.Body>
       <Modal.Footer>
         <div style={{ width: "100%" }}>
+        <div className="d-flex">
+            <Col className="mx-1">
+            <button className="btn-custom"
+              onClick = {handleOpenModalMapDescription}
+            > 
+              Ver Indicaciones 
+            </button>
+            </Col>
+            <Col className="mx-1">
           {state === 11 ? (
             <button
               style={{ float: "right" }}
@@ -98,6 +107,8 @@ export const Map = ({ show, handleOnHide, handlePositionMarker, handleOnSubmitMa
               )}
             </>
           )}
+           </Col>
+          </div>
         </div>
       </Modal.Footer>
     </Modal>

@@ -11,18 +11,24 @@ export const ModalForm = ({ style, show, handleOnHide, user }) => {
   const [iconFile, setIconFile] = useState("");
   const [customUrl, setCustomUrl] = useState("");
   const [customWebSite, setCustomWebSite] = useState("");
-
+  const [nameBoton, setNameBoton] = useState("Agregar Nuevo Enlace", true);
   const customUrlRef = useRef(null);
   const customWebSiteRef = useRef(null);
+  const [booleanBoton, setBoleanBoton] = useState(true);
+  // const [alertInput1, setAlerInput1] = useState(false);
+  // const [alertInput2, setAlerInput2] = useState(false);
 
   useEffect(() => {
     setCustomUrl(user.url);
     setCustomWebSite(user.website);
     setIconFile(user.icon);
+
   }, [show]);
 
-  const handleSubmit = async (e) => {
+  const formIcon = async (e) => {
     e.preventDefault();
+    setNameBoton("Espererando");
+    setBoleanBoton(false);
     const file = e.target.files[0];
     await uploadFiles(file);
     setIconFile("");
@@ -44,6 +50,8 @@ export const ModalForm = ({ style, show, handleOnHide, user }) => {
       function () {
         getDownloadURL(uploadTask.snapshot.ref).then((iconUrl) => {
           setIconFile(iconUrl);
+          setNameBoton("Agregar Nuevo Enlace");
+          setBoleanBoton(true);
         });
       }
     );
@@ -64,9 +72,9 @@ export const ModalForm = ({ style, show, handleOnHide, user }) => {
   }
 
   const handleOnSubmitCustom = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
     if (customUrl !== "" && customWebSite !== "") {
-      e.preventDefault();
-      e.stopPropagation();
       if (user.docId !== "") {
         editLink(user.docId);
         handleMessageConfirmation();
@@ -88,7 +96,15 @@ export const ModalForm = ({ style, show, handleOnHide, user }) => {
       window.location.reload();
     }, 3000);
   }
-
+  // function handleAlertInput(type) {
+  //   if (type === 1) {
+  //     setAlerInput1(true);
+  //     setAlerInput2(false);
+  //   } else {
+  //     setAlerInput2(true);
+  //     setAlerInput1(false);
+  //   }
+  // }
   return (
     <>
       <Modal
@@ -124,7 +140,18 @@ export const ModalForm = ({ style, show, handleOnHide, user }) => {
               value={customWebSite}
               ref={customWebSiteRef}
               onChange={handleOnChangeCustomWebSite}
+              // onClick={() => handleAlertInput(1)}
+              // isInvalid={
+              //   customWebSite.length === 0 && alertInput1 ? true : false
+              // }
+              // isValid={customWebSite.length > 0 ? true : false}
             />
+            {/* <Form.Control.Feedback
+              type={customWebSite.length === 0 ? "invalid" : "valid"}
+              tooltip={false}
+            >
+              {`${customWebSite.length} carácteres, Máximo 100 caracteres `}
+            </Form.Control.Feedback> */}
             <br />
             <Form.Control
               className="input"
@@ -134,14 +161,23 @@ export const ModalForm = ({ style, show, handleOnHide, user }) => {
               value={customUrl}
               ref={customUrlRef}
               onChange={handleOnChangeCustomUrl}
+              // onClick={() => handleAlertInput(2)}
+              // isInvalid={customUrl.length === 0 && alertInput2 ? true : false}
+              // isValid={customUrl.length > 0 ? true : false}
             />
+            {/* <Form.Control.Feedback
+              type={customUrl.length === 0 ? "invalid" : "valid"}
+              tooltip={false}
+            >
+              {`${customUrl.length} caracteres, Maximo 100 caracteres `}
+            </Form.Control.Feedback> */}
             <br />
             <>
               <Form.Control
                 className="input"
                 type="file"
                 name="icono"
-                onChange={handleSubmit}
+                onChange={formIcon}
               />
               <br />
               <h5>Espere a completar la carga.</h5>
@@ -157,9 +193,10 @@ export const ModalForm = ({ style, show, handleOnHide, user }) => {
             <br />
             <br />
             <input
+              disabled={!booleanBoton}
               className="btn-custom"
               type="submit"
-              value="Actualizar Datos"
+              value={nameBoton}
             />
           </Form>
         </Modal.Body>

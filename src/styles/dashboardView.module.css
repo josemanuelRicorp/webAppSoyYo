@@ -5,8 +5,8 @@
   padding: 10px 0;
   margin-bottom: 20px;
 }
-h1{
-    margin: 30px auto;
+h1 {
+  margin: 30px auto;
 }
 .accordionCustom {
   background-color: #eeeeee;
@@ -24,10 +24,11 @@ h1{
   width: 40px;
   height: 30px;
 }
+.btn {
+  margin-left: 90px;
+  margin-top: -37px;
+}
 
-
-
-
-.cards{
+.cards {
   box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.2);
 }

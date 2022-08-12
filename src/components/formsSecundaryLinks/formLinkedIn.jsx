@@ -23,6 +23,7 @@ export const FormLinkedIn = ({ style, user, handleAccordion }) => {
   const usernameRef = useRef(null);
   const [removeLink, setRemoveLink] = useState(false);
   const [show, setShow] = useState(false);
+  const [alertInput1, setAlerInput1] = useState(false);
   useEffect(() => {
     initLinkedin(user.uid);
   }, []);
@@ -114,6 +115,7 @@ export const FormLinkedIn = ({ style, user, handleAccordion }) => {
     handleAccordion();
   }
   function handleOnChangeLinkedin() {
+    if (usernameRef.current.value.length <= 100)
     setLinkedinUsername(usernameRef.current.value);
   }
 
@@ -179,17 +181,19 @@ export const FormLinkedIn = ({ style, user, handleAccordion }) => {
                   onChange={handleOnChangeLinkedin}
                   autoComplete="off"
                   aria-label="Nombre de usuario"
+                  onClick = { ()=> setAlerInput1(true)}
+
+                  isInvalid={linkedinUsername.length === 0 && alertInput1 ? true : false}
+                  isValid={linkedinUsername.length > 0 ? true : false}
                 />
+                <Form.Control.Feedback className="mx-5" type={linkedinUsername.length === 0 ? "invalid" : "valid"} tooltip={false}>
+                {`${linkedinUsername.length} carácteres, Máximo 100 carácteres `}
+                </Form.Control.Feedback>
               </InputGroup>
             </Form.Group>
           </Col>
           <Col md className="mt-2">
-            <input
-              className="btn-custom"
-              type="submit"
-              value="Guardar datos"
-              style={{ width: "100%" }}
-            />
+          <input className="btn-custom" type="submit" value="Guardar datos" style={{ width: "100%" }} />
           </Col>
         </Row>
       </Form>

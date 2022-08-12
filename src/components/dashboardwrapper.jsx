@@ -5,7 +5,6 @@ import style from "../styles/dashboardwrapper.module.css";
 import logo from "../assets/img/logoSoyYo.svg";
 import logoMtcorp from "../assets/img/logo-mt-corp.svg";
 // import images from '../utils/images';
-import { useState } from "react";
 // import logo from "../assets/img/soyyo.png";
 import {
   Container,
@@ -17,7 +16,7 @@ import {
 } from "react-bootstrap";
 import { FaLocationArrow } from "react-icons/fa";
 import { AiOutlineMail } from "react-icons/ai";
-
+import { useState } from "react";
 import { TiSocialFacebook, TiSocialLinkedin } from "react-icons/ti";
 
 export default function DashboardWrapper({ children }) {

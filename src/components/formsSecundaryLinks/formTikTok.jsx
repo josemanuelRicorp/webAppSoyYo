@@ -23,6 +23,7 @@ export const FormTikTok = ({ style, user, handleAccordion }) => {
   const usernameRef = useRef(null);
   const [removeLink, setRemoveLink] = useState(false);
   const [show, setShow] = useState(false);
+  const [alertInput1, setAlerInput1] = useState(false);
   useEffect(() => {
     initTiktok(user.uid);
   }, []);
@@ -68,7 +69,7 @@ export const FormTikTok = ({ style, user, handleAccordion }) => {
     // } else {
     //   deleteLink(currentLinkDocId);
     // }
-    console.log('DELETE LINKS', 'DENTRO DEL THEN TIKTOK')
+    console.log("DELETE LINKS", "DENTRO DEL THEN TIKTOK");
     if (tiktokUsername) {
       const newURL = linkTiktok(tiktokUsername);
       const link = {
@@ -96,7 +97,7 @@ export const FormTikTok = ({ style, user, handleAccordion }) => {
     e.stopPropagation();
     if (tiktokUsername.replace(" ", "") === "" || /\s/.test(tiktokUsername)) {
       setTiktokUsername("");
-      removeLinkTiktok(tiktokLinkDocId)
+      removeLinkTiktok(tiktokLinkDocId);
       handleMessageRemoveLink();
     } else if (tiktokLinkDocId !== "") {
       editLink(tiktokLinkDocId);
@@ -109,7 +110,8 @@ export const FormTikTok = ({ style, user, handleAccordion }) => {
   }
 
   function handleOnChangeTiktokUsername() {
-    setTiktokUsername(usernameRef.current.value);
+    if (usernameRef.current.value.length <= 100)
+      setTiktokUsername(usernameRef.current.value);
   }
   function handleMessageConfirmation() {
     setOpenTiktok(true);
@@ -119,7 +121,7 @@ export const FormTikTok = ({ style, user, handleAccordion }) => {
   }
   function handleMessageRemoveLink() {
     setOpenTiktok(true);
-    setRemoveLink(true)
+    setRemoveLink(true);
     setTimeout(() => {
       setOpenTiktok(false);
     }, 3000);
@@ -130,7 +132,7 @@ export const FormTikTok = ({ style, user, handleAccordion }) => {
 
   return (
     <>
-     <div className="container">
+      <div className="container">
         <h2>
           Datos de tu usuario de TikTok
           <BsInfoSquareFill
@@ -146,11 +148,11 @@ export const FormTikTok = ({ style, user, handleAccordion }) => {
         onSubmit={handleOnSubmitTiktok}
       >
         {openTiktok ? (
-         <MessageInputs
-         open={openTiktok}
-         type={removeLink ? "danger" : "success"}
-         socialmedia={"Tiktok"}
-       ></MessageInputs>
+          <MessageInputs
+            open={openTiktok}
+            type={removeLink ? "danger" : "success"}
+            socialmedia={"Tiktok"}
+          ></MessageInputs>
         ) : (
           ""
         )}
@@ -173,7 +175,23 @@ export const FormTikTok = ({ style, user, handleAccordion }) => {
                   onChange={handleOnChangeTiktokUsername}
                   autoComplete="off"
                   aria-label="Nombre de usuario"
+                  onClick={() => setAlerInput1(true)}
+                  isInvalid={
+                    tiktokUsername.length === 0 && alertInput1 ? true : false
+                  }
+                  isValid={tiktokUsername.length > 0 ? true : false}
                 />
+                <Form.Control.Feedback
+                  className="mx-5"
+                  type={
+                    tiktokUsername.length === 0 && alertInput1
+                      ? "invalid"
+                      : "valid"
+                  }
+                  tooltip={false}
+                >
+                  {`${tiktokUsername.length} carácteres, Máximo 100 carácteres `}
+                </Form.Control.Feedback>
               </InputGroup>
             </Form.Group>
           </Col>

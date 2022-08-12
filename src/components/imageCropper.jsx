@@ -15,6 +15,8 @@ export default function ImageCropper({ show, handleOnHide, user }) {
   const fileRef = useRef(null);
 
   useEffect(() => {
+    setCurrentUser(user);
+    console.log({ xd: user });
     setImage(defaultImg);
     setState(9);
   }, [handleOnHide]);
@@ -49,11 +51,14 @@ export default function ImageCropper({ show, handleOnHide, user }) {
           const imageData = fileReader.result;
           const res = await setUserProfilePhoto(currentUser.uid, imageData);
           if (res) {
+            currentUser.profilePicture = res.metadata.fullPath;
+            await updateUser(currentUser).then(handleOnHide());
+            console.log({ currentUser });
             // const tmpUser = { ...currentUser };
             // tmpUser.profilePicture = res.metadata.fullPath;
             // await updateUser(tmpUser).then(handleOnHide());
             // setCurrentUser({ ...tmpUser });
-            handleOnHide();
+            // handleOnHide();
           }
         };
       });

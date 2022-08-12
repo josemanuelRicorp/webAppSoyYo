@@ -26,6 +26,7 @@ export const FormInstagram = ({ style, user, handleAccordion }) => {
   const usernameRef = useRef(null);
   const [removeLink, setRemoveLink] = useState(false);
   const [show, setShow] = useState(false);
+  const [alertInput1, setAlerInput1] = useState(false);
   useEffect(() => {
     initInstagram(user.uid);
   }, []);
@@ -125,6 +126,7 @@ export const FormInstagram = ({ style, user, handleAccordion }) => {
 
   
   function onChangeInstagramUsername() {
+    if(usernameRef.current.value.length <= 100)
     setInstagramUsername(usernameRef.current.value);
   }
   function handleMessageConfirmation() {
@@ -190,9 +192,15 @@ export const FormInstagram = ({ style, user, handleAccordion }) => {
                   value={instagramUsername}
                   ref={usernameRef}
                   onChange={onChangeInstagramUsername}
+                  onClick = { ()=> setAlerInput1(true)}
                   autoComplete="off"
                   aria-label="Nombre de usuario"
+                  isInvalid = { instagramUsername.length === 0  && alertInput1  ? true : false}
+                  isValid = {instagramUsername.length > 0 ? true : false}
                 />
+                <Form.Control.Feedback className="mx-5" type = { instagramUsername.length === 0? "invalid" : "valid"} tooltip = { false }>
+                      { `${instagramUsername.length} carácteres, Máximo 100 carácteres `}
+                    </Form.Control.Feedback>
               </InputGroup>
             </Form.Group>
           </Col>

@@ -122,13 +122,15 @@ export default function LinksCustomView() {
                     Editar
                   </button>
 
+                  {/* <div className={style.btn}> */}
                   <button
                     type="button"
-                    className="btn-custom negative small"
+                    className="btn-custom negative small ms-2"
                     onClick={() => deleteItem(key, link)}
                   >
                     Eliminar
                   </button>
+                  {/* </div> */}
                 </Accordion.Body>
               </Accordion.Item>
             ))}

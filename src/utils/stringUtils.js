@@ -16,3 +16,28 @@ export function ASCII2Text(text) {
     msg = msg.replaceAll("%3F", "?");
     return msg;
 }
+export function emailToString(email) {
+    let msg = email.toString();
+    let text = "";
+    for (let i = 0; i < msg.length; i++) {
+        const char = msg[i];
+        if(char !== '@'){
+            text = text + char;
+        } else return text;
+    }
+    return text;
+}
+
+export function stringToEmailExtention(email) {
+    let msg = email.toString();
+    let state = false;
+    let text = "";
+    for (let i = 0; i < msg.length; i++) {
+        const char = msg[i];
+        if(char === '@' || state){
+            state = true;
+            text = text + char;
+        }
+    }
+    return text !== "" ? text.substring(1, text.length) : text;
+} 

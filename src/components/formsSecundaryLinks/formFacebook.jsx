@@ -23,6 +23,8 @@ export const FormFacebook = ({ style, user, handleAccordion }) => {
   const [facebookLinkDocId, setFacebookLinkDocId] = useState("");
   const usernameRef = useRef(null);
   const [removeLink, setRemoveLink] = useState(false);
+  const [alertInput1, setAlerInput1] = useState(false);
+
   useEffect(() => {
     initFacebook(user.uid);
   }, []);
@@ -88,7 +90,8 @@ export const FormFacebook = ({ style, user, handleAccordion }) => {
     if (
       facebookUsername.replace(" ", "") === "" ||
       /\s/.test(facebookUsername)
-    ) {setFacebookUsername("");
+    ) {
+      setFacebookUsername("");
       removeLinkFacebook(facebookLinkDocId);
       handleMessageRemoveLink();
     } else if (facebookLinkDocId !== "") {
@@ -101,7 +104,8 @@ export const FormFacebook = ({ style, user, handleAccordion }) => {
     handleAccordion();
   }
   function onChangeFacebookUsername() {
-    setFacebookUsername(usernameRef.current.value);
+    if (usernameRef.current.value.length <= 100)
+      setFacebookUsername(usernameRef.current.value);
   }
   function handleMessageConfirmation() {
     setOpenFacebook(true);
@@ -165,7 +169,19 @@ export const FormFacebook = ({ style, user, handleAccordion }) => {
                   ref={usernameRef}
                   onChange={onChangeFacebookUsername}
                   autoComplete="off"
+                  onClick = { ()=> setAlerInput1(true)}
+                  isInvalid = { facebookUsername.length === 0 && alertInput1 ? true : false}
+                  
+                  isValid={facebookUsername.length > 0 ? true : false}
                 />
+                <Form.Control.Feedback
+                  className="mx-5"
+                  type={facebookUsername.length === 0 ? "invalid" : "valid"}
+                  tooltip={false}
+                >
+                  { `${facebookUsername.length} carácteres, Máximo 100 carácteres `}
+                    
+                </Form.Control.Feedback>
               </InputGroup>
             </Form.Group>
           </Col>

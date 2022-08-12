@@ -30,7 +30,7 @@ export const FormTwitch = ({ style, user, handleAccordion }) => {
   const usernameRef = useRef(null);
   const [removeLink, setRemoveLink] = useState(false);
   const [show, setShow] = useState(false);
-
+  const [alertInput1, setAlerInput1] = useState(false);
   useEffect(() => {
     initTwitch(user.uid);
   }, []);
@@ -118,6 +118,7 @@ export const FormTwitch = ({ style, user, handleAccordion }) => {
     handleAccordion();
   }
   function handleOnChangeTwitch() {
+    if(usernameRef.current.value.length <= 100)
     setTwitchUsername(usernameRef.current.value);
   }
 
@@ -181,7 +182,13 @@ export const FormTwitch = ({ style, user, handleAccordion }) => {
                   onChange={handleOnChangeTwitch}
                   autoComplete="off"
                   aria-label="Nombre de usuario"
+                  onClick = { ()=> setAlerInput1(true)}
+                  isInvalid = { twitchUsername.length === 0 && alertInput1 ? true : false}
+                  isValid = {twitchUsername.length > 0 ? true : false}
                 />
+                 <Form.Control.Feedback className="mx-5" type = {twitchUsername.length === 0 ? "invalid" : "valid"} tooltip = { false }>
+                 { `${twitchUsername.length} carácteres, Máximo 100 carácteres `}
+                    </Form.Control.Feedback>
               </InputGroup>
             </Form.Group>
           </Col>

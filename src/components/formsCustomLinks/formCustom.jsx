@@ -14,14 +14,19 @@ export const FormCustom = ({ style, user }) => {
   const [iconFile, setIconFile] = useState(defaultImg);
   const [customUrl, setCustomUrl] = useState("");
   const [customWebSite, setCustomWebSite] = useState("");
-
+  const [alertInput1, setAlerInput1] = useState(false);
+  const [alertInput2, setAlerInput2] = useState(false);
   const customUrlRef = useRef(null);
   const customWebSiteRef = useRef(null);
+  const [nameBoton, setNameBoton] = useState("Agregar Nuevo Enlace");
+  const [booleanBoton, setBoleanBoton] = useState(true);
 
   useEffect(() => {}, []);
 
   const formIcon = async (e) => {
     e.preventDefault();
+    setNameBoton("Espererando");
+    setBoleanBoton(false);
     const file = e.target.files[0];
     await uploadFiles(file);
     setIconFile("");
@@ -43,6 +48,8 @@ export const FormCustom = ({ style, user }) => {
       function () {
         getDownloadURL(uploadTask.snapshot.ref).then((iconUrl) => {
           setIconFile(iconUrl);
+          setNameBoton("Agregar Nuevo Enlace");
+          setBoleanBoton(true);
         });
       }
     );
@@ -67,19 +74,23 @@ export const FormCustom = ({ style, user }) => {
   }
 
   const handleOnSubmitCustom = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
     if (customUrl !== "" && customWebSite !== "") {
-      e.preventDefault();
-      e.stopPropagation();
       addLink();
       handleMessageConfirmation();
     }
   };
 
   function handleOnChangeCustomUrl() {
-    setCustomUrl(customUrlRef.current.value);
+    if (customUrlRef.current.value.length <= 100) {
+      setCustomUrl(customUrlRef.current.value);
+    }
   }
   function handleOnChangeCustomWebSite() {
-    setCustomWebSite(customWebSiteRef.current.value);
+    if (customWebSiteRef.current.value.length <= 100) {
+      setCustomWebSite(customWebSiteRef.current.value);
+    }
   }
 
   function handleMessageConfirmation() {
@@ -89,7 +100,15 @@ export const FormCustom = ({ style, user }) => {
       window.location.reload();
     }, 3000);
   }
-
+  function handleAlertInput(type) {
+    if (type === 1) {
+      setAlerInput1(true);
+      setAlerInput2(false);
+    } else {
+      setAlerInput2(true);
+      setAlerInput1(false);
+    }
+  }
   return (
     <>
       {" "}
@@ -115,7 +134,16 @@ export const FormCustom = ({ style, user }) => {
           value={customWebSite}
           ref={customWebSiteRef}
           onChange={handleOnChangeCustomWebSite}
+          onClick={() => handleAlertInput(1)}
+          isInvalid={customWebSite.length === 0 && alertInput1 ? true : false}
+          isValid={customWebSite.length > 0 ? true : false}
         />
+        <Form.Control.Feedback
+          type={customWebSite.length === 0 ? "invalid" : "valid"}
+          tooltip={false}
+        >
+          {`${customWebSite.length} carácteres, Máximo 100 caracteres `}
+        </Form.Control.Feedback>
         <br />
         <Form.Control
           className="input"
@@ -125,7 +153,16 @@ export const FormCustom = ({ style, user }) => {
           value={customUrl}
           ref={customUrlRef}
           onChange={handleOnChangeCustomUrl}
+          onClick={() => handleAlertInput(2)}
+          isInvalid={customUrl.length === 0 && alertInput2 ? true : false}
+          isValid={customUrl.length > 0 ? true : false}
         />
+        <Form.Control.Feedback
+          type={customUrl.length === 0 ? "invalid" : "valid"}
+          tooltip={false}
+        >
+          {`${customUrl.length} cáracteres, Máximo 100 caracteres `}{" "}
+        </Form.Control.Feedback>
         <br />
         <>
           <Form.Control
@@ -150,9 +187,10 @@ export const FormCustom = ({ style, user }) => {
         <br />
         <br />
         <input
+          disabled={!booleanBoton}
           className="btn-custom"
           type="submit"
-          value="Agregar Nuevo Enlace"
+          value={nameBoton}
         />
       </Form>
     </>

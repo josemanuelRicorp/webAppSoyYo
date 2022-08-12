@@ -11,11 +11,12 @@ import { v4 as uuidv4 } from "uuid";
 import MessageInputs from "../messageInputs";
 import { linkGoogleMaps } from "../../utils/socialMediaLinks";
 import { Map, MapStatic } from "../maps";
-
+import { ModalMapDescription } from "../modals/ModalMapDescription";
 export const FormMap = ({ style, user, handleAccordion }) => {
   const [state, setState] = useState(0);
   const [currentUser, setCurrentUser] = useState(user);
   const [openMap, setOpenMap] = useState(false);
+  const [openModalDescription, setOpenModalDescription] = useState(false);
   const [mapLat, setMapLat] = useState("");
   const [mapLng, setMapLng] = useState("");
   const initialPositionCoords = {
@@ -89,7 +90,13 @@ export const FormMap = ({ style, user, handleAccordion }) => {
     handleMessageConfirmation();
     handleAccordion();
   }
-
+  function handleCloseModalMapDescription(){
+    setOpenModalDescription(false);
+    
+  }
+  function handleOpenModalMapDescription(){
+    setOpenModalDescription(true);
+  }
   function handleOnHideMap() {
     setShowMap(false);
   }
@@ -133,10 +140,23 @@ export const FormMap = ({ style, user, handleAccordion }) => {
         ) : (
           ""
         )}
-
-        <button className="btn-custom" onClick={() => setShowMap(true)}>
+ 
+ <button className="btn-custom" onClick={() => setShowMap(true)}>
           Editar ubicación
         </button>
+
+        {
+          openModalDescription ?
+          <ModalMapDescription
+            show = {openModalDescription}
+            handleOnHide = { handleCloseModalMapDescription }
+            titleDescription = "Description"
+            url = ""
+          /> :
+          null
+        }
+
+
         {mapsLinkDocId ? (
           <>
             <button className="btn-custom negative" onClick={handleDeleteMap}>
@@ -152,6 +172,7 @@ export const FormMap = ({ style, user, handleAccordion }) => {
           handleOnHide={handleOnHideMap}
           handleOnSubmitMaps={handleOnSubmitMaps}
           handlePositionMarker={handlePositionMarker}
+          handleOpenModalMapDescription = { handleOpenModalMapDescription }
         />
       </div>
       <div>{state === 1 ? <MapStatic mapLatLng={mapLatLng} /> : <> </>}</div>

@@ -24,6 +24,7 @@ export const FormTwitter = ({ style, user, handleAccordion }) => {
   const usernameRef = useRef(null);
   const [removeLink, setRemoveLink] = useState(false);
   const [show, setShow] = useState(false);
+  const [alertInput1, setAlerInput1] = useState(false);
 
   useEffect(() => {
     initTwitter(user.uid);
@@ -114,6 +115,7 @@ export const FormTwitter = ({ style, user, handleAccordion }) => {
     }, 3000);
   }
   function handleOnChangeTwitterUsername() {
+    if(usernameRef.current.value.length <= 100)
     setTwitterUsername(usernameRef.current.value);
   }
   function handleOnHide() {
@@ -163,7 +165,13 @@ export const FormTwitter = ({ style, user, handleAccordion }) => {
                   onChange={handleOnChangeTwitterUsername}
                   autoComplete="off"
                   aria-label="Nombre de usuario"
+                  onClick = { ()=> setAlerInput1(true)}
+                  isInvalid = { twitterUsername.length === 0 && alertInput1 ? true : false}
+                  isValid = {twitterUsername.length > 0 ? true : false}
                 />
+                <Form.Control.Feedback className="mx-5" type = {twitterUsername.length === 0 ? "invalid" : "valid"} tooltip = { false }>
+                { `${twitterUsername.length} carácteres, Máximo 100 carácteres `}
+                    </Form.Control.Feedback>
               </InputGroup>
             </Form.Group>
           </Col>
