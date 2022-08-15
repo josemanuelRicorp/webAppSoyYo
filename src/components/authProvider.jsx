@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import {
   auth,
+  createUserContact,
   getUserInfo,
   insertNewLink,
   registerNewUser,
@@ -32,9 +33,11 @@ export function AuthProviders({
               onUserNotRegistered(userInfo);
             }
           } else {
+            const displayName=user.displayName===null?"Soy Yo":user.displayName;
+            const publicId = uuidv4(); 
             await registerNewUser({
               uid: user.uid,
-              displayName: user.displayName,
+              displayName: displayName,
               email: "",
               profilePicture: "gs://soyyo-5ff46.appspot.com/default/user.png",
               theme: "color6",
@@ -43,10 +46,13 @@ export function AuthProviders({
               qrCodeURL: "",
               description: "",
               personalPhone: "",
-              publicId: uuidv4(),
+              publicId: publicId,
               processCompleted: false,
             }).then((res) => {
               console.log({ res });
+              const profilePicture = "https://firebasestorage.googleapis.com/v0/b/soyyo-5ff46.appspot.com/o/default%2Fuser.png?alt=media"
+              createUserContact(displayName,user.email, profilePicture, publicId)
+              
               addLinkEmail(user.uid, user.email);
             });
 

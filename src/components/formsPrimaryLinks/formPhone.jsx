@@ -5,6 +5,8 @@ import {
   getLinksBySocialMedia,
   insertNewLink,
   updateLink,
+  updateUser,
+  updateUserContact,
 } from "../../firebase/firebase";
 import { link2FieldsPhone } from "../../utils/socialMediaFields";
 import { v4 as uuidv4 } from "uuid";
@@ -19,7 +21,7 @@ export const FormPhone = ({ style, user, handleAccordion }) => {
   const [phoneLinkDocId, setPhoneLinkDocId] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const phoneNumberRef = useRef(null);
-
+  const [removeLink, setRemoveLink] = useState(false);
   useEffect(() => {
     initPhoneInfo(user.uid);
   }, []);
@@ -71,34 +73,63 @@ export const FormPhone = ({ style, user, handleAccordion }) => {
     }
   }
 
-  function handleOnSubmitPhone(e) {
+  async  function handleOnSubmitPhone(e) {
     e.preventDefault();
     e.stopPropagation();
-    if (phoneLinkDocId !== "") {
+    if (
+      phoneNumber.replace(" ", "") === "" ||
+      /\s/.test(phoneNumber)
+    ) {
+      currentUser.personalPhone = "";
+      setPhoneNumber("");
+      removeLinkPhone(phoneLinkDocId);
+      handleMessageRemoveLink();
+    } else if (phoneLinkDocId !== "") {
+      currentUser.personalPhone = phoneNumber;
       editLink(phoneLinkDocId);
+      handleMessageConfirmation();
     } else {
+      currentUser.personalPhone = phoneNumber;
       addLink();
+      handleMessageConfirmation();
     }
-    handleMessageConfirmation();
+    await updateUser(currentUser);
+    await updateUserContact(currentUser);
     handleAccordion();
+  }
+  function removeLinkPhone(currentLinkDocId) {
+    if (
+      phoneNumber.replace(" ", "") === "" ||
+      /\s/.test(phoneNumber)
+    ) {
+      deleteLink(currentLinkDocId);
+      return;
+    }
   }
   function handleOnChangePhoneNumber() {
     setPhoneNumber(phoneNumberRef.current.value);
   }
   function handleMessageConfirmation() {
     setOpenPhone(true);
+    setRemoveLink(false);
     setTimeout(() => {
       setOpenPhone(false);
     }, 2000);
   }
-
+  function handleMessageRemoveLink() {
+    setOpenPhone(true);
+    setRemoveLink(true);
+    setTimeout(() => {
+      setOpenPhone(false);
+    }, 3000);
+  }
   return (
     <>
       <Form className={style} onSubmit={handleOnSubmitPhone}>
         {openPhone ? (
           <MessageInputs
             open={openPhone}
-            type={"success"}
+            type={removeLink ? "danger" : "success"}
             socialmedia={"teléfono de contacto"}
           ></MessageInputs>
         ) : (
@@ -125,6 +156,7 @@ export const FormPhone = ({ style, user, handleAccordion }) => {
             <PhoneInput
               placeholder="ingrese un número telefonico"
               value={phoneNumber}
+              
               onChange={setPhoneNumber}
             />
           </Col>

@@ -4,6 +4,8 @@ import {
   getLinksBySocialMedia,
   insertNewLink,
   updateLink,
+  updateUser,
+  updateUserContact,
 } from "../../firebase/firebase";
 import { link2FieldsEmail } from "../../utils/socialMediaFields";
 import { linkEmail } from "../../utils/socialMediaLinks";
@@ -109,7 +111,6 @@ export const FormEmail = ({ style, user, handleAccordion }) => {
     } else {
       deleteLink(emailLinkDocId);
 
-
       // TODO actualizar el email de usuario por ""
     }
   }
@@ -127,6 +128,10 @@ export const FormEmail = ({ style, user, handleAccordion }) => {
     }
   }
 
+  async function handleUpdateDescriptionUser() {
+    currentUser.email = emailAddress + "@" + emailExtention;
+    await updateUser(currentUser);
+  }
   function handleOnChangeEmailAddress() {
     setEmailAddress(emailAddressRef.current.value);
   }
@@ -138,21 +143,50 @@ export const FormEmail = ({ style, user, handleAccordion }) => {
     if (emailBodyRef.current.value.length <= 100)
       setEmailBody(emailBodyRef.current.value);
   }
-  function handleButton() {
-    setState(11);
-    if (emailLinkDocId !== "") {
-      editLink(emailLinkDocId);
-    } else {
-      addLink();
+  function removeLinkEmail(currentLinkDocId) {
+    if (emailAddress.replace(" ", "") === "" || /\s/.test(emailAddress)) {
+      deleteLink(currentLinkDocId);
+      return;
     }
+  }
+  async function handleButton() {
+    setState(11);
+    if (
+      emailAddress.replace(" ", "") === "" ||
+      /\s/.test(emailAddress)
+    ) {
+      currentUser.email=""
+      setEmailAddress("");
+      removeLinkEmail(emailLinkDocId);
+      handleMessageRemoveLink();
+    } else if (emailLinkDocId !== "") {
+      currentUser.email=emailAddress +"@"+(emailExtention)
+      editLink(emailLinkDocId);
+      handleMessageConfirmation();
+    } else {
+      currentUser.email=emailAddress
+      addLink();
+      handleMessageConfirmation();
+    }
+    await updateUser(currentUser);
+    await updateUserContact(currentUser);
     setTimeout(() => {
       setState(19);
-      handleMessageConfirmation();
       handleAccordion();
     }, 2000);
   }
   function handleMessageConfirmation() {
     setOpenEmail(true);
+    setRemoveLink(false);
+    setState(10);
+    setTimeout(() => {
+      setState(0);
+      setOpenEmail(false);
+    }, 2000);
+  }
+  function handleMessageRemoveLink() {
+    setOpenEmail(true);
+    setRemoveLink(true);
     setState(10);
     setTimeout(() => {
       setState(0);
@@ -312,7 +346,7 @@ export const FormEmail = ({ style, user, handleAccordion }) => {
         {openEmail ? (
           <MessageInputs
             open={openEmail}
-            type={"success"}
+            type={removeLink ? "danger" : "success"}
             socialmedia={"correo electrónico"}
           ></MessageInputs>
         ) : (

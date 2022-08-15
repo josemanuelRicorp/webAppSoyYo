@@ -9,7 +9,7 @@ import {
   existUsername,
   getProfilePhotoUrl,
   updateUser,
-  insertContact,
+  updateUserContact,
 } from "../firebase/firebase";
 import { Col, Row, Stack } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
@@ -19,7 +19,6 @@ import Loading from "../components/loading";
 import { HiCheck } from "react-icons/hi";
 import { CgClose } from "react-icons/cg";
 import { FaPen } from "react-icons/fa";
-import VCard from "vcard-creator";
 import { v4 as uuidv4 } from "uuid";
 export default function EditProfileView() {
   const navigate = useNavigate();
@@ -166,98 +165,34 @@ export default function EditProfileView() {
         setState(5);
       } else {
         currentUser.username = username;
-        await updateUser(currentUser).then(createContact());
+        await updateUser(currentUser).then(updateContact());
         setState(6);
       }
     }
   }
   async function handleUpdateDisplayName() {
     currentUser.displayName = displayName;
-    await updateUser(currentUser).then(createContact());
+    await updateUser(currentUser).then(updateContact());
   }
   async function handleUpdateCareer() {
     currentUser.career = career;
-    await updateUser(currentUser).then(createContact());
+    await updateUser(currentUser).then(updateContact());
   }
 
   async function handleUpdateDescription() {
     currentUser.description = description;
-    await updateUser(currentUser).then(createContact());
+    await updateUser(currentUser).then(updateContact());
   }
 
   function handleLink() {
     let link = "https://soyyo.digital/u/#/" + publicId;
     return link;
   }
-  async function createContact() {
-    var myVCard = new VCard();
-    const url = await getProfilePhotoUrl(currentUser.profilePicture);
-    let image64 = await getBase64Image(url);
-    let website = handleLink();
-    if (
-      currentUser.displayName !== "" ||
-      currentUser.displayName !== null ||
-      currentUser.displayName !== undefined
-    ) {
-      myVCard.addName(currentUser.displayName);
-    }
-    if (
-      currentUser.email !== "" ||
-      currentUser.email !== null ||
-      currentUser.email !== undefined
-    ) {
-      myVCard.addEmail(currentUser.email, "PREF;WORK");
-    }
-    if (
-      currentUser.personalPhone !== "" ||
-      currentUser.personalPhone !== null ||
-      currentUser.personalPhone !== undefined
-    ) {
-      myVCard.addPhoneNumber(currentUser.personalPhone, "WORK");
-    }
-    // if(address !== "" || address !== null || address!== undefined){
-    //   myVCard.addAddress(address);
-    // }
-    if (
-      currentUser.career !== "" ||
-      currentUser.career !== null ||
-      currentUser.career !== undefined
-    ) {
-      myVCard.addJobtitle(currentUser.career);
-    }
-    if (website !== "" || website !== null || website !== undefined) {
-      myVCard.addURL(website);
-    }
-    if (image64 !== "" || image64 !== null || image64 !== undefined) {
-      myVCard.addPhoto(image64);
-    }
-    const file = new Blob([myVCard.toString()], { type: "text/x-vcard" });
-    file.name =
-      currentUser.displayName.replaceAll(" ", "") +
-      "-" +
-      currentUser.publicId +
-      ".vcf";
-    console.log(currentUser);
-    uploadFiles(file);
+ 
+  async function updateContact() {
+    await updateUserContact(currentUser);
   }
-
-  async function getBase64Image(urlImage) {
-    var img = new Image();
-    img.crossOrigin = "anonymous";
-    img.src = urlImage;
-    return new Promise((resolve) => {
-      img.onload = () => {
-        var canvas = document.createElement("canvas");
-        canvas.width = img.width;
-        canvas.height = img.height;
-        var ctx = canvas.getContext("2d");
-        ctx.drawImage(img, 0, 0);
-        var dataURL = canvas.toDataURL("image/png");
-        resolve(dataURL.replace(/^data:image\/(png|jpg);base64,/, ""));
-      };
-    });
-  }
-
+ 
   async function getCanvasProfile(url) {
     if (
       myCanvasProfile.current === undefined ||
@@ -275,27 +210,7 @@ export default function EditProfileView() {
     };
   }
 
-  const uploadFiles = (file) => {
-    if (!file) return;
-    const storageRef = ref(storage, `/contact/${file.name}`);
-    const uploadTask = uploadBytesResumable(storageRef, file);
-    uploadTask.on(
-      "state_changed",
-      (snapshot) => {
-        const prog = Math.round(
-          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-        );
-        // setProgress(prog);
-      },
-      (err) => console.log(err),
-      function () {
-        getDownloadURL(uploadTask.snapshot.ref).then((iconUrl) => {
-          // setIconFile(iconUrl);
-        });
-      }
-    );
-  };
-
+ 
   if (state !== 2) {
     return (
       <AuthProviders

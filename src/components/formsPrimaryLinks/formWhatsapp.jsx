@@ -21,6 +21,7 @@ export const FormWhatsapp = ({ style, user, handleAccordion }) => {
   const whatsappMsgRef = useRef(null);
   const [currentUser, setCurrentUser] = useState(user);
   const [alertInput1, setAlerInput1] = useState(false);
+  const [removeLink, setRemoveLink] = useState(false);
   useEffect(() => {
     initWhatsAppInfo(user.uid);
     console.log(
@@ -76,18 +77,30 @@ export const FormWhatsapp = ({ style, user, handleAccordion }) => {
       deleteLink(whatsappLinkDocId);
     }
   }
-
+  function removeLinkWhatsapp(currentLinkDocId) {
+    if (whatsappNumber.replace(" ", "") === "" || /\s/.test(whatsappNumber)) {
+      deleteLink(currentLinkDocId);
+      return;
+    }
+  }
   const handleOnSubmitWhatsapp = (e) => {
     e.preventDefault();
     e.stopPropagation();
     if (whatsappLinkDocId !== "") {
-      editLink(whatsappLinkDocId);
-    } else {
-      addLink();
+      if (whatsappNumber.replace(" ", "") === "" || /\s/.test(whatsappNumber)) {
+        setWhatsappNumber("");
+        removeLinkWhatsapp(whatsappLinkDocId);
+        handleMessageRemoveLink();
+      } else if (whatsappLinkDocId !== "") {
+        editLink(whatsappLinkDocId);
+        handleMessageConfirmation();
+      } else {
+        addLink();
+        handleMessageConfirmation();
+      }
     }
-    handleMessageConfirmation();
-    handleAccordion();
   };
+
   function handleOnChangeWhatsAppNumber() {
     setWhatsappNumber(whatsappNumberRef.current.value);
   }
@@ -98,6 +111,14 @@ export const FormWhatsapp = ({ style, user, handleAccordion }) => {
 
   function handleMessageConfirmation() {
     setOpenWhatsApp(true);
+    setRemoveLink(false);
+    setTimeout(() => {
+      setOpenWhatsApp(false);
+    }, 3000);
+  }
+  function handleMessageRemoveLink() {
+    setOpenWhatsApp(true);
+    setRemoveLink(true);
     setTimeout(() => {
       setOpenWhatsApp(false);
     }, 3000);
@@ -109,7 +130,7 @@ export const FormWhatsapp = ({ style, user, handleAccordion }) => {
         {openWhatsApp ? (
           <MessageInputs
             open={openWhatsApp}
-            type={"success"}
+            type={removeLink ? "danger" : "success"}
             socialmedia={"WhatsApp"}
           ></MessageInputs>
         ) : (
