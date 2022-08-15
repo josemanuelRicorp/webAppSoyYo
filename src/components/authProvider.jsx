@@ -24,7 +24,7 @@ export function AuthProviders({
           if (isRegistered === null || isRegistered === undefined) {
             // alert("ERROR DE CONEXION, INTENTA EN UNOS MINUTOS");
             // console.log('FALLA INTERNET', )
-            return (window.location = "/admin/#/iniciar-sesion");
+            return (window.location = "/#/iniciar-sesion");
           } else if (isRegistered) {
             const userInfo = await getUserInfo(user.uid);
             if (userInfo.processCompleted) {
@@ -33,8 +33,9 @@ export function AuthProviders({
               onUserNotRegistered(userInfo);
             }
           } else {
-            const displayName=user.displayName===null?"Soy Yo":user.displayName;
-            const publicId = uuidv4(); 
+            const displayName =
+              user.displayName === null ? "Soy Yo" : user.displayName;
+            const publicId = uuidv4();
             await registerNewUser({
               uid: user.uid,
               displayName: displayName,
@@ -50,9 +51,15 @@ export function AuthProviders({
               processCompleted: false,
             }).then((res) => {
               console.log({ res });
-              const profilePicture = "https://firebasestorage.googleapis.com/v0/b/soyyo-5ff46.appspot.com/o/default%2Fuser.png?alt=media"
-              createUserContact(displayName,user.email, profilePicture, publicId)
-              
+              const profilePicture =
+                "https://firebasestorage.googleapis.com/v0/b/soyyo-5ff46.appspot.com/o/default%2Fuser.png?alt=media";
+              createUserContact(
+                displayName,
+                user.email,
+                profilePicture,
+                publicId
+              );
+
               addLinkEmail(user.uid, user.email);
             });
 

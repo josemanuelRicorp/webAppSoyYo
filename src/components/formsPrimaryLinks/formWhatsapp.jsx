@@ -86,7 +86,6 @@ export const FormWhatsapp = ({ style, user, handleAccordion }) => {
   const handleOnSubmitWhatsapp = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    if (whatsappLinkDocId !== "") {
       if (whatsappNumber.replace(" ", "") === "" || /\s/.test(whatsappNumber)) {
         setWhatsappNumber("");
         removeLinkWhatsapp(whatsappLinkDocId);
@@ -98,8 +97,8 @@ export const FormWhatsapp = ({ style, user, handleAccordion }) => {
         addLink();
         handleMessageConfirmation();
       }
-    }
-  };
+      handleAccordion();
+  }
 
   function handleOnChangeWhatsAppNumber() {
     setWhatsappNumber(whatsappNumberRef.current.value);

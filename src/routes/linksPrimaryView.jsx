@@ -52,7 +52,7 @@ useEffect(() => {
   function closeAccordion() {
     setTimeout(() => {
       setStateAccordion("0");
-    }, 3000);
+    }, 2700);
   }
 
   if (state === 0) {
